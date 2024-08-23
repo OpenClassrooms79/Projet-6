@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteyRule ^(.*)$ "/projet 6/index.php?action=$1" [NC,L,QSA]
