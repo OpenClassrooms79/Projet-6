@@ -2,6 +2,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+require_once 'config/config.php';
+require_once 'config/autoload.php';
+
 print_r($_GET);
 
 $action = $_GET['action'] ?? 'index';
@@ -10,7 +13,8 @@ $action = $_GET['action'] ?? 'index';
 
 switch ($action) {
     case 'index':
-        $view = 'accueil';
+        $homeController = new HomeController();
+        $homeController->showHome();
         break;
 
     case 'echange':
@@ -29,9 +33,3 @@ switch ($action) {
         // page 404
         break;
 }
-
-ob_start();
-require sprintf('views/%s.php', $view);
-$content = ob_get_clean();
-
-require 'views/main.php';

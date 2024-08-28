@@ -4,7 +4,11 @@ Donnez une nouvelle vie à vos livres en les échangeant avec d'autres amoureux 
 
 
 Les derniers livres ajoutés
-
+<?php
+foreach ($books as $book) {
+    require 'book.php';
+}
+?>
 
 Voir tous les livres
 
