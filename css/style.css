@@ -1,0 +1,187 @@
+:root {
+    --backgroundColor1: #F5F3EF;
+    --backgroundColor2: #FAF9F7;
+    --green: #00AC66;
+}
+
+BODY {
+    background-color: var(--backgroundColor1);
+}
+
+HEADER NAV {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+HEADER NAV .left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 78px;
+}
+
+HEADER NAV .right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 58px;
+}
+
+.logo-with-text {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--green);
+}
+
+.menu-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    gap: 42px;
+}
+
+HEADER NAV A {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+HEADER NAV A.current {
+    font-weight: 600;
+}
+
+HEADER NAV A:visited {
+    color: black;
+}
+
+HEADER NAV A .number {
+    color: white;
+    background-color: black;
+    border-radius: 5px;
+    display: inline-block;
+    width: 11px;
+    height: 15px;
+    font-size: 8px;
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+H1 {
+    font-size: 36px;
+    font-weight: 400;
+    font-family: "Playfair Display", serif;
+}
+
+H2 {
+    font-size: 32px;
+    font-weight: 400;
+    font-family: "Playfair Display", serif;
+}
+
+.big-image {
+    width: 404px;
+    height: 539px;
+}
+
+.book-title {
+    font-size: 16px;
+    font-family: Inter, serif;
+    font-weight: 400;
+}
+
+SECTION#home {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 105px;
+}
+
+SECTION#home > DIV {
+    width: 50%;
+}
+
+SECTION#home > DIV:first-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+SECTION#home > DIV:first-child > DIV {
+    width: 329px;
+    padding-top: 158px;
+}
+
+SECTION#home p {
+    text-align: justify;
+    font-family: Inter, sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    margin-top: 16px;
+    margin-bottom: 40px;
+}
+
+INPUT[type=button] {
+    padding: 22px 38px 22px 38px;
+    border-radius: 10px;
+    background-color: var(--green);
+    border: none;
+
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+}
+
+#account-icon {
+    display: inline-block;
+    width: 10px;
+    height: 13px;
+}
+
+#account-icon DIV:first-child {
+    height: 10px;
+    border: black solid 1px;
+    border-radius: 50%;
+}
+
+#account-icon DIV:last-child {
+    height: 4px;
+    border: black solid 1px;
+    border-radius: 40%;
+}
+
+
+#last-books {
+    background-color: var(--backgroundColor2);
+}
+
+.lastbooks {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.lastbooks DIV {
+    width: 24%;
+}
+
+.lastbooks P {
+    word-wrap: break-word;
+}
+
+.text-center {
+    text-align: center;
+}

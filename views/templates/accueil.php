@@ -1,16 +1,30 @@
-Rejoignez nos lecteurs passionnés
+<section id="home">
+    <div>
+        <div>
+            <h1>Rejoignez nos lecteurs passionnés</h1>
+            <p>Donnez une nouvelle vie à vos livres en les échangeant avec d'autres amoureux de la lecture. Nous croyons en la magie du partage de connaissances et d'histoires à travers les livres.</p>
 
-Donnez une nouvelle vie à vos livres en les échangeant avec d'autres amoureux de la lecture. Nous croyons en la magie du partage de connaissances et d'histoires à travers les livres.
+            <input type="button" value="Découvrir">
+        </div>
+    </div>
+    <div>
+        <img class="big-image" src="img/livres.png" alt="Livres">
+    </div>
+</section>
 
+<section id="last-books">
+    <h2 class="text-center">Les derniers livres ajoutés</h2>
 
-Les derniers livres ajoutés
-<?php
-foreach ($books as $book) {
-    require 'book.php';
-}
-?>
+    <div class="lastbooks">
+        <?php
+        foreach ($books as $book) {
+            require 'book.php';
+        }
+        ?>
+    </div>
 
-Voir tous les livres
+    <input type="button" value="Voir tous les livres">
+</section>
 
 Comment ça marche ?
 
