@@ -1,15 +1,12 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require_once 'config/config.php';
 require_once 'config/autoload.php';
 
-print_r($_GET);
-
 $action = $_GET['action'] ?? 'index';
-
-//var_dump($action);
 
 switch ($action) {
     case 'index':

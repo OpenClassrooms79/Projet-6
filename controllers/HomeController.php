@@ -6,10 +6,8 @@ class HomeController
     {
         $bookManager = new BookManager();
         $books = $bookManager->getLastBooks();
-        //print_r($books);
-        //exit;
 
         $view = new View("Accueil");
-        $view->render("accueil", ['books' => $books]);
+        $view->render("includes/accueil", ['books' => $books]);
     }
 }

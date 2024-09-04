@@ -26,8 +26,8 @@ class BookManager extends AbstractEntityManager
 
     public function getLastBooks(): array
     {
-        //$sql = sprintf('SELECT * FROM books ORDER BY id DESC LIMIT %d', self::NB_LAST_BOOKS);
-        $sql = sprintf('SELECT b.*, a.id AS author_id, a.firstName, a.lastName, a.nickname
+        $sql = sprintf(
+            'SELECT b.*, a.id AS author_id, a.firstName, a.lastName, a.nickname
 FROM (
 	SELECT *
 	FROM books
@@ -35,7 +35,9 @@ FROM (
 	LIMIT %d
 ) b
 LEFT JOIN books_authors ba ON b.id = ba.book_id
-LEFT JOIN authors a ON ba.author_id = a.id', self::NB_LAST_BOOKS);
+LEFT JOIN authors a ON ba.author_id = a.id',
+            self::NB_LAST_BOOKS,
+        );
         $result = $this->db->query($sql, []);
 
         $books = [];

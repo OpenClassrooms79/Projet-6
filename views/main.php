@@ -2,18 +2,19 @@
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 <header>
     <nav>
         <div class="left">
-            <div class="logo-with-text">
-                <img src="img/logo2.png" alt="TomTroc" width="51" height="51">
-                TomTroc
-            </div>
+            <a href="index" title="Accueil TomTroc">
+                <div class="logo-with-text">
+
+                    <img src="img/logo.png" alt="TomTroc" width="51" height="51">
+                    TomTroc
+                </div>
+            </a>
             <div class="menu-left">
                 <a href="" class="current">Accueil</a>
                 <a href="echanges">Nos livres à l'échange</a>
@@ -33,10 +34,12 @@
 </header>
 <?= $content ?>
 <footer>
-    <a href="">Politique de confidentialité</a>
-    <a href="">Mentions légales</a>
-    <a href="">Tom Troc©️</a>
-    LOGO
+    <nav class="right">
+        <a href="">Politique de confidentialité</a>
+        <a href="">Mentions légales</a>
+        <a href="">Tom Troc©️</a>
+        <a href="index" title="Accueil TomTroc"><img src="img/logo2.png"></a>
+    </nav>
 </footer>
 </body>
 </html>
