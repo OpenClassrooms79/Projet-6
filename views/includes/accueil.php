@@ -2,13 +2,16 @@
     <div>
         <div>
             <h1>Rejoignez nos lecteurs passionnés</h1>
-            <p>Donnez une nouvelle vie à vos livres en les échangeant avec d'autres amoureux de la lecture. Nous croyons en la magie du partage de connaissances et d'histoires à travers les livres.</p>
+            <p class="home-text">Donnez une nouvelle vie à vos livres en les échangeant avec d'autres amoureux de la lecture. Nous croyons en la magie du partage de connaissances et d'histoires à travers les livres.</p>
 
-            <input type="button" value="Découvrir">
+            <a class="button">Découvrir</a>
         </div>
     </div>
     <div>
-        <img class="big-image" src="img/livres.png" alt="Livres">
+        <div class="home-image">
+            <img class="big-image" src="img/livres.png" alt="Livres">
+            <p class="big-image-signature">Hamza</p>
+        </div>
     </div>
 </section>
 
@@ -23,7 +26,8 @@
         ?>
     </div>
 
-    <input type="button" value="Voir tous les livres" class="center">
+    <a class="button center">Voir tous les livres</a>
+
 </section>
 
 <h2 class="text-center" id="how-it-works-title">Comment ça marche ?</h2>
@@ -40,7 +44,7 @@
     <article>Proposez un échange et discutez avec d'autres passionnés de lecture.</article>
 </section>
 
-<input type="button" value="Voir tous les livres" class="center inverse">
+<a class="button center inverse">Voir tous les livres</a>
 
 <div id="banner">
     <img src="img/books3.jpg" alt="bannière" id="banner-img">

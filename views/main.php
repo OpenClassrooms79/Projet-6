@@ -1,8 +1,9 @@
-<html>
+<html lang="fr">
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="css/style.css" rel="stylesheet">
+    <title><?= $title ?></title>
 </head>
 <body>
 <header>
@@ -38,7 +39,7 @@
         <a href="">Politique de confidentialité</a>
         <a href="">Mentions légales</a>
         <a href="">Tom Troc©️</a>
-        <a href="index" title="Accueil TomTroc"><img src="img/logo2.png"></a>
+        <a href="index" title="Accueil TomTroc"><img src="img/logo2.png" alt="TomTroc"></a>
     </nav>
 </footer>
 </body>
