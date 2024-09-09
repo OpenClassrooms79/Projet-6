@@ -17,17 +17,14 @@
                 </div>
             </a>
             <div class="menu-left">
-                <a href="" class="current">Accueil</a>
+                <a href="index" class="current">Accueil</a>
                 <a href="echanges">Nos livres à l'échange</a>
             </div>
         </div>
         <div class="right">
-            <a href="messagerie">🗨️ Messagerie <span class="number">1</span></a>
+            <a href="messagerie"><img class="icon" src="img/icons/message.svg"> Messagerie <span class="number">1</span></a>
             <a href="compte">
-                <div id="account-icon">
-                    <div></div>
-                    <div></div>
-                </div>
+                <img class="icon" src="img/icons/account.svg">
                 Mon compte</a>
             <a href="identification">Connexion</a>
         </div>

@@ -11,7 +11,7 @@ class BookManager extends AbstractEntityManager
             'title' => $book->getTitle(),
             'image' => $book->getImage(),
             'description' => $book->getDescription(),
-            'exchangeable' => $book->isExchangeable()
+            'exchangeable' => $book->isExchangeable(),
         ]);
 
         $authors = $book->getAuthors();
@@ -19,9 +19,47 @@ class BookManager extends AbstractEntityManager
         foreach ($authors as $author) {
             $this->db->query($sql, [
                 'book_id' => $book->getId(),
-                'author_id' => $author->getId()
+                'author_id' => $author->getId(),
             ]);
         }
+    }
+
+    public function getAllBooks(): array
+    {
+        $sql = 'SELECT b.*, a.id AS author_id, a.firstName, a.lastName, a.nickname
+FROM (
+	SELECT *
+	FROM books
+	ORDER BY id ASC
+) b
+LEFT JOIN books_authors ba ON b.id = ba.book_id
+LEFT JOIN authors a ON ba.author_id = a.id';
+        $result = $this->db->query($sql);
+
+        $books = [];
+
+        while ($record = $result->fetch()) {
+            if (!isset($books[$record['id']])) {
+                $data = [
+                    'id' => $record['id'],
+                    'title' => $record['title'],
+                    'image' => $record['image'],
+                    'description' => $record['description'],
+                    'exchangeable' => $record['exchangeable'],
+                ];
+                $books[$record['id']] = new Book($data);
+            }
+
+            $data = [
+                'id' => $record['author_id'],
+                'firstName' => $record['firstName'],
+                'lastName' => $record['lastName'],
+                'nickname' => $record['nickname'],
+            ];
+            $author = new Author($data);
+            $books[$record['id']]->addAuthor($author);
+        }
+        return $books;
     }
 
     public function getLastBooks(): array
@@ -49,7 +87,7 @@ LEFT JOIN authors a ON ba.author_id = a.id',
                     'title' => $record['title'],
                     'image' => $record['image'],
                     'description' => $record['description'],
-                    'exchangeable' => $record['exchangeable']
+                    'exchangeable' => $record['exchangeable'],
                 ];
                 $books[$record['id']] = new Book($data);
             }

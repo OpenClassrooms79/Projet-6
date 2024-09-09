@@ -14,7 +14,9 @@ switch ($action) {
         $homeController->showHome();
         break;
 
-    case 'echange':
+    case 'echanges':
+        $homeController = new HomeController();
+        $homeController->showExchanges();
         break;
 
     case 'messagerie':
