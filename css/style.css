@@ -577,6 +577,18 @@ FOOTER IMG {
     border-radius: 6px;
 }
 
+#register INPUT[type=submit], #login INPUT[type=submit] {
+    background-color: var(--green);
+    border: none;
+    height: 63px;
+    width: 100%;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    color: white;
+}
+
 #register .login-link A, #login .register-link A {
     color: var(--text);
 }

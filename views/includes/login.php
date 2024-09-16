@@ -1,13 +1,18 @@
 <section id="login">
-    <div class="form">
+    <form class="form" method="post">
         <h1>Connexion</h1>
-        <label for="email">Adresse e-mail</label> <input type="email" name="email">
-        <label for="password">Mot de passe</label> <input type="password" name="password">
+        <?php
+        if (isset($error)) { ?>
+            <p>Erreur : <?= $error ?></p><br>
+            <?php
+        } ?>
+        <label for="email">Adresse e-mail</label> <input type="email" name="email" required>
+        <label for="password">Mot de passe</label> <input type="password" name="password" required>
 
-        <a class="button fullwidth text-center">S'inscrire</a>
+        <input type="submit" class="button fullwidth text-center" value="Se connecter" name="login">
 
         <p class="register-link">Pas de compte ? <a href="inscription">Inscrivez-vous</a></p>
-    </div>
+    </form>
     <div class="image">
         <img src="img/register-login.png" title="" alt="">
     </div>

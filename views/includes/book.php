@@ -8,7 +8,7 @@
                 printf('<p class="book-author">%s %s</p>', $author->getFirstname(), $author->getLastname());
             }
             ?>
-            <p class="book-seller">Vendu par : ????????</p>
+            <p class="book-seller">Vendu par : <?= htmlspecialchars($book->getOwner()->getNickname()) ?></p>
         </div>
     </div>
 </a>

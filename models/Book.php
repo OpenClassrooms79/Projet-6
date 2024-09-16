@@ -8,6 +8,7 @@ class Book extends AbstractEntity
     private string $description;
     private bool $exchangeable;
     private array $authors;
+    private User $owner;
 
     public function __construct(array $data = [])
     {
@@ -65,6 +66,16 @@ class Book extends AbstractEntity
     public function getAuthors(): array
     {
         return $this->authors;
+    }
+
+    public function setOwner(User $owner): void
+    {
+        $this->owner = $owner;
+    }
+
+    public function getOwner(): User
+    {
+        return $this->owner;
     }
 
     public function getAuthorsText(): string

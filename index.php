@@ -41,6 +41,8 @@ switch ($action) {
         break;
 
     case 'compte':
+        $homeController = new HomeController();
+        $homeController->showAccount();
         break;
 
     default:

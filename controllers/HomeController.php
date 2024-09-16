@@ -32,12 +32,57 @@ class HomeController
     public function showRegister(): void
     {
         $view = new View("Inscription");
+        if (isset($_POST['nickname'], $_POST['email'], $_POST['password'])) {
+            // vérifier les données
+            if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                // créer le nouvel utilisateur
+                $userManager = new UserManager();
+                $res = $userManager->addUser(new User([
+                    'email' => $_POST['email'],
+                    'password' => $_POST['password'],
+                    'nickname' => $_POST['nickname'],
+                ]));
+                if ($res === false) {
+                    $view->render(
+                        "includes/register",
+                        [
+                            'error' => "Le pseudo ou l'adresse e-mail existe déjà dans la base",
+                        ],
+                    );
+                    return;
+                }
+            } else {
+                $view->render(
+                    "includes/register",
+                    [
+                        'error' => sprintf("Le format de l'adresse e-mail <kbd>%s</kbd> n'est pas valide", $_POST['email']),
+                    ],
+                );
+                return;
+            }
+        }
         $view->render("includes/register");
     }
 
     public function showLogin(): void
     {
         $view = new View("Identification");
+
+        if (isset($_POST['email'], $_POST['password'])) {
+            // vérifier les données
+            $userManager = new UserManager();
+            $result = $userManager->login($_POST['email'], $_POST['password']);
+            if ($result === false) {
+                $view->render(
+                    "includes/login",
+                    [
+                        'error' => "Adresse e-mail ou mot de passe incorrect",
+                    ],
+                );
+                return;
+            }
+            header('Location: compte');
+        }
         $view->render("includes/login");
     }
 }

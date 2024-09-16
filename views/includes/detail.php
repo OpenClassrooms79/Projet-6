@@ -10,6 +10,7 @@
         <p class="book-desc">Description</p>
         <p class="book-desc-text"><?= htmlspecialchars($book->getDescription()) ?></p>
         <p class="book-owner">Propriétaire</p>
+        <a href="profil?id=<?= $book->getOwner()->getId() ?>"><?= htmlspecialchars($book->getOwner()->getNickname()) ?></a>
 
         <a class="button fullwidth text-center">Envoyer un message</a>
     </div>

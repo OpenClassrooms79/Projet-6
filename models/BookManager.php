@@ -26,14 +26,15 @@ class BookManager extends AbstractEntityManager
 
     public function getBookById(int $id): Book
     {
-        $sql = 'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname
+        $sql = 'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname, u.id AS owner_id, u.nickname AS owner_nickname
 FROM (
 	SELECT *
 	FROM books
 	WHERE id = :id
 ) b
 LEFT JOIN books_authors ba ON b.id = ba.book_id
-LEFT JOIN authors a ON ba.author_id = a.id';
+LEFT JOIN authors a ON ba.author_id = a.id
+LEFT JOIN users u ON b.owner_id = u.id';
         $result = $this->db->query($sql, ['id' => $id]);
 
         $book = null;
@@ -46,6 +47,12 @@ LEFT JOIN authors a ON ba.author_id = a.id';
                     'image' => $record['image'],
                     'description' => $record['description'],
                     'exchangeable' => $record['exchangeable'],
+                    'owner' => new User(
+                        [
+                            'id' => $record['owner_id'],
+                            'nickname' => $record['owner_nickname'],
+                        ],
+                    ),
                 ];
                 $book = new Book($data);
             }
@@ -64,14 +71,15 @@ LEFT JOIN authors a ON ba.author_id = a.id';
 
     public function getAllBooks(): array
     {
-        $sql = 'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname
+        $sql = 'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname, u.id AS owner_id, u.nickname AS owner_nickname
 FROM (
 	SELECT *
 	FROM books
 	ORDER BY id ASC
 ) b
 LEFT JOIN books_authors ba ON b.id = ba.book_id
-LEFT JOIN authors a ON ba.author_id = a.id';
+LEFT JOIN authors a ON ba.author_id = a.id
+LEFT JOIN users u ON b.owner_id = u.id';
         $result = $this->db->query($sql);
 
         $books = [];
@@ -84,6 +92,12 @@ LEFT JOIN authors a ON ba.author_id = a.id';
                     'image' => $record['image'],
                     'description' => $record['description'],
                     'exchangeable' => $record['exchangeable'],
+                    'owner' => new User(
+                        [
+                            'id' => $record['owner_id'],
+                            'nickname' => $record['owner_nickname'],
+                        ],
+                    ),
                 ];
                 $books[$record['id']] = new Book($data);
             }
@@ -103,7 +117,7 @@ LEFT JOIN authors a ON ba.author_id = a.id';
     public function getLastBooks(): array
     {
         $sql = sprintf(
-            'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname
+            'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname, u.id AS owner_id, u.nickname AS owner_nickname
 FROM (
 	SELECT *
 	FROM books
@@ -111,7 +125,8 @@ FROM (
 	LIMIT %d
 ) b
 LEFT JOIN books_authors ba ON b.id = ba.book_id
-LEFT JOIN authors a ON ba.author_id = a.id',
+LEFT JOIN authors a ON ba.author_id = a.id
+LEFT JOIN users u ON b.owner_id = u.id',
             self::NB_LAST_BOOKS,
         );
         $result = $this->db->query($sql, []);
@@ -126,6 +141,12 @@ LEFT JOIN authors a ON ba.author_id = a.id',
                     'image' => $record['image'],
                     'description' => $record['description'],
                     'exchangeable' => $record['exchangeable'],
+                    'owner' => new User(
+                        [
+                            'id' => $record['owner_id'],
+                            'nickname' => $record['owner_nickname'],
+                        ],
+                    ),
                 ];
                 $books[$record['id']] = new Book($data);
             }
@@ -139,6 +160,7 @@ LEFT JOIN authors a ON ba.author_id = a.id',
             $author = new Author($data);
             $books[$record['id']]->addAuthor($author);
         }
+        //print_r($books);
         return $books;
     }
 }
