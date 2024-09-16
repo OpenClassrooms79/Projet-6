@@ -24,9 +24,47 @@ class BookManager extends AbstractEntityManager
         }
     }
 
+    public function getBookById(int $id): Book
+    {
+        $sql = 'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname
+FROM (
+	SELECT *
+	FROM books
+	WHERE id = :id
+) b
+LEFT JOIN books_authors ba ON b.id = ba.book_id
+LEFT JOIN authors a ON ba.author_id = a.id';
+        $result = $this->db->query($sql, ['id' => $id]);
+
+        $book = null;
+
+        while ($record = $result->fetch()) {
+            if (!isset($book)) {
+                $data = [
+                    'id' => $record['id'],
+                    'title' => $record['title'],
+                    'image' => $record['image'],
+                    'description' => $record['description'],
+                    'exchangeable' => $record['exchangeable'],
+                ];
+                $book = new Book($data);
+            }
+
+            $data = [
+                'id' => $record['author_id'],
+                'firstName' => $record['first_name'],
+                'lastName' => $record['last_name'],
+                'nickname' => $record['nickname'],
+            ];
+            $author = new Author($data);
+            $book->addAuthor($author);
+        }
+        return $book;
+    }
+
     public function getAllBooks(): array
     {
-        $sql = 'SELECT b.*, a.id AS author_id, a.firstName, a.lastName, a.nickname
+        $sql = 'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname
 FROM (
 	SELECT *
 	FROM books
@@ -52,8 +90,8 @@ LEFT JOIN authors a ON ba.author_id = a.id';
 
             $data = [
                 'id' => $record['author_id'],
-                'firstName' => $record['firstName'],
-                'lastName' => $record['lastName'],
+                'firstName' => $record['first_name'],
+                'lastName' => $record['last_name'],
                 'nickname' => $record['nickname'],
             ];
             $author = new Author($data);
@@ -65,7 +103,7 @@ LEFT JOIN authors a ON ba.author_id = a.id';
     public function getLastBooks(): array
     {
         $sql = sprintf(
-            'SELECT b.*, a.id AS author_id, a.firstName, a.lastName, a.nickname
+            'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname
 FROM (
 	SELECT *
 	FROM books
@@ -94,8 +132,8 @@ LEFT JOIN authors a ON ba.author_id = a.id',
 
             $data = [
                 'id' => $record['author_id'],
-                'firstName' => $record['firstName'],
-                'lastName' => $record['lastName'],
+                'firstName' => $record['first_name'],
+                'lastName' => $record['last_name'],
                 'nickname' => $record['nickname'],
             ];
             $author = new Author($data);

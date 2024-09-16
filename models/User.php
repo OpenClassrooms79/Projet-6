@@ -8,7 +8,7 @@ class User extends AbstractEntity
 {
     protected int $id;
     private string $nickname;
-    private string $login;
+    private string $email;
     private string $password;
 
     public function setNickname(string $nickname): User
@@ -22,15 +22,15 @@ class User extends AbstractEntity
         return $this->nickname;
     }
 
-    public function setLogin(string $login): User
+    public function setEmail(string $email): User
     {
-        $this->login = $login;
+        $this->email = $email;
         return $this;
     }
 
-    public function getLogin(): string
+    public function getEmail(): string
     {
-        return $this->login;
+        return $this->email;
     }
 
     public function setPassword(string $password): User

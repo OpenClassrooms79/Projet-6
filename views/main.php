@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="css/style.css" rel="stylesheet">
-    <title><?= $title ?></title>
+    <title><?= htmlspecialchars($title) ?></title>
 </head>
 <body>
 <header>
@@ -22,9 +23,9 @@
             </div>
         </div>
         <div class="right">
-            <a href="messagerie"><img class="icon" src="img/icons/message.svg"> Messagerie <span class="number">1</span></a>
+            <a href="messagerie"><img class="icon" src="img/icons/message.svg" alt="Messages"> Messagerie <span class="number">1</span></a>
             <a href="compte">
-                <img class="icon" src="img/icons/account.svg">
+                <img class="icon" src="img/icons/account.svg" alt="Compte">
                 Mon compte</a>
             <a href="identification">Connexion</a>
         </div>

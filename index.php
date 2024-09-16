@@ -6,6 +6,9 @@ ini_set('display_errors', 1);
 require_once 'config/config.php';
 require_once 'config/autoload.php';
 
+session_name(SESSION_NAME);
+session_start();
+
 $action = $_GET['action'] ?? 'index';
 
 switch ($action) {
@@ -19,13 +22,25 @@ switch ($action) {
         $homeController->showExchanges();
         break;
 
+    case 'detail':
+        $homeController = new HomeController();
+        $homeController->showDetail($_GET['id']);
+        break;
+
+    case 'inscription':
+        $homeController = new HomeController();
+        $homeController->showRegister();
+        break;
+
+    case 'identification':
+        $homeController = new HomeController();
+        $homeController->showLogin();
+        break;
+
     case 'messagerie':
         break;
 
     case 'compte':
-        break;
-
-    case 'connexion':
         break;
 
     default:

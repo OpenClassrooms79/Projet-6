@@ -1,4 +1,4 @@
-<a href="#">
+<a href="detail?id=<?= $book->getId() ?>">
     <div class="book">
         <img class="book-image" src="img/books/<?= $book->getImage() ?>" alt="<?= $book->getTitle() ?>" title="<?= $book->getTitle() ?>">
         <div class="book-texts">

@@ -7,8 +7,12 @@
  * un fichier avec le bon nom. Si c'est le cas, il l'inclut avec require_once.
  */
 spl_autoload_register(function ($className) {
-
     //printf('autoload(%s)', $className);
+
+    // On va voir dans le dossier core si la classe existe.
+    if (file_exists('core/' . $className . '.php')) {
+        require_once 'core/' . $className . '.php';
+    }
 
     // On va voir dans le dossier Service si la classe existe.
     if (file_exists('services/' . $className . '.php')) {
@@ -29,5 +33,4 @@ spl_autoload_register(function ($className) {
     if (file_exists('views/' . $className . '.php')) {
         require_once 'views/' . $className . '.php';
     }
-
 });

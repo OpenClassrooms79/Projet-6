@@ -36,4 +36,9 @@ class Author extends AbstractEntity
     {
         return $this->nickname;
     }
+
+    public function __toString()
+    {
+        return $this->firstName . ' ' . $this->lastName . (empty($this->nickname) ? '' : ' (' . $this->nickname . ')');
+    }
 }
