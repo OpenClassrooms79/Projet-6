@@ -8,7 +8,7 @@ class HomeController
         $books = $bookManager->getLastBooks();
 
         $view = new View("Accueil");
-        $view->render("includes/accueil", ['books' => $books]);
+        $view->render("includes/home", ['books' => $books]);
     }
 
     public function showExchanges(): void

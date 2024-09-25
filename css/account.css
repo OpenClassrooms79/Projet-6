@@ -1,0 +1,61 @@
+#account {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin: auto 150px auto 150px;
+    background-color: var(--backgroundColor2);
+}
+
+#account H1 {
+    font-size: 26px;
+    margin-top: 90px;
+    margin-bottom: 48px;
+}
+
+#profile {
+    display: flex;
+    flex-direction: row;
+    gap: 33px;
+}
+
+#profile-form {
+    width: 555px;
+    padding: 36px 116px 37px 117px;
+}
+
+#profile-form .personal-info {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 26px;
+}
+
+#profile-form .button {
+    width: 150px;
+    height: 63px;
+}
+
+#profile-display {
+    width: 547px;
+    padding-top: 48px;
+    padding-bottom: 93px;
+    text-align: center;
+}
+
+#profile-display .modify {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--light-text);
+}
+
+#profile-display HR {
+    width: 242px;
+    margin: 48px auto 48px auto;
+}
+
+#profile-display, #profile-form {
+    background-color: white;
+}

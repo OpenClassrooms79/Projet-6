@@ -1,0 +1,16 @@
+#register {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: var(--backgroundColor2);
+}
+
+#register .form, #register .image {
+    width: 50%;
+}
+
+#register .form {
+    padding-top: 130px;
+    padding-left: 150px;
+    padding-right: 248px;
+}

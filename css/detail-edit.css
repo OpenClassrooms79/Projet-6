@@ -1,0 +1,16 @@
+H1.detail-edit {
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 35px;
+    margin-left: 150px;
+}
+
+#detail-edit {
+    display: flex;
+    flex-direction: row;
+    gap: 118px;
+    margin-left: 150px;
+    margin-right: 150px;
+    background-color: white;
+}
