@@ -494,7 +494,7 @@ FOOTER IMG {
     background-color: var(--backgroundColor2);
 }
 
-.book-desc, .book-owner {
+.book-desc, .book-owner, .biblio {
     font-family: Inter, sans-serif;
     font-weight: 600;
     font-size: 8px;
@@ -558,7 +558,7 @@ FOOTER IMG {
     margin-bottom: 56px;
 }
 
-#register LABEL, #login LABEL {
+#register LABEL, #login LABEL, #profile-form LABEL {
     font-family: Inter, sans-serif;
     font-weight: 400;
     font-size: 14px;
@@ -568,7 +568,7 @@ FOOTER IMG {
     display: block;
 }
 
-#register INPUT, #login INPUT {
+#register INPUT, #login INPUT, #profile-form INPUT[type=email], #profile-form INPUT[type=text], #profile-form INPUT[type=password] {
     margin-bottom: 32px;
     width: 100%;
     height: 50px;
@@ -616,4 +616,170 @@ HR {
     height: 1px;
     color: var(--light-text);
     margin: 33px 0 33px 0;
+}
+
+#account {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin: auto 150px auto 150px;
+    background-color: var(--backgroundColor2);
+}
+
+#account H1 {
+    font-size: 26px;
+    margin-top: 90px;
+    margin-bottom: 48px;
+}
+
+#profile {
+    display: flex;
+    flex-direction: row;
+    gap: 33px;
+}
+
+#profile-display, #profile-form {
+    background-color: white;
+}
+
+#profile-display, #profile-form, #book-list {
+    border-radius: 20px;
+}
+
+#profile-display {
+    width: 547px;
+    padding-top: 48px;
+    padding-bottom: 93px;
+    text-align: center;
+}
+
+#profile-display .modify {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--light-text);
+}
+
+#profile-display HR {
+    width: 242px;
+    margin: 48px auto 48px auto;
+}
+
+.nickname-big {
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    color: var(--text);
+    margin-bottom: 11px;
+}
+
+.member-since {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--light-text);
+    margin-bottom: 21px;
+}
+
+#profile-display .biblio {
+    margin-bottom: 6px;
+}
+
+.nb-books {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+#profile-form {
+    width: 555px;
+    padding: 36px 116px 37px 117px;
+}
+
+#profile-form .personal-info {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 26px;
+}
+
+#profile-form INPUT[type=email], #profile-form INPUT[type=text], #profile-form INPUT[type=password], #detail-edit INPUT[type=text] {
+    background-color: #EDF2F6;
+    padding-left: 14px;
+}
+
+#profile-form .button {
+    width: 150px;
+    height: 63px;
+}
+
+#book-list TBODY TR {
+    height: 130px;
+}
+
+#book-list TBODY TR:nth-child(odd) {
+    background-color: var(--backgroundColor1);
+}
+
+#book-list TBODY TR:nth-child(even) {
+    background-color: white;
+}
+
+#book-list TBODY IMG {
+    width: 78px;
+    height: 78px;
+}
+
+#account-public {
+    display: flex;
+    flex-direction: row;
+    gap: 28px;
+    margin-top: 103px;
+}
+
+#profile-public {
+    width: 341px;
+    padding-top: 48px;
+    background-color: white;
+    border-radius: 20px;
+    text-align: center;
+}
+
+#profile-public HR {
+    width: 242px;
+    margin: 70px auto 48px auto;
+}
+
+#profile-public A {
+    margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+}
+
+#detail-edit {
+    display: flex;
+    flex-direction: row;
+    gap: 118px;
+    margin-left: 150px;
+    margin-right: 150px;
+    background-color: white;
+}
+
+H1.detail-edit {
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 35px;
+    margin-left: 150px;
+}
+
+LABEL:has(+ INPUT:required):after {
+    content: ' *';
+    color: red;
 }

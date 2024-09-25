@@ -81,8 +81,50 @@ class HomeController
                 );
                 return;
             }
-            header('Location: compte');
+            $_SESSION['member'] = $result;
+            header('Location: profil');
         }
         $view->render("includes/login");
+    }
+
+    public function showAccount(): void
+    {
+        $userManager = new UserManager();
+
+        if (isset($_GET['id'])) {
+            $member = $userManager->getById($_GET['id']);
+            $view = new View("");
+            $view->render(
+                "includes/account-public",
+                [
+                    'member' => $member,
+                    'books' => $userManager->getBooks($member->getId()),
+                ],
+            );
+        } else {
+            $member = $userManager->getById($_SESSION['member']->getId());
+            $view = new View("Mon compte");
+            $view->render(
+                "includes/account",
+                [
+                    'member' => $member,
+                    'books' => $userManager->getBooks($member->getId()),
+                ],
+            );
+        }
+    }
+
+    public function showEditBook(int $bookId): void
+    {
+        $userManager = new BookManager();
+        $book = $userManager->getBookById($bookId);
+
+        $view = new View("");
+        $view->render(
+            "includes/detail-edit",
+            [
+                'book' => $book,
+            ],
+        );
     }
 }

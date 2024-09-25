@@ -40,9 +40,14 @@ switch ($action) {
     case 'messagerie':
         break;
 
-    case 'compte':
+    case 'profil':
         $homeController = new HomeController();
         $homeController->showAccount();
+        break;
+
+    case 'modifier':
+        $homeController = new HomeController();
+        $homeController->showEditBook($_GET['id']);
         break;
 
     default:

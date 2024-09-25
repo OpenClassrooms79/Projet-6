@@ -10,6 +10,7 @@ class User extends AbstractEntity
     private string $nickname;
     private string $email;
     private string $password;
+    private DateTime $registrationDate;
 
     public function setNickname(string $nickname): User
     {
@@ -42,5 +43,15 @@ class User extends AbstractEntity
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    public function setRegistrationDate($registrationDate): void
+    {
+        $this->registrationDate = new DateTime($registrationDate);
+    }
+
+    public function getRegistrationDate(): DateTime
+    {
+        return $this->registrationDate;
     }
 }

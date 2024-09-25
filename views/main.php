@@ -23,9 +23,9 @@
             </div>
         </div>
         <div class="right">
-            <a href="messagerie"><img class="icon" src="img/icons/message.svg" alt="Messages"> Messagerie <span class="number">1</span></a>
-            <a href="compte">
-                <img class="icon" src="img/icons/account.svg" alt="Compte">
+            <a href="messagerie"><img class="icon" src="<?= ICONS_PATH ?>message.svg" alt="Messages"> Messagerie <span class="number">1</span></a>
+            <a href="profil">
+                <img class="icon" src="<?= ICONS_PATH ?>account.svg" alt="Compte">
                 Mon compte</a>
             <a href="identification">Connexion</a>
         </div>

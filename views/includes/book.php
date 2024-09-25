@@ -1,6 +1,6 @@
 <a href="detail?id=<?= $book->getId() ?>">
     <div class="book">
-        <img class="book-image" src="img/books/<?= $book->getImage() ?>" alt="<?= $book->getTitle() ?>" title="<?= $book->getTitle() ?>">
+        <img class="book-image" src="<?= BOOKS_PATH . $book->getImage() ?>" alt="<?= $book->getTitle() ?>" title="<?= $book->getTitle() ?>">
         <div class="book-texts">
             <p class="book-title"><?= $book->getTitle() ?></p>
             <?php

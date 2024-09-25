@@ -1,7 +1,7 @@
 <p class="breadcrumbs">Nos livres &gt; <?= htmlspecialchars($book->getTitle()) ?></p>
 <section id="detail">
     <div class="image">
-        <img src="img/books/<?= $book->getImage() ?>" title="<?= htmlspecialchars($book->getTitle()) ?>" alt="<?= htmlspecialchars($book->getTitle()) ?>">
+        <img src="<?= BOOKS_PATH . $book->getImage() ?>" title="<?= htmlspecialchars($book->getTitle()) ?>" alt="<?= htmlspecialchars($book->getTitle()) ?>">
     </div>
     <div class="book">
         <h1><?= htmlspecialchars($book->getTitle()) ?></h1>

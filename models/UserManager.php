@@ -45,4 +45,37 @@ class UserManager extends AbstractEntityManager
         $sql = "UPDATE users SET password = :password WHERE id = :id";
         $this->db->query($sql);
     }
+
+    public function getById(int $id): User|false
+    {
+        $sql = "SELECT * FROM users WHERE id = :id";
+
+        $res = $this->db->query($sql, ['id' => $id]);
+        if ($res->rowCount() === 1) {
+            $r = $res->fetch();
+            return new User($r);
+        }
+        return false;
+    }
+
+    public function getNbBooks(int $ownerId): int
+    {
+        $sql = "SELECT COUNT(*) AS nb FROM books WHERE owner_id = :ownerId";
+        $res = $this->db->query($sql, ['ownerId' => $ownerId]);
+        if ($res->rowCount() === 1) {
+            return $res->fetch()['nb'];
+        }
+        return 0;
+    }
+
+    public function getBooks(int $ownerId): array
+    {
+        $sql = "SELECT * FROM books WHERE owner_id = :ownerId";
+        $res = $this->db->query($sql, ['ownerId' => $ownerId]);
+        $books = [];
+        while ($book = $res->fetch()) {
+            $books[] = new Book($book);
+        }
+        return $books;
+    }
 }
