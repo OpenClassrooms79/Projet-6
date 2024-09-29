@@ -28,26 +28,31 @@ switch ($action) {
         break;
 
     case 'inscription':
-        $homeController = new HomeController();
-        $homeController->showRegister();
+        $userController = new UserController();
+        $userController->showRegister();
         break;
 
     case 'identification':
-        $homeController = new HomeController();
-        $homeController->showLogin();
+        $userController = new UserController();
+        $userController->showLogin();
+        break;
+
+    case 'deconnexion':
+        $userController = new UserController();
+        $userController->showLogout();
         break;
 
     case 'messagerie':
         break;
 
     case 'profil':
-        $homeController = new HomeController();
-        $homeController->showAccount();
+        $userController = new UserController();
+        $userController->showAccount();
         break;
 
     case 'modifier':
-        $homeController = new HomeController();
-        $homeController->showEditBook($_GET['id']);
+        $userController = new UserController();
+        $userController->showEditBook($_GET['id']);
         break;
 
     default:

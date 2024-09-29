@@ -57,12 +57,12 @@ class DBManager
      *
      * @param string $sql : la requête SQL à exécuter.
      * @param array|null $params : les paramètres de la requête SQL.
-     * @return PDOStatement : le résultat de la requête SQL.
+     * @return PDOStatement|int : le résultat de la requête SQL.
      */
     public function query(string $sql, ?array $params = null): PDOStatement|int
     {
         try {
-            if ($params == null) {
+            if ($params === null) {
                 $query = $this->db->query($sql);
             } else {
                 $query = $this->db->prepare($sql);

@@ -82,36 +82,24 @@ LEFT JOIN authors a ON ba.author_id = a.id
 LEFT JOIN users u ON b.owner_id = u.id';
         $result = $this->db->query($sql);
 
-        $books = [];
+        return $this->getBooks($result);
+    }
 
-        while ($record = $result->fetch()) {
-            if (!isset($books[$record['id']])) {
-                $data = [
-                    'id' => $record['id'],
-                    'title' => $record['title'],
-                    'image' => $record['image'],
-                    'description' => $record['description'],
-                    'exchangeable' => $record['exchangeable'],
-                    'owner' => new User(
-                        [
-                            'id' => $record['owner_id'],
-                            'nickname' => $record['owner_nickname'],
-                        ],
-                    ),
-                ];
-                $books[$record['id']] = new Book($data);
-            }
+    public function getFilteredBooks(string $search): array
+    {
+        $sql = 'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname, u.id AS owner_id, u.nickname AS owner_nickname
+FROM (
+	SELECT *
+	FROM books
+	WHERE title LIKE :search
+	ORDER BY id ASC
+) b
+LEFT JOIN books_authors ba ON b.id = ba.book_id
+LEFT JOIN authors a ON ba.author_id = a.id
+LEFT JOIN users u ON b.owner_id = u.id';
+        $result = $this->db->query($sql, ['search' => "%$search%"]);
 
-            $data = [
-                'id' => $record['author_id'],
-                'firstName' => $record['first_name'],
-                'lastName' => $record['last_name'],
-                'nickname' => $record['nickname'],
-            ];
-            $author = new Author($data);
-            $books[$record['id']]->addAuthor($author);
-        }
-        return $books;
+        return $this->getBooks($result);
     }
 
     public function getLastBooks(): array
@@ -129,8 +117,13 @@ LEFT JOIN authors a ON ba.author_id = a.id
 LEFT JOIN users u ON b.owner_id = u.id',
             self::NB_LAST_BOOKS,
         );
-        $result = $this->db->query($sql, []);
+        $result = $this->db->query($sql);
 
+        return $this->getBooks($result);
+    }
+
+    protected function getBooks($result): array
+    {
         $books = [];
 
         while ($record = $result->fetch()) {
@@ -160,7 +153,6 @@ LEFT JOIN users u ON b.owner_id = u.id',
             $author = new Author($data);
             $books[$record['id']]->addAuthor($author);
         }
-        //print_r($books);
         return $books;
     }
 }

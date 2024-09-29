@@ -188,24 +188,6 @@ FOOTER IMG {
     vertical-align: middle;
 }
 
-#account-icon {
-    display: inline-block;
-    width: 10px;
-    height: 13px;
-}
-
-#account-icon DIV:first-child {
-    height: 10px;
-    border: black solid 1px;
-    border-radius: 50%;
-}
-
-#account-icon DIV:last-child {
-    height: 4px;
-    border: black solid 1px;
-    border-radius: 40%;
-}
-
 .text-center {
     text-align: center;
 }
@@ -253,4 +235,28 @@ FOOTER IMG {
     font-style: italic;
     line-height: 12px;
     margin-top: 22px;
+}
+
+.error {
+    font-weight: bold;
+    color: red;
+    border: 2px solid red;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.error::before {
+    content: '⚠️ ';
+}
+
+.clear-input-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    border: 1px black solid;
+    border-radius: 0 5px 5px 0;
+    background-color: white;
+    cursor: pointer;
 }

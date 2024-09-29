@@ -10,24 +10,29 @@
 <header>
     <nav>
         <div class="left">
-            <a href="index" title="Accueil TomTroc">
+            <a href="./" title="Accueil TomTroc">
                 <div class="logo-with-text">
 
-                    <img src="img/logo.png" alt="TomTroc" width="51" height="51">
+                    <img src="<?= IMG_PATH ?>logo.png" alt="TomTroc" width="51" height="51">
                     TomTroc
                 </div>
             </a>
             <div class="menu-left">
-                <a href="index" class="current">Accueil</a>
+                <a href="./" class="current">Accueil</a>
                 <a href="echanges">Nos livres à l'échange</a>
             </div>
         </div>
         <div class="right">
-            <a href="messagerie"><img class="icon" src="<?= ICONS_PATH ?>message.svg" alt="Messages"> Messagerie <span class="number">1</span></a>
-            <a href="profil">
-                <img class="icon" src="<?= ICONS_PATH ?>account.svg" alt="Compte">
-                Mon compte</a>
-            <a href="identification">Connexion</a>
+            <?php
+            if (isset($_SESSION['member'])) { ?>
+                <a href="messagerie"><img class="icon" src="<?= ICONS_PATH ?>message.svg" alt="Messages"> Messagerie <span class="number">1</span></a>
+                <a href="profil"><img class="icon" src="<?= ICONS_PATH ?>account.svg" alt="Compte">Mon compte</a>
+                <a href="deconnexion">Déconnexion</a>
+                <?php
+            } else { ?>
+                <a href="identification">Connexion</a>
+                <?php
+            } ?>
         </div>
     </nav>
 </header>
@@ -37,7 +42,7 @@
         <a href="">Politique de confidentialité</a>
         <a href="">Mentions légales</a>
         <a href="">Tom Troc©️</a>
-        <a href="index" title="Accueil TomTroc"><img src="img/logo2.png" alt="TomTroc"></a>
+        <a href="index" title="Accueil TomTroc"><img src="<?= IMG_PATH ?>logo2.png" alt="TomTroc"></a>
     </nav>
 </footer>
 </body>

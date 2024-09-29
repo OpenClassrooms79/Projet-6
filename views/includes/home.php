@@ -9,7 +9,7 @@
     </div>
     <div>
         <div class="home-image">
-            <img class="big-image" src="img/livres.png" alt="Livres">
+            <img class="big-image" src="<?= IMG_PATH ?>livres.png" alt="Livres">
             <p class="big-image-signature">Hamza</p>
         </div>
     </div>
@@ -47,7 +47,7 @@
 <a class="button center inverse">Voir tous les livres</a>
 
 <div id="banner">
-    <img src="img/books3.jpg" alt="bannière" id="banner-img">
+    <img src="<?= IMG_PATH ?>books3.jpg" alt="bannière" id="banner-img">
 </div>
 
 <h2 id="our-values-title">Nos valeurs</h2>
@@ -61,5 +61,5 @@
 </p>
 <div id="signature">
     <span id="signature-text" class="light-text">L’équipe Tom Troc</span>
-    <img src="img/coeur.svg">
+    <img src="<?= IMG_PATH ?>coeur.svg">
 </div>

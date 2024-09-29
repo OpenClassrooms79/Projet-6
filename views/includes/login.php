@@ -14,6 +14,6 @@
         <p class="register-link">Pas de compte ? <a href="inscription">Inscrivez-vous</a></p>
     </form>
     <div class="image">
-        <img src="img/register-login.png" title="" alt="">
+        <img src="<?= IMG_PATH ?>register-login.png" title="" alt="">
     </div>
 </section>

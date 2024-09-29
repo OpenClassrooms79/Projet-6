@@ -15,6 +15,7 @@ class Utils
         ];
         $diff = $date->diff(new DateTime('now'));
 
+        $index2 = 0;
         foreach (array_keys($units) as $index) {
             if ($diff->{$index} > 0) {
                 $value = $diff->{$index};
@@ -26,7 +27,6 @@ class Utils
         // valeurs par défaut quand la durée est inférieure à une seconde
         if (!isset($value)) {
             $index = 's';
-            $index2 = 0;
         }
         return sprintf('%d %s', $diff->{$index}, $units[$index][$index2]);
     }

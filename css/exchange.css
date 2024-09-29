@@ -37,3 +37,10 @@
     font-size: 14px;
     opacity: 1;
 }
+
+.exchanges FORM {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
