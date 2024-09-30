@@ -56,6 +56,7 @@ switch ($action) {
         break;
 
     default:
-        // page 404
+        $homeController = new HomeController();
+        $homeController->showError();
         break;
 }

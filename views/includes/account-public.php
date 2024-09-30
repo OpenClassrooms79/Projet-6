@@ -1,11 +1,11 @@
 <section id="account-public">
     <section id="profile-public">
-        <img class="avatar" src="<?= AVATARS_PATH ?>avatar1.png">
+        <img class="avatar" alt="<?= htmlspecialchars($member->getNickname()) ?>" src="<?= AVATARS_PATH ?>avatar1.png">
         <hr>
-        <div class="nickname-big"><?= $member->getNickname() ?></div>
+        <div class="nickname-big"><?= htmlspecialchars($member->getNickname()) ?></div>
         <div class="member-since">Membre depuis <?= Utils::getDaysSince($member->getRegistrationDate()) ?></div>
         <div class="biblio">Bibliothèque</div>
-        <div class="nb-books"><img src="<?= ICONS_PATH ?>biblio.svg"> <?= count($books) ?> livre(s)</div>
+        <div class="nb-books"><img src="<?= ICONS_PATH ?>biblio.svg" alt=""> <?= count($books) ?> livre(s)</div>
 
         <a href="" class="button inverse text-center">Écrire un message</a>
     </section>
@@ -24,7 +24,7 @@
             foreach ($books as $book) {
                 ?>
                 <tr>
-                    <td><img src="<?= BOOKS_PATH . htmlspecialchars($book->getImage()) ?>"></td>
+                    <td><img src="<?= BOOKS_PATH . htmlspecialchars($book->getImage()) ?>" alt="Couverture du livre"></td>
                     <td><?= htmlspecialchars($book->getTitle()) ?></td>
                     <td><?= htmlspecialchars($book->getAuthorsText()) ?></td>
                     <td><?= htmlspecialchars(mb_substr($book->getDescription(), 0, 87)) ?>...</td>

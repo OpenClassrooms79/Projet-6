@@ -61,5 +61,5 @@
 </p>
 <div id="signature">
     <span id="signature-text" class="light-text">L’équipe Tom Troc</span>
-    <img src="<?= IMG_PATH ?>coeur.svg">
+    <img alt="" src="<?= IMG_PATH ?>coeur.svg">
 </div>

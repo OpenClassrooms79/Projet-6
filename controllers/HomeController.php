@@ -35,4 +35,10 @@ class HomeController
         $view = new View("Détail d'un livre : " . $book->getTitle());
         $view->render("includes/detail", ['book' => $book]);
     }
+
+    public function showError(): void
+    {
+        $view = new View('Erreur : page inexistante');
+        $view->render("includes/error");
+    }
 }
