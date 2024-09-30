@@ -49,3 +49,34 @@
     line-height: 17px;
     color: var(--text);
 }
+
+.owner-badge {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--text);
+    background-color: white;
+    height: 60px;
+    display: inline-block;
+    margin-top: 16px;
+    margin-bottom: 80px;
+    padding: 6px 17px 6px 6px;
+    border-radius: 114px;
+
+}
+
+.owner-badge A {
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.owner-badge IMG {
+    max-width: 48px;
+    max-height: 48px;
+    border-radius: 50%;
+}

@@ -11,6 +11,7 @@ class User extends AbstractEntity
     private string $email;
     private string $password;
     private DateTime $registrationDate;
+    private string $avatar;
 
     public function setNickname(string $nickname): User
     {
@@ -53,5 +54,15 @@ class User extends AbstractEntity
     public function getRegistrationDate(): DateTime
     {
         return $this->registrationDate;
+    }
+
+    public function setAvatar(string $avatar): void
+    {
+        $this->avatar = $avatar;
+    }
+
+    public function getAvatar(): string
+    {
+        return $this->avatar;
     }
 }

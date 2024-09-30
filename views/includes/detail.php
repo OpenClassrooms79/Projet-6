@@ -10,7 +10,14 @@
         <p class="book-desc">Description</p>
         <p class="book-desc-text"><?= htmlspecialchars($book->getDescription()) ?></p>
         <p class="book-owner">Propriétaire</p>
-        <a href="profil?id=<?= $book->getOwner()->getId() ?>"><?= htmlspecialchars($book->getOwner()->getNickname()) ?></a>
+
+        <div class="owner-badge">
+            <a href="profil?id=<?= $book->getOwner()->getId() ?>">
+                <img src="<?= AVATARS_PATH . $book->getOwner()->getAvatar() ?>">
+                <?= htmlspecialchars($book->getOwner()->getNickname()) ?>
+            </a>
+        </div>
+
 
         <a class="button fullwidth text-center">Envoyer un message</a>
     </div>

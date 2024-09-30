@@ -2,7 +2,7 @@
     <h1>Mon compte</h1>
     <section id="profile">
         <div id="profile-display">
-            <img class="avatar" alt="<?= htmlspecialchars($member->getNickname()) ?>" src="<?= AVATARS_PATH ?>avatar1.png">
+            <img class="avatar" alt="<?= htmlspecialchars($member->getNickname()) ?>" src="<?= AVATARS_PATH . htmlspecialchars($member->getAvatar()) ?>">
             <div><a class="modify" href="">modifier</a></div>
             <hr>
             <div class="nickname-big"><?= htmlspecialchars($member->getNickname()) ?></div>

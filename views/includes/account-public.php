@@ -1,6 +1,6 @@
 <section id="account-public">
     <section id="profile-public">
-        <img class="avatar" alt="<?= htmlspecialchars($member->getNickname()) ?>" src="<?= AVATARS_PATH ?>avatar1.png">
+        <img class="avatar" alt="<?= htmlspecialchars($member->getNickname()) ?>" src="<?= AVATARS_PATH . htmlspecialchars($member->getAvatar()) ?>">
         <hr>
         <div class="nickname-big"><?= htmlspecialchars($member->getNickname()) ?></div>
         <div class="member-since">Membre depuis <?= Utils::getDaysSince($member->getRegistrationDate()) ?></div>

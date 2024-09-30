@@ -26,7 +26,7 @@ class BookManager extends AbstractEntityManager
 
     public function getBookById(int $id): Book
     {
-        $sql = 'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname, u.id AS owner_id, u.nickname AS owner_nickname
+        $sql = 'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname, u.id AS owner_id, u.nickname AS owner_nickname, u.avatar
 FROM (
 	SELECT *
 	FROM books
@@ -51,6 +51,7 @@ LEFT JOIN users u ON b.owner_id = u.id';
                         [
                             'id' => $record['owner_id'],
                             'nickname' => $record['owner_nickname'],
+                            'avatar' => $record['avatar'],
                         ],
                     ),
                 ];
