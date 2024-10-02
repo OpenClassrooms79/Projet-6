@@ -11,6 +11,7 @@ spl_autoload_register(static function ($className) {
         'core',
         'services',
         'models',
+        'managers',
         'controllers',
         'views',
     ];

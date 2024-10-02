@@ -11,12 +11,19 @@ class User extends AbstractEntity
     private string $email;
     private string $password;
     private DateTime $registrationDate;
-    private string $avatar;
+    private ?string $avatar = null;
 
-    public function setNickname(string $nickname): User
+    /**
+     * @throws Exception
+     */
+    public function setNickname(string $nickname): void
     {
-        $this->nickname = $nickname;
-        return $this;
+        $nickname = trim($nickname);
+        if ($nickname !== '') {
+            $this->nickname = $nickname;
+        } else {
+            throw new LengthException('Le pseudo ne peut pas être vide');
+        }
     }
 
     public function getNickname(): string
@@ -24,10 +31,17 @@ class User extends AbstractEntity
         return $this->nickname;
     }
 
-    public function setEmail(string $email): User
+    /**
+     * @throws Exception
+     */
+    public function setEmail(string $email): void
     {
-        $this->email = $email;
-        return $this;
+        $email = trim($email);
+        if (filter_var($email, FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
+            $this->email = $email;
+        } else {
+            throw new UnexpectedValueException("Email invalide");
+        }
     }
 
     public function getEmail(): string
@@ -35,10 +49,16 @@ class User extends AbstractEntity
         return $this->email;
     }
 
-    public function setPassword(string $password): User
+    /**
+     * @throws Exception
+     */
+    public function setPassword(string $password): void
     {
-        $this->password = $password;
-        return $this;
+        if ($password !== '') {
+            $this->password = $password;
+        } else {
+            throw new LengthException('Le mot de passe ne peut pas être vide');
+        }
     }
 
     public function getPassword(): string
@@ -56,13 +76,13 @@ class User extends AbstractEntity
         return $this->registrationDate;
     }
 
-    public function setAvatar(string $avatar): void
+    public function setAvatar(?string $avatar): void
     {
         $this->avatar = $avatar;
     }
 
-    public function getAvatar(): string
+    public function getAvatar(): ?string
     {
-        return $this->avatar;
+        return $this->avatar ?? DEFAULT_AVATAR;
     }
 }

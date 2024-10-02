@@ -57,10 +57,9 @@ class Book extends AbstractEntity
         return $this->exchangeable;
     }
 
-    public function setAuthors(array $authors): Book
+    public function setAuthors(array $authors): void
     {
         $this->authors = $authors;
-        return $this;
     }
 
     public function getAuthors(): array

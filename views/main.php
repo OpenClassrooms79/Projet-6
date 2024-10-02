@@ -24,7 +24,7 @@
         </div>
         <div class="right">
             <?php
-            if (isset($_SESSION['member'])) { ?>
+            if (isset($_SESSION['user'])) { ?>
                 <a href="messagerie"><img class="icon" src="<?= ICONS_PATH ?>message.svg" alt="Messages"> Messagerie <span class="number">1</span></a>
                 <a href="profil"><img class="icon" src="<?= ICONS_PATH ?>account.svg" alt="Compte">Mon compte</a>
                 <a href="deconnexion">Déconnexion</a>

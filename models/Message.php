@@ -9,10 +9,9 @@ class Message extends AbstractEntity
     private DateTime $created;
     private bool $isRead;
 
-    public function setFromId(int $fromId): Message
+    public function setFromId(int $fromId): void
     {
         $this->fromId = $fromId;
-        return $this;
     }
 
     public function getFromId(): int
@@ -20,10 +19,9 @@ class Message extends AbstractEntity
         return $this->fromId;
     }
 
-    public function setToId(int $toId): Message
+    public function setToId(int $toId): void
     {
         $this->toId = $toId;
-        return $this;
     }
 
     public function getToId(): int
@@ -31,10 +29,9 @@ class Message extends AbstractEntity
         return $this->toId;
     }
 
-    public function setText(string $text): Message
+    public function setText(string $text): void
     {
         $this->text = $text;
-        return $this;
     }
 
     public function getText(): string
@@ -42,10 +39,9 @@ class Message extends AbstractEntity
         return $this->text;
     }
 
-    public function setCreated(DateTime $created): Message
+    public function setCreated(DateTime $created): void
     {
         $this->created = $created;
-        return $this;
     }
 
     public function getCreated(): DateTime
@@ -53,10 +49,9 @@ class Message extends AbstractEntity
         return $this->created;
     }
 
-    public function setIsRead(bool $isRead): Message
+    public function setIsRead(bool $isRead): void
     {
         $this->isRead = $isRead;
-        return $this;
     }
 
     public function isRead(): bool

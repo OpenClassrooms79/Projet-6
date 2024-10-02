@@ -57,7 +57,7 @@ class DBManager
      *
      * @param string $sql : la requête SQL à exécuter.
      * @param array|null $params : les paramètres de la requête SQL.
-     * @return PDOStatement|int : le résultat de la requête SQL.
+     * @return PDOStatement|int : le résultat de la requête SQL ou le code d'erreur MySQL
      */
     public function query(string $sql, ?array $params = null): PDOStatement|int
     {

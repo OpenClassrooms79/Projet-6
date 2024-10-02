@@ -14,19 +14,23 @@ class UserController
             if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 // créer le nouvel utilisateur
                 $userManager = new UserManager();
-                $res = $userManager->addUser(new User([
-                    'email' => $_POST['email'],
-                    'password' => $_POST['password'],
-                    'nickname' => $_POST['nickname'],
-                ]));
-                if ($res === false) {
+                try {
+                    $user = new User([
+                        'email' => $_POST['email'],
+                        'password' => $_POST['password'],
+                        'nickname' => $_POST['nickname'],
+                    ]);
+                    $user->setId($userManager->addUser($user));
+                    $_SESSION['user'] = $user;
+                    header('Location: profil');
+                } catch (Exception $e) {
                     $view->render(
                         "includes/register",
                         [
                             'email' => $_POST['email'],
                             'password' => $_POST['password'],
                             'nickname' => $_POST['nickname'],
-                            'error' => "Le pseudo ou l'adresse e-mail sont déjà utilisés",
+                            'error' => $e->getMessage(),
                         ],
                     );
                     return;
@@ -59,12 +63,14 @@ class UserController
                 $view->render(
                     "includes/login",
                     [
+                        'email' => $_POST['email'],
+                        'password' => $_POST['password'],
                         'error' => "Adresse e-mail ou mot de passe incorrect",
                     ],
                 );
                 return;
             }
-            $_SESSION['member'] = $result;
+            $_SESSION['user'] = $result;
             header('Location: profil');
         }
         $view->render("includes/login");
@@ -73,7 +79,7 @@ class UserController
     public function showLogout(): void
     {
         session_destroy();
-        header('Location: ./');
+        header('Location: ./identification');
     }
 
     public function showAccount(): void
@@ -81,23 +87,37 @@ class UserController
         $userManager = new UserManager();
 
         if (isset($_GET['id'])) {
-            $member = $userManager->getById($_GET['id']);
+            $user = $userManager->getById($_GET['id']);
             $view = new View("");
             $view->render(
                 "includes/account-public",
                 [
-                    'member' => $member,
-                    'books' => $userManager->getBooks($member->getId()),
+                    'user' => $user,
+                    'books' => $userManager->getBooks($user->getId()),
                 ],
             );
         } else {
-            $member = $userManager->getById($_SESSION['member']->getId());
+            $error = '';
+            $user = $userManager->getById($_SESSION['user']->getId());
+            if (isset($_POST['update'])) {
+                try {
+                    $user->setEmail($_POST['email']);
+                    $user->setNickname($_POST['nickname']);
+                    $user->setPassword($_POST['password']);
+                    $userManager->save($user);
+                } catch (Exception $e) {
+                    $error = $e->getMessage();
+                }
+            }
+            $user = $userManager->getById($_SESSION['user']->getId());
+
             $view = new View("Mon compte");
             $view->render(
                 "includes/account",
                 [
-                    'member' => $member,
-                    'books' => $userManager->getBooks($member->getId()),
+                    'user' => $user,
+                    'books' => $userManager->getBooks($user->getId()),
+                    'error' => $error,
                 ],
             );
         }

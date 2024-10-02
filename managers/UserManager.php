@@ -2,18 +2,24 @@
 
 class UserManager extends AbstractEntityManager
 {
-    public function addUser(User $user): bool
+    public function addUser(User $user): int
     {
-        $sql = "INSERT INTO users(nickname, email, password) VALUES (:nickname, :email, :password)";
+        $sql = "INSERT INTO users(nickname, email, password, avatar) VALUES (:nickname, :email, :password, :avatar)";
         $res = $this->db->query($sql, [
             'nickname' => $user->getNickname(),
             'email' => $user->getEmail(),
             'password' => password_hash($user->getPassword(), PASSWORD_DEFAULT),
+            'avatar' => $user->getAvatar(),
         ]);
+
         if (is_int($res)) {
-            return false;
+            if ($res === ER_DUP_ENTRY) {
+                throw new Exception("L'adresse e-mail ou le pseudo sont déjà utilisés", $res);
+            }
+
+            throw new Exception('Impossible de mettre à jour les données', $res);
         }
-        return true;
+        return $this->db->getPDO()->lastInsertId();
     }
 
     public function login(string $email, string $password): User|false
@@ -77,5 +83,27 @@ class UserManager extends AbstractEntityManager
             $books[] = new Book($book);
         }
         return $books;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function save(User $user): bool
+    {
+        $sql = 'UPDATE users SET nickname = :nickname, email = :email, password = :password WHERE id = :id';
+        $res = $this->db->query($sql, [
+            'id' => $user->getId(),
+            'nickname' => $user->getNickname(),
+            'email' => $user->getEmail(),
+            'password' => password_hash($user->getPassword(), PASSWORD_DEFAULT),
+        ]);
+        if (is_int($res)) {
+            if ($res === ER_DUP_ENTRY) {
+                throw new Exception("L'adresse e-mail ou le pseudo sont déjà utilisés", $res);
+            }
+
+            throw new Exception('Impossible de mettre à jour les données', $res);
+        }
+        return true;
     }
 }

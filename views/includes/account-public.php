@@ -1,9 +1,9 @@
 <section id="account-public">
     <section id="profile-public">
-        <img class="avatar" alt="<?= htmlspecialchars($member->getNickname()) ?>" src="<?= AVATARS_PATH . htmlspecialchars($member->getAvatar()) ?>">
+        <img class="avatar" alt="<?= htmlspecialchars($user->getNickname()) ?>" src="<?= AVATARS_PATH . htmlspecialchars($user->getAvatar()) ?>">
         <hr>
-        <div class="nickname-big"><?= htmlspecialchars($member->getNickname()) ?></div>
-        <div class="member-since">Membre depuis <?= Utils::getDaysSince($member->getRegistrationDate()) ?></div>
+        <div class="nickname-big"><?= htmlspecialchars($user->getNickname()) ?></div>
+        <div class="member-since">Membre depuis <?= Utils::getDaysSince($user->getRegistrationDate()) ?></div>
         <div class="biblio">Bibliothèque</div>
         <div class="nb-books"><img src="<?= ICONS_PATH ?>biblio.svg" alt=""> <?= count($books) ?> livre(s)</div>
 
