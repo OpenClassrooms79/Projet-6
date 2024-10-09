@@ -1,8 +1,4 @@
 <?php
-/**
- * @author Jocelyn Flament
- * @since 09/10/2024
- */
 
 class BookController
 {

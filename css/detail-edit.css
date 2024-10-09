@@ -19,10 +19,6 @@ H1.detail-edit {
     background-color: white;
 }
 
-#detail-edit FORM {
-    margin-right: 50px;
-}
-
 INPUT[type="submit"] {
     width: 322px;
     margin-top: 44px;

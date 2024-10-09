@@ -34,14 +34,13 @@ class UserManager extends AbstractEntityManager
             if (password_verify($password, $user->getPassword())) {
                 if (password_needs_rehash($user->getPassword(), PASSWORD_DEFAULT)) {
                     // On crée un nouveau hachage afin de mettre à jour l'ancien
-                    $user->setPassword(Utils::getHashedValue($password));
+                    $user->setPassword(new HashedPassword($password));
                     $this->updatePassword($user);
                 }
                 return $user;
             }
             return false;
         }
-
         return false;
     }
 

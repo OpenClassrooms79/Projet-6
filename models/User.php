@@ -1,8 +1,4 @@
 <?php
-/**
- * @author Jocelyn Flament
- * @since 28/08/2024
- */
 
 class User extends AbstractEntity
 {
@@ -56,13 +52,9 @@ class User extends AbstractEntity
      *
      * @throws Exception
      */
-    public function setPassword(string $password): void
+    public function setPassword(HashedPassword $hashedPassword): void
     {
-        if ($password !== '') {
-            $this->password = $password;
-        } else {
-            throw new LengthException('Le mot de passe ne peut pas être vide');
-        }
+        $this->password = $hashedPassword->getHash();
     }
 
     /**

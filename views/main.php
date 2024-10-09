@@ -39,10 +39,10 @@
 <?= $content ?>
 <footer>
     <nav class="right">
-        <a href="">Politique de confidentialité</a>
-        <a href="">Mentions légales</a>
-        <a href="">Tom Troc©️</a>
-        <a href="index" title="Accueil TomTroc"><img src="<?= IMG_PATH ?>logo2.png" alt="TomTroc"></a>
+        <a href="#">Politique de confidentialité</a>
+        <a href="#">Mentions légales</a>
+        <a href="./">Tom Troc©️</a>
+        <a href="./" title="Accueil TomTroc"><img src="<?= IMG_PATH ?>logo2.png" alt="TomTroc"></a>
     </nav>
 </footer>
 </body>

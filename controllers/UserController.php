@@ -98,7 +98,7 @@ class UserController
 
                     // si le mot de passe fourni est vide, on ne le met pas à jour
                     if ($_POST['password'] !== '') {
-                        $user->setPassword(Utils::getHashedValue($_POST['password']));
+                        $user->setPassword(new HashedPassword($_POST['password']));
                     }
 
                     $userManager->save($user);
