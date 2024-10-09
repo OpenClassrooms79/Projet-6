@@ -30,4 +30,9 @@ class Utils
         }
         return sprintf('%d %s', $diff->{$index}, $units[$index][$index2]);
     }
+
+    public static function getHashedValue(string $value): string
+    {
+        return password_hash($value, PASSWORD_DEFAULT);
+    }
 }

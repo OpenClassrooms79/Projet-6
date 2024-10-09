@@ -2,7 +2,7 @@
 
 require_once 'config/config.php';
 
-if (!in_array('mod_rewrite', apache_get_modules())) {
+if (!in_array('mod_rewrite', apache_get_modules(), true)) {
     die('ERREUR : Le module "mod_rewrite" n\'est pas chargé.');
 }
 

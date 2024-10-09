@@ -18,13 +18,13 @@ switch ($action) {
         break;
 
     case 'echanges':
-        $homeController = new HomeController();
-        $homeController->showExchanges();
+        $bookController = new BookController();
+        $bookController->showExchanges();
         break;
 
     case 'detail':
-        $homeController = new HomeController();
-        $homeController->showDetail($_GET['id']);
+        $bookController = new BookController();
+        $bookController->showDetail($_GET['id']);
         break;
 
     case 'inscription':
@@ -51,8 +51,8 @@ switch ($action) {
         break;
 
     case 'modifier':
-        $userController = new UserController();
-        $userController->showEditBook($_GET['id']);
+        $bookController = new BookController();
+        $bookController->showEditBook($_GET['id']);
         break;
 
     default:

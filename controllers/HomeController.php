@@ -11,33 +11,9 @@ class HomeController
         $view->render("includes/home", ['books' => $books]);
     }
 
-    public function showExchanges(): void
-    {
-        $bookManager = new BookManager();
-        if (isset($_GET['search'])) {
-            $books = $bookManager->getFilteredBooks($_GET['search']);
-        } else {
-            $books = $bookManager->getAllBooks();
-        }
-
-        $view = new View("Nos livres à l’échange");
-        $view->render("includes/exchanges", [
-            'books' => $books,
-            'search' => $_GET['search'] ?? '',
-        ]);
-    }
-
-    public function showDetail(int $bookId): void
-    {
-        $bookManager = new BookManager();
-        $book = $bookManager->getBookById($bookId);
-
-        $view = new View("Détail d'un livre : " . $book->getTitle());
-        $view->render("includes/detail", ['book' => $book]);
-    }
-
     public function showError(): void
     {
+        header('HTTP/1.0 404 Not Found');
         $view = new View('Erreur : page inexistante');
         $view->render("includes/error");
     }

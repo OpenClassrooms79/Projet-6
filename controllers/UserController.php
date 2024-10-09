@@ -1,8 +1,4 @@
 <?php
-/**
- * @author Jocelyn Flament
- * @since 29/09/2024
- */
 
 class UserController
 {
@@ -11,15 +7,11 @@ class UserController
         $view = new View("Inscription");
         if (isset($_POST['nickname'], $_POST['email'], $_POST['password'])) {
             // vérifier les données
-            if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
                 // créer le nouvel utilisateur
                 $userManager = new UserManager();
                 try {
-                    $user = new User([
-                        'email' => $_POST['email'],
-                        'password' => $_POST['password'],
-                        'nickname' => $_POST['nickname'],
-                    ]);
+                    $user = new User($_POST);
                     $user->setId($userManager->addUser($user));
                     $_SESSION['user'] = $user;
                     header('Location: profil');
@@ -103,7 +95,12 @@ class UserController
                 try {
                     $user->setEmail($_POST['email']);
                     $user->setNickname($_POST['nickname']);
-                    $user->setPassword($_POST['password']);
+
+                    // si le mot de passe fourni est vide, on ne le met pas à jour
+                    if ($_POST['password'] !== '') {
+                        $user->setPassword(Utils::getHashedValue($_POST['password']));
+                    }
+
                     $userManager->save($user);
                 } catch (Exception $e) {
                     $error = $e->getMessage();
@@ -121,19 +118,5 @@ class UserController
                 ],
             );
         }
-    }
-
-    public function showEditBook(int $bookId): void
-    {
-        $userManager = new BookManager();
-        $book = $userManager->getBookById($bookId);
-
-        $view = new View("");
-        $view->render(
-            "includes/detail-edit",
-            [
-                'book' => $book,
-            ],
-        );
     }
 }

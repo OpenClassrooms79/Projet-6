@@ -1,3 +1,8 @@
+MAIN {
+    background-color: var(--backgroundColor2);
+    padding: 40px 150px 92px 150px;
+}
+
 H1.detail-edit {
     font-family: "Playfair Display", serif;
     font-weight: 400;
@@ -10,7 +15,15 @@ H1.detail-edit {
     display: flex;
     flex-direction: row;
     gap: 118px;
-    margin-left: 150px;
-    margin-right: 150px;
+    padding: 56px 50px 68px 50px;
     background-color: white;
+}
+
+#detail-edit FORM {
+    margin-right: 50px;
+}
+
+INPUT[type="submit"] {
+    width: 322px;
+    margin-top: 44px;
 }

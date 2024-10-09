@@ -9,6 +9,8 @@ class User extends AbstractEntity
     protected int $id;
     private string $nickname;
     private string $email;
+
+    // version cryptéee du mot de passe. Le mot de passe en clair n'est jamais stocké
     private string $password;
     private DateTime $registrationDate;
     private ?string $avatar = null;
@@ -50,6 +52,8 @@ class User extends AbstractEntity
     }
 
     /**
+     * Affecte une nouvelle valeur de mot de passe crypté
+     *
      * @throws Exception
      */
     public function setPassword(string $password): void
@@ -61,6 +65,9 @@ class User extends AbstractEntity
         }
     }
 
+    /**
+     * Renvoie la valeur cryptée du mot de passe
+     */
     public function getPassword(): string
     {
         return $this->password;

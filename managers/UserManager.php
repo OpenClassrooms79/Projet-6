@@ -8,7 +8,7 @@ class UserManager extends AbstractEntityManager
         $res = $this->db->query($sql, [
             'nickname' => $user->getNickname(),
             'email' => $user->getEmail(),
-            'password' => password_hash($user->getPassword(), PASSWORD_DEFAULT),
+            'password' => $user->getPassword(),
             'avatar' => $user->getAvatar(),
         ]);
 
@@ -34,8 +34,7 @@ class UserManager extends AbstractEntityManager
             if (password_verify($password, $user->getPassword())) {
                 if (password_needs_rehash($user->getPassword(), PASSWORD_DEFAULT)) {
                     // On crée un nouveau hachage afin de mettre à jour l'ancien
-                    $newHash = password_hash($password, PASSWORD_DEFAULT);
-                    $user->setPassword($newHash);
+                    $user->setPassword(Utils::getHashedValue($password));
                     $this->updatePassword($user);
                 }
                 return $user;
@@ -49,7 +48,7 @@ class UserManager extends AbstractEntityManager
     public function updatePassword(User $user): void
     {
         $sql = "UPDATE users SET password = :password WHERE id = :id";
-        $this->db->query($sql);
+        $this->db->query($sql, [$user->getPassword(), $user->getId()]);
     }
 
     public function getById(int $id): User|false
@@ -79,8 +78,8 @@ class UserManager extends AbstractEntityManager
         $sql = "SELECT * FROM books WHERE owner_id = :ownerId";
         $res = $this->db->query($sql, ['ownerId' => $ownerId]);
         $books = [];
-        while ($book = $res->fetch()) {
-            $books[] = new Book($book);
+        while ($r = $res->fetch()) {
+            $books[] = new Book($r);
         }
         return $books;
     }
@@ -95,7 +94,7 @@ class UserManager extends AbstractEntityManager
             'id' => $user->getId(),
             'nickname' => $user->getNickname(),
             'email' => $user->getEmail(),
-            'password' => password_hash($user->getPassword(), PASSWORD_DEFAULT),
+            'password' => $user->getPassword(),
         ]);
         if (is_int($res)) {
             if ($res === ER_DUP_ENTRY) {

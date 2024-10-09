@@ -123,7 +123,7 @@ LEFT JOIN users u ON b.owner_id = u.id',
         return $this->getBooks($result);
     }
 
-    protected function getBooks($result): array
+    protected function getBooks(PDOStatement $result): array
     {
         $books = [];
 

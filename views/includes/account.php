@@ -18,7 +18,7 @@
                 <?php
             } ?>
             <label for="email">Adresse e-mail</label> <input type="email" id="email" name="email" required value="<?= htmlspecialchars($user->getEmail()) ?>">
-            <label for="password">Mot de passe</label> <input type="password" id="password" name="password" required>
+            <label for="password">Mot de passe</label> <input type="password" id="password" name="password">
             <label for="nickname">Pseudo</label> <input type="text" id="nickname" name="nickname" required value="<?= htmlspecialchars($user->getNickname()) ?>">
 
             <input type="submit" class="button inverse text-center" value="Enregistrer" name="update">
@@ -45,7 +45,7 @@
                     <td><?= htmlspecialchars($book->getTitle()) ?></td>
                     <td><?= htmlspecialchars($book->getAuthorsText()) ?></td>
                     <td><?= htmlspecialchars($book->getDescription()) ?></td>
-                    <td><?= htmlspecialchars($book->getTitle()) ?></td>
+                    <td><?= $book->isExchangeable() ? 'Disponible' : 'Indisponible' ?></td>
                     <td><a href="">Éditer</a> <a href="">Supprimer</a></td>
                 </tr>
                 <?php

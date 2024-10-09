@@ -9,9 +9,9 @@ class DBManager
 {
     // Création d'une classe singleton qui permet de se connecter à la base de données.
     // On crée une instance de la classe DBConnect qui permet de se connecter à la base de données.
-    private static $instance;
+    private static DBManager $instance;
 
-    private $db;
+    private PDO $db;
 
     /**
      * Constructeur de la classe DBManager.
