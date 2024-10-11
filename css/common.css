@@ -97,12 +97,28 @@ HEADER NAV A .number {
     background-color: black;
     border-radius: 5px;
     display: inline-block;
-    width: 11px;
     height: 15px;
+    font-family: Inter, sans-serif;
+    font-weight: 700;
     font-size: 8px;
+    line-height: 10px;
     text-align: center;
-    vertical-align: middle;
+    padding: 3px;
+}
 
+.menu-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;
+}
+
+.menu-icon IMG {
+    display: flex;
+}
+
+.menu-icon DIV {
+    display: flex;
 }
 
 H1 {
@@ -306,24 +322,6 @@ INPUT[type=submit] {
     color: white;
 }
 
-.clear-input-button {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 25px;
-    height: 50px;
-    border-radius: 0 50px 50px 0;
-    background-color: white;
-    cursor: pointer;
-    border: 1px solid #F0F0F0;
-    color: var(--light-text);
-    font-family: Inter, sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    opacity: 1;
-}
-
 SELECT {
     height: 50px;
     width: 100%;
@@ -336,5 +334,5 @@ SELECT {
 }
 
 FORM {
-    width: 100%;
+    /*width: 100%;*/
 }

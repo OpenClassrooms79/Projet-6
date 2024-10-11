@@ -2,7 +2,7 @@
     <div class="exchange-header">
         <h1>Nos livres à l’échange</h1>
         <form method="get">
-            <input id="search" name="search" class="book-search" type="search" placeholder="Rechercher un livre" value="<?= htmlspecialchars($search ?? '') ?>">
+            <input id="book-search" name="search" type="search" placeholder="Rechercher un livre" value="<?= htmlspecialchars($search ?? '') ?>">
             <div id="clear-button" class="clear-input-button" aria-label="Effacer" title="Effacer">×
             </div>
         </form>

@@ -5,6 +5,15 @@ class UserController
     public function showRegister(): void
     {
         $view = new View("Inscription");
+        $variables = [
+            'h1' => 'Inscription',
+            'button_text' => "S'inscrire",
+            'button_name' => 'register',
+            'bottom_text' => 'Déjà inscrit ?',
+            'bottom_url' => 'identification',
+            'bottom_link' => 'Connectez-vous',
+        ];
+
         if (isset($_POST['nickname'], $_POST['email'], $_POST['password'])) {
             // vérifier les données
             if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL, FILTER_FLAG_EMAIL_UNICODE)) {
@@ -17,8 +26,8 @@ class UserController
                     header('Location: profil');
                 } catch (Exception $e) {
                     $view->render(
-                        "includes/register",
-                        [
+                        "includes/register-login",
+                        $variables + [
                             'email' => $_POST['email'],
                             'password' => $_POST['password'],
                             'nickname' => $_POST['nickname'],
@@ -29,8 +38,8 @@ class UserController
                 }
             } else {
                 $view->render(
-                    "includes/register",
-                    [
+                    "includes/register-login",
+                    $variables + [
                         'email' => $_POST['email'],
                         'password' => $_POST['password'],
                         'nickname' => $_POST['nickname'],
@@ -40,12 +49,20 @@ class UserController
                 return;
             }
         }
-        $view->render("includes/register");
+        $view->render("includes/register-login", $variables);
     }
 
     public function showLogin(): void
     {
         $view = new View("Identification");
+        $variables = [
+            'h1' => 'Connexion',
+            'button_text' => 'Se connecter',
+            'button_name' => 'login',
+            'bottom_text' => 'Pas de compte ?',
+            'bottom_url' => 'inscription',
+            'bottom_link' => 'Inscrivez-vous',
+        ];
 
         if (isset($_POST['email'], $_POST['password'])) {
             // vérifier les données
@@ -53,8 +70,8 @@ class UserController
             $result = $userManager->login($_POST['email'], $_POST['password']);
             if ($result === false) {
                 $view->render(
-                    "includes/login",
-                    [
+                    "includes/register-login",
+                    $variables + [
                         'email' => $_POST['email'],
                         'password' => $_POST['password'],
                         'error' => "Adresse e-mail ou mot de passe incorrect",
@@ -65,7 +82,7 @@ class UserController
             $_SESSION['user'] = $result;
             header('Location: profil');
         }
-        $view->render("includes/login");
+        $view->render("includes/register-login", $variables);
     }
 
     public function showLogout(): void
@@ -98,7 +115,7 @@ class UserController
 
                     // si le mot de passe fourni est vide, on ne le met pas à jour
                     if ($_POST['password'] !== '') {
-                        $user->setPassword(new HashedPassword($_POST['password']));
+                        $user->setPassword($_POST['password']);
                     }
 
                     $userManager->save($user);

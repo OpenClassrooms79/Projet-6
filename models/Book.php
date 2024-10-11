@@ -79,7 +79,15 @@ class Book extends AbstractEntity
 
     public function getAuthorsText(): string
     {
-        return implode(', ', $this->authors);
+        if (count($this->authors) === 0) {
+            return '---';
+        }
+
+        if (count($this->authors) === 1) {
+            return $this->authors[0];
+        }
+
+        return implode(', ', array_slice($this->authors, 0, count($this->authors) - 1)) . ' et ' . $this->authors[count($this->authors) - 1];
     }
 
     public function addAuthor(Author $author): void

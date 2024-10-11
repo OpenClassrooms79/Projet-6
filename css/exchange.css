@@ -22,24 +22,33 @@
     column-gap: 38px;
 }
 
-.book-search {
+#book-search {
     width: 322px;
     height: 50px;
     background: url("http://oc.local/projet%206/img/icons/search.svg") no-repeat scroll 12px 16px;
-    /*background-size: 16px 16px;*/
     padding-left: 40px;
+    padding-right: 30px;
+    margin-bottom: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: white;
 }
 
 .exchanges FORM {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
 }
 
-#search {
-    margin-bottom: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+#clear-button {
+    position: relative;
+    left: -20px;
+    z-index: 100;
+    cursor: pointer;
+    color: var(--light-text);
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
     background-color: white;
 }

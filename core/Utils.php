@@ -2,6 +2,12 @@
 
 class Utils
 {
+    /**
+     * Renvoie l'intervalle entre $date et la date actuelle, arrondi par défaut à la plus grande unité non nulle
+     *
+     * @param DateTime $date
+     * @return string
+     */
     public static function getDaysSince(DateTime $date): string
     {
         // voir https://www.php.net/manual/fr/class.dateinterval.php
@@ -24,7 +30,7 @@ class Utils
             }
         }
 
-        // valeurs par défaut quand la durée est inférieure à une seconde
+        // valeurs par défaut pour les très rares cas où l'intervalle de temps est strictement inférieur à une seconde
         if (!isset($value)) {
             $index = 's';
         }

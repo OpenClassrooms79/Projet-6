@@ -58,14 +58,16 @@ LEFT JOIN users u ON b.owner_id = u.id';
                 $book = new Book($data);
             }
 
-            $data = [
-                'id' => $record['author_id'],
-                'firstName' => $record['first_name'],
-                'lastName' => $record['last_name'],
-                'nickname' => $record['nickname'],
-            ];
-            $author = new Author($data);
-            $book->addAuthor($author);
+            if ($record['author_id'] !== null) {
+                $data = [
+                    'id' => $record['author_id'],
+                    'firstName' => $record['first_name'],
+                    'lastName' => $record['last_name'],
+                    'nickname' => $record['nickname'],
+                ];
+                $author = new Author($data);
+                $book->addAuthor($author);
+            }
         }
         return $book;
     }

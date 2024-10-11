@@ -7,7 +7,7 @@ class User extends AbstractEntity
     private string $email;
 
     // version cryptéee du mot de passe. Le mot de passe en clair n'est jamais stocké
-    private string $password;
+    private string $hashedPassword;
     private DateTime $registrationDate;
     private ?string $avatar = null;
 
@@ -52,19 +52,36 @@ class User extends AbstractEntity
      *
      * @throws Exception
      */
-    public function setPassword(HashedPassword $hashedPassword): void
+    public function setHashedPassword(string $hashedPassword): void
     {
-        $this->password = $hashedPassword->getHash();
+        $this->hashedPassword = $hashedPassword;
     }
 
     /**
      * Renvoie la valeur cryptée du mot de passe
      */
-    public function getPassword(): string
+    public function getHashedPassword(): string
     {
-        return $this->password;
+        return $this->hashedPassword;
     }
 
+    /**
+     * Initialise le mot de passe crypté à partir du mot de passe en clair
+     * Le mot de passe en clair n'est jamais stocké
+     *
+     * @param string $password
+     * @return void
+     * @throws Exception
+     */
+    public function setPassword(string $password): void
+    {
+        if ($password !== '') {
+            $this->setHashedPassword(Utils::getHashedValue($password));
+        } else {
+            throw new LengthException('Le mot de passe ne peut pas être vide');
+        }
+    }
+    
     public function setRegistrationDate($registrationDate): void
     {
         $this->registrationDate = new DateTime($registrationDate);

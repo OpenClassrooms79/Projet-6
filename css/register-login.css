@@ -1,17 +1,25 @@
-#login {
+#register-login H1 {
+    margin-bottom: 56px;
+}
+
+#register-login {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     background-color: var(--backgroundColor2);
 }
 
-#login .form {
-    padding-top: 210px;
+#register-login .form {
+    padding-top: 130px;
     padding-left: 150px;
     padding-right: 248px;
     width: 50%;
 }
 
-#login .image {
+#register-login .image {
     width: 50%;
+}
+
+#register-login .register-login-link A {
+    color: var(--text);
 }

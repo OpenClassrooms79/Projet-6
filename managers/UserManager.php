@@ -4,11 +4,11 @@ class UserManager extends AbstractEntityManager
 {
     public function addUser(User $user): int
     {
-        $sql = "INSERT INTO users(nickname, email, password, avatar) VALUES (:nickname, :email, :password, :avatar)";
+        $sql = "INSERT INTO users(nickname, email, hashed_password, avatar) VALUES (:nickname, :email, :hashed_password, :avatar)";
         $res = $this->db->query($sql, [
             'nickname' => $user->getNickname(),
             'email' => $user->getEmail(),
-            'password' => $user->getPassword(),
+            'hashed_password' => $user->getHashedPassword(),
             'avatar' => $user->getAvatar(),
         ]);
 
@@ -31,10 +31,10 @@ class UserManager extends AbstractEntityManager
         if ($res->rowCount() === 1) {
             $r = $res->fetch();
             $user = new User($r);
-            if (password_verify($password, $user->getPassword())) {
-                if (password_needs_rehash($user->getPassword(), PASSWORD_DEFAULT)) {
+            if (password_verify($password, $user->getHashedPassword())) {
+                if (password_needs_rehash($user->getHashedPassword(), PASSWORD_DEFAULT)) {
                     // On crée un nouveau hachage afin de mettre à jour l'ancien
-                    $user->setPassword(new HashedPassword($password));
+                    $user->setPassword($password);
                     $this->updatePassword($user);
                 }
                 return $user;
@@ -46,8 +46,11 @@ class UserManager extends AbstractEntityManager
 
     public function updatePassword(User $user): void
     {
-        $sql = "UPDATE users SET password = :password WHERE id = :id";
-        $this->db->query($sql, [$user->getPassword(), $user->getId()]);
+        $sql = "UPDATE users SET hashed_password = :hashed_password WHERE id = :id";
+        $this->db->query($sql, [
+            'hashed_password' => $user->getHashedPassword(),
+            'id' => $user->getId(),
+        ]);
     }
 
     public function getById(int $id): User|false
@@ -88,12 +91,12 @@ class UserManager extends AbstractEntityManager
      */
     public function save(User $user): bool
     {
-        $sql = 'UPDATE users SET nickname = :nickname, email = :email, password = :password WHERE id = :id';
+        $sql = 'UPDATE users SET nickname = :nickname, email = :email, hashed_password = :hashed_password WHERE id = :id';
         $res = $this->db->query($sql, [
             'id' => $user->getId(),
             'nickname' => $user->getNickname(),
             'email' => $user->getEmail(),
-            'password' => $user->getPassword(),
+            'hashed_password' => $user->getHashedPassword(),
         ]);
         if (is_int($res)) {
             if ($res === ER_DUP_ENTRY) {

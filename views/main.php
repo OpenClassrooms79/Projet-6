@@ -25,8 +25,15 @@
         <div class="right">
             <?php
             if (isset($_SESSION['user'])) { ?>
-                <a href="messagerie"><img class="icon" src="<?= ICONS_PATH ?>message.svg" alt="Messages"> Messagerie <span class="number">1</span></a>
-                <a href="profil"><img class="icon" src="<?= ICONS_PATH ?>account.svg" alt="Compte">Mon compte</a>
+                <a class="menu-icon" href="messagerie">
+                    <img class="icon" src="<?= ICONS_PATH ?>message.svg" alt="Messages">
+                    <div>Messagerie</div>
+                    <div class="number">1</div>
+                </a>
+                <a class="menu-icon" href="profil">
+                    <img class="icon" src="<?= ICONS_PATH ?>account.svg" alt="Compte">
+                    <div>Mon compte</div>
+                </a>
                 <a href="deconnexion">Déconnexion</a>
                 <?php
             } else { ?>
