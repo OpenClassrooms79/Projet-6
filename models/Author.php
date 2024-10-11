@@ -5,7 +5,7 @@ class Author extends AbstractEntity
     protected int $id;
     private string $firstName;
     private string $lastName;
-    private ?string $nickname;
+    private string $nickname;
 
     public function setFirstName(string $firstName): void
     {
@@ -29,7 +29,7 @@ class Author extends AbstractEntity
 
     public function setNickname(?string $nickname): void
     {
-        $this->nickname = $nickname;
+        $this->nickname = $nickname ?? '';
     }
 
     public function getNickname(): string
