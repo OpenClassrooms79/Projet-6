@@ -37,39 +37,7 @@ LEFT JOIN authors a ON ba.author_id = a.id
 LEFT JOIN users u ON b.owner_id = u.id';
         $result = $this->db->query($sql, ['id' => $id]);
 
-        $book = null;
-
-        while ($record = $result->fetch()) {
-            if (!isset($book)) {
-                $data = [
-                    'id' => $record['id'],
-                    'title' => $record['title'],
-                    'image' => $record['image'],
-                    'description' => $record['description'],
-                    'exchangeable' => $record['exchangeable'],
-                    'owner' => new User(
-                        [
-                            'id' => $record['owner_id'],
-                            'nickname' => $record['owner_nickname'],
-                            'avatar' => $record['avatar'],
-                        ],
-                    ),
-                ];
-                $book = new Book($data);
-            }
-
-            if ($record['author_id'] !== null) {
-                $data = [
-                    'id' => $record['author_id'],
-                    'firstName' => $record['first_name'],
-                    'lastName' => $record['last_name'],
-                    'nickname' => $record['nickname'],
-                ];
-                $author = new Author($data);
-                $book->addAuthor($author);
-            }
-        }
-        return $book;
+        return $this->getBooks($result)[$id];
     }
 
     public function getAllBooks(): array
@@ -141,20 +109,23 @@ LEFT JOIN users u ON b.owner_id = u.id',
                         [
                             'id' => $record['owner_id'],
                             'nickname' => $record['owner_nickname'],
+                            'avatar' => $record['avatar'] ?? null,
                         ],
                     ),
                 ];
                 $books[$record['id']] = new Book($data);
             }
 
-            $data = [
-                'id' => $record['author_id'],
-                'firstName' => $record['first_name'],
-                'lastName' => $record['last_name'],
-                'nickname' => $record['nickname'],
-            ];
-            $author = new Author($data);
-            $books[$record['id']]->addAuthor($author);
+            if ($record['author_id'] !== null) {
+                $data = [
+                    'id' => $record['author_id'],
+                    'firstName' => $record['first_name'],
+                    'lastName' => $record['last_name'],
+                    'nickname' => $record['nickname'],
+                ];
+                $author = new Author($data);
+                $books[$record['id']]->addAuthor($author);
+            }
         }
         return $books;
     }
