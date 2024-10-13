@@ -8,13 +8,13 @@
         }
         if ($button_name === 'register') {
             ?>
-            <label for="nickname">Pseudo</label> <input type="text" id="nickname" name="nickname" required value="<?= htmlspecialchars($nickname ?? '') ?>">
+            <label for="nickname">Pseudo</label> <input type="text" id="nickname" name="nickname" required value="<?= htmlspecialchars($nickname ?? '') ?>" class="public">
             <?php
         }
         ?>
 
-        <label for="email">Adresse e-mail</label> <input type="email" id="email" name="email" required value="<?= htmlspecialchars($email ?? '') ?>">
-        <label for="password">Mot de passe</label> <input type="password" id="password" name="password" required value="<?= htmlspecialchars($password ?? '') ?>">
+        <label for="email">Adresse e-mail</label> <input type="email" id="email" name="email" required value="<?= htmlspecialchars($email ?? '') ?>" class="public">
+        <label for="password">Mot de passe</label> <input type="password" id="password" name="password" required value="<?= htmlspecialchars($password ?? '') ?>" class="public">
 
         <input type="submit" class="button fullwidth text-center" value="<?= $button_text ?>" name="<?= $button_name ?>">
 

@@ -13,7 +13,8 @@
     --green: #00AC66;
     --text: #292929;
     --light-text: #A6A6A6;
-    --form-field-color: #EDF2F6;
+    --public-form-field-color: white;
+    --member-form-field-color: #EDF2F6;
 }
 
 BODY {
@@ -298,8 +299,15 @@ INPUT, SELECT, TEXTAREA {
 }
 
 INPUT[type=email], INPUT[type=password], INPUT[type=text] {
-    background-color: var(--form-field-color);
     padding-left: 14px;
+}
+
+INPUT.public {
+    background-color: var(--public-form-field-color);
+}
+
+INPUT.member {
+    background-color: var(--member-form-field-color);
 }
 
 INPUT::placeholder {
@@ -325,12 +333,15 @@ INPUT[type=submit] {
 SELECT {
     height: 50px;
     width: 100%;
-    background-color: var(--form-field-color);
     font-family: Inter, sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
     padding-left: 14px;
+}
+
+SELECT.member {
+    background-color: var(--member-form-field-color);
 }
 
 FORM {

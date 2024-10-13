@@ -17,9 +17,9 @@
                 <p class="error">Erreur : <?= $error ?></p><br>
                 <?php
             } ?>
-            <label for="email">Adresse e-mail</label> <input type="email" id="email" name="email" required value="<?= htmlspecialchars($user->getEmail()) ?>">
-            <label for="password">Mot de passe</label> <input type="password" id="password" name="password">
-            <label for="nickname">Pseudo</label> <input type="text" id="nickname" name="nickname" required value="<?= htmlspecialchars($user->getNickname()) ?>">
+            <label for="email">Adresse e-mail</label> <input type="email" id="email" name="email" required value="<?= htmlspecialchars($user->getEmail()) ?>" class="member">
+            <label for="password">Mot de passe</label> <input type="password" id="password" name="password" class="member">
+            <label for="nickname">Pseudo</label> <input type="text" id="nickname" name="nickname" required value="<?= htmlspecialchars($user->getNickname()) ?>" class="member">
 
             <input type="submit" class="button inverse text-center" value="Enregistrer" name="update">
         </form>

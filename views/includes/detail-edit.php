@@ -7,13 +7,13 @@
         </div>
         <form class="form" method="post">
             <label for="title">Titre</label>
-            <input id="title" name="title" type="text" value="<?= htmlspecialchars($book->getTitle()) ?>" required>
+            <input id="title" name="title" type="text" value="<?= htmlspecialchars($book->getTitle()) ?>" required class="member">
             <label for="authors">Auteur(s)</label>
-            <input id="authors" name="authors" type="text" value="<?= htmlspecialchars($book->getAuthorsText()) ?>" required>
+            <input id="authors" name="authors" type="text" value="<?= htmlspecialchars($book->getAuthorsText()) ?>" required class="member">
             <label for="description">Commentaire</label>
-            <input id="description" name="description" type="text" value="<?= htmlspecialchars($book->getDescription()) ?>" required>
+            <input id="description" name="description" type="text" value="<?= htmlspecialchars($book->getDescription()) ?>" required class="member">
             <label for="availability">Disponibilité</label>
-            <select id="availability" name="availability">
+            <select id="availability" name="availability" class="member">
                 <option value="0">indisponible</option>
                 <option value="1">disponible</option>
             </select>
