@@ -52,6 +52,14 @@ class UserController
         $view->render("includes/register-login", $variables);
     }
 
+    private function redirectIfNotConnected(): void
+    {
+        if (!isset($_SESSION['user'])) {
+            header('Location: ./identification');
+            exit;
+        }
+    }
+
     public function showLogin(): void
     {
         $view = new View("Identification");
@@ -106,6 +114,7 @@ class UserController
                 ],
             );
         } else {
+            $this->redirectIfNotConnected();
             $error = '';
             $user = $userManager->getById($_SESSION['user']->getId());
             if (isset($_POST['update'])) {
