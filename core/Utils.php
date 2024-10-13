@@ -41,4 +41,12 @@ class Utils
     {
         return password_hash($value, PASSWORD_DEFAULT);
     }
+
+    public static function redirectIfNotConnected(): void
+    {
+        if (!isset($_SESSION['user'])) {
+            header('Location: ./identification');
+            exit;
+        }
+    }
 }

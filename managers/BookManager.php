@@ -129,4 +129,34 @@ LEFT JOIN users u ON b.owner_id = u.id',
         }
         return $books;
     }
+
+    /**
+     * @throws Exception
+     */
+    public function save(Book $book): bool
+    {
+        $sql = 'UPDATE books SET title = :title, description = :description, exchangeable = :exchangeable WHERE id = :id';
+        $res = $this->db->query($sql, [
+            'id' => $book->getId(),
+            'title' => $book->getTitle(),
+            'description' => $book->getDescription(),
+            'exchangeable' => $book->isExchangeable(),
+        ]);
+        if (is_int($res)) {
+            throw new Exception('Impossible de mettre à jour les données', $res);
+        }
+
+        // mise à jour des auteurs du livre
+        $sql = 'DELETE FROM books_authors WHERE book_id = :id';
+        $this->db->query($sql, ['id' => $book->getId()]);
+        foreach ($book->getAuthors() as $author) {
+            $sql = 'INSERT IGNORE INTO books_authors (book_id, author_id) VALUES (:book_id, :author_id)';
+            $this->db->query($sql, [
+                'book_id' => $book->getId(),
+                'author_id' => $author->getId(),
+            ]);
+        }
+
+        return true;
+    }
 }

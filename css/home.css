@@ -51,10 +51,6 @@ SECTION#home > DIV:first-child > DIV {
     margin-bottom: 80px;
 }
 
-#last-books INPUT {
-    margin-top: 48px;
-}
-
 .lastbooks {
     display: flex;
     flex-direction: row;

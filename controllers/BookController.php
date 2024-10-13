@@ -29,14 +29,35 @@ class BookController
 
     public function showEditBook(int $bookId): void
     {
-        $userManager = new BookManager();
-        $book = $userManager->getBookById($bookId);
+        Utils::redirectIfNotConnected();
 
-        $view = new View("");
+        $authorManager = new AuthorManager();
+        $bookManager = new BookManager();
+        $book = $bookManager->getBookById($bookId);
+
+        if (isset($_POST['update-book'])) {
+            try {
+                $authors = $authorManager->getAuthorsFromText($_POST['authors']);
+                $book->setAuthors([]);
+                foreach ($authors as $author) {
+                    $author = $authorManager->insertAuthor($author);
+                    $book->addAuthor($author);
+                }
+                $book->setTitle($_POST['title']);
+                $book->setDescription($_POST['description']);
+                $book->setExchangeable($_POST['availability']);
+                $bookManager->save($book);
+            } catch (Exception $e) {
+                $error = $e->getMessage();
+            }
+        }
+
+        $view = new View("Modification d'un livre : " . $book->getTitle());
         $view->render(
             "includes/detail-edit",
             [
                 'book' => $book,
+                'authors' => $authorManager->getTextFromAuthors($book->getAuthors()),
             ],
         );
     }

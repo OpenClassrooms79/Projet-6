@@ -9,15 +9,15 @@
             <label for="title">Titre</label>
             <input id="title" name="title" type="text" value="<?= htmlspecialchars($book->getTitle()) ?>" required class="member">
             <label for="authors">Auteur(s)</label>
-            <input id="authors" name="authors" type="text" value="<?= htmlspecialchars($book->getAuthorsText()) ?>" required class="member">
+            <input id="authors" name="authors" type="text" value="<?= htmlspecialchars($authors) ?>" required class="member" placeholder="Prénom1, Nom1, Pseudo1 ; Prénom2, Nom2, Pseudo2…">
             <label for="description">Commentaire</label>
-            <input id="description" name="description" type="text" value="<?= htmlspecialchars($book->getDescription()) ?>" required class="member">
+            <textarea id="description" name="description" type="text" required class="member"><?= htmlspecialchars($book->getDescription()) ?></textarea>
             <label for="availability">Disponibilité</label>
             <select id="availability" name="availability" class="member">
-                <option value="0">indisponible</option>
-                <option value="1">disponible</option>
+                <option value="0" <?= $book->isExchangeable() ? '' : ' selected' ?>>indisponible</option>
+                <option value="1" <?= $book->isExchangeable() ? ' selected' : '' ?>>disponible</option>
             </select>
-            <input type="submit" class="button text-center" value="Valider">
+            <input type="submit" class="button text-center" value="Valider" name="update-book">
         </form>
     </section>
 </main>

@@ -23,3 +23,21 @@ INPUT[type="submit"] {
     width: 322px;
     margin-top: 44px;
 }
+
+#detail-edit .image {
+    display: flex;
+    width: 50%;
+    height: 50%;
+    flex-flow: column;
+}
+
+#detail-edit FORM {
+    display: flex;
+    width: 50%;
+    flex-flow: column;
+}
+
+#detail-edit TEXTAREA {
+    height: 435px;
+    padding: 16px 12px 34px 14px;
+}

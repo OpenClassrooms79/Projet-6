@@ -306,7 +306,7 @@ INPUT.public {
     background-color: var(--public-form-field-color);
 }
 
-INPUT.member {
+INPUT.member, TEXTAREA.member {
     background-color: var(--member-form-field-color);
 }
 
@@ -346,4 +346,11 @@ SELECT.member {
 
 FORM {
     /*width: 100%;*/
+}
+
+TEXTAREA {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
 }
