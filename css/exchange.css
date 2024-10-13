@@ -42,13 +42,17 @@
 }
 
 #clear-button {
-    position: relative;
-    left: -20px;
-    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 100%;
     cursor: pointer;
     color: var(--light-text);
     font-family: Inter, sans-serif;
     font-weight: 400;
     font-size: 14px;
     background-color: white;
+    border: 1px solid #F0F0F0;
+    border-radius: 0 6px 6px 0;
 }
