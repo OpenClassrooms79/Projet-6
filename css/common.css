@@ -354,3 +354,7 @@ TEXTAREA {
     font-size: 14px;
     line-height: 17px;
 }
+
+INPUT[type="file"] {
+    display: none;
+}

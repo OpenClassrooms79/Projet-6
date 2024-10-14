@@ -27,6 +27,7 @@ class BookController
         $view->render("includes/detail", ['book' => $book]);
     }
 
+    // TODO empêcher de modifier un livre qui n'appartient pas à l'utilisateur courant
     public function showEditBook(int $bookId): void
     {
         Utils::redirectIfNotConnected();
@@ -35,7 +36,15 @@ class BookController
         $bookManager = new BookManager();
         $book = $bookManager->getBookById($bookId);
 
+        // TODO supprimer le fichier de l'ancienne image
         if (isset($_POST['update-book'])) {
+            if (isset($_FILES['cover']) && $_FILES['cover']['error'] === UPLOAD_ERR_OK && is_uploaded_file($_FILES['cover']['tmp_name'])) {
+                $name = basename($_FILES['cover']['name']);
+                if (move_uploaded_file($_FILES['cover']['tmp_name'], BOOKS_PATH . $name)) {
+                    $book->setImage($name);
+                }
+            }
+
             try {
                 $authors = $authorManager->getAuthorsFromText($_POST['authors']);
                 $book->setAuthors([]);

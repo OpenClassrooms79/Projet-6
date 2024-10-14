@@ -31,7 +31,11 @@ INPUT[type="submit"] {
     flex-flow: column;
 }
 
-#detail-edit FORM {
+#detail-edit IMG {
+    margin-bottom: 23px;
+}
+
+#detail-edit SECTION {
     display: flex;
     width: 50%;
     flex-flow: column;
@@ -40,4 +44,15 @@ INPUT[type="submit"] {
 #detail-edit TEXTAREA {
     height: 435px;
     padding: 16px 12px 34px 14px;
+}
+
+#cover-label {
+    text-decoration: underline;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: var(--text);
+    text-align: right;
+    cursor: pointer;
 }

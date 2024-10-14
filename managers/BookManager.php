@@ -135,12 +135,13 @@ LEFT JOIN users u ON b.owner_id = u.id',
      */
     public function save(Book $book): bool
     {
-        $sql = 'UPDATE books SET title = :title, description = :description, exchangeable = :exchangeable WHERE id = :id';
+        $sql = 'UPDATE books SET title = :title, description = :description, exchangeable = :exchangeable, image = :image WHERE id = :id';
         $res = $this->db->query($sql, [
             'id' => $book->getId(),
             'title' => $book->getTitle(),
             'description' => $book->getDescription(),
             'exchangeable' => $book->isExchangeable(),
+            'image' => $book->getImage(),
         ]);
         if (is_int($res)) {
             throw new Exception('Impossible de mettre à jour les données', $res);
