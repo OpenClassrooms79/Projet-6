@@ -24,7 +24,7 @@
             foreach ($books as $book) {
                 ?>
                 <tr>
-                    <td><img src="<?= BOOKS_PATH . htmlspecialchars($book->getImage()) ?>" alt="Couverture du livre"></td>
+                    <td><img src="<?= htmlspecialchars($book->getImagePath()) ?>" alt="Couverture du livre"></td>
                     <td><?= htmlspecialchars($book->getTitle()) ?></td>
                     <td><?= htmlspecialchars($book->getAuthorsText()) ?></td>
                     <td><?= htmlspecialchars(mb_substr($book->getDescription(), 0, 87)) ?>...</td>

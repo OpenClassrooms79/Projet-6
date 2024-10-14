@@ -91,6 +91,7 @@ class UserController
         Utils::redirectIfNotConnected();
     }
 
+    // TODO programmer la mise à jour de l'avatar de l'utilisateur
     public function showAccount(): void
     {
         $userManager = new UserManager();

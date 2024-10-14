@@ -4,7 +4,6 @@ class Book extends AbstractEntity
 {
     protected int $id;
     private string $title;
-    private string $image;
     private string $description;
     private bool $exchangeable;
     private array $authors;
@@ -27,14 +26,9 @@ class Book extends AbstractEntity
         return $this->title;
     }
 
-    public function setImage(string $image): void
+    public function getImagePath(): string
     {
-        $this->image = $image;
-    }
-
-    public function getImage(): string
-    {
-        return $this->image;
+        return BOOKS_PATH . $this->id;
     }
 
     public function setDescription(string $description): void

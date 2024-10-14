@@ -5,7 +5,7 @@
         <section id="detail-edit">
             <div class="image">
                 <label for="cover">Photo</label>
-                <img src="<?= BOOKS_PATH . $book->getImage() ?>" title="<?= htmlspecialchars($book->getTitle()) ?>" alt="<?= htmlspecialchars($book->getTitle()) ?>" id="cover-image">
+                <img src="<?= htmlspecialchars($book->getImagePath()) ?>" title="<?= htmlspecialchars($book->getTitle()) ?>" alt="<?= htmlspecialchars($book->getTitle()) ?>" id="cover-image">
                 <label id="cover-label" for="cover">Modifier la photo</label>
                 <input type="hidden" name="MAX_FILE_SIZE" value="3145728">
                 <input type="file" name="cover" id="cover" accept="image/*">
