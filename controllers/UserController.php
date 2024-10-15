@@ -91,7 +91,6 @@ class UserController
         Utils::redirectIfNotConnected();
     }
 
-    // TODO programmer la mise à jour de l'avatar de l'utilisateur
     public function showAccount(): void
     {
         $userManager = new UserManager();
@@ -113,6 +112,12 @@ class UserController
             $error = '';
             $user = $userManager->getById($_SESSION['user']->getId());
             if (isset($_POST['update'])) {
+                if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK && is_uploaded_file($_FILES['avatar']['tmp_name'])) {
+                    if (!move_uploaded_file($_FILES['avatar']['tmp_name'], $user->getCustomAvatarPath())) {
+                        // TODO gérer erreur
+                    }
+                }
+
                 try {
                     $user->setEmail($_POST['email']);
                     $user->setNickname($_POST['nickname']);
@@ -144,14 +149,19 @@ class UserController
     public function showMessenger(): void
     {
         Utils::redirectIfNotConnected();
+
         $userManager = new UserManager();
+        $messageManager = new MessageManager();
+
         $user = $userManager->getById($_SESSION['user']->getId());
+        $messageSenders = $messageManager->getMessageSenders($user->getId());
 
         $view = new View("Messagerie");
         $view->render(
             "includes/messenger",
             [
                 'user' => $user,
+                'messageSenders' => $messageSenders,
             ],
         );
     }

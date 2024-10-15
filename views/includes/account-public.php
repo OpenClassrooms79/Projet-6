@@ -1,9 +1,11 @@
 <section id="account-public">
     <section id="profile-public">
-        <img class="avatar-large" alt="<?= htmlspecialchars($user->getNickname()) ?>" src="<?= htmlspecialchars($user->getAvatar()) ?>">
+        <img class="avatar-large" alt="<?= htmlspecialchars($user->getNickname()) ?>" src="<?= htmlspecialchars($user->getAvatarPath()) ?>">
         <hr>
         <div class="nickname-big"><?= htmlspecialchars($user->getNickname()) ?></div>
-        <div class="member-since">Membre depuis <?= Utils::getDaysSince($user->getRegistrationDate()) ?></div>
+        <div class="member-since">Membre depuis
+            <time datetime="<?= Utils::getISO8601Format($user->getRegistrationDate()) ?>" title="<?= Utils::getDaysSince($user->getRegistrationDate()) ?>"><?= Utils::getDaysSince($user->getRegistrationDate(), true) ?></time>
+        </div>
         <div class="biblio">Bibliothèque</div>
         <div class="nb-books"><img src="<?= ICONS_PATH ?>biblio.svg" alt=""> <?= count($books) ?> livre(s)</div>
 

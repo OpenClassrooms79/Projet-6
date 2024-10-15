@@ -81,7 +81,7 @@ class User extends AbstractEntity
         }
     }
 
-    public function setRegistrationDate($registrationDate): void
+    public function setRegistrationDate(string $registrationDate): void
     {
         $this->registrationDate = new DateTime($registrationDate);
     }
@@ -91,11 +91,21 @@ class User extends AbstractEntity
         return $this->registrationDate;
     }
 
-    public function getAvatar(): string
+    public function getAvatarPath(): string
     {
-        if (file_exists(AVATARS_PATH . $this->id)) {
-            return AVATARS_PATH . $this->id;
+        if (file_exists($this->getCustomAvatarPath())) {
+            return $this->getCustomAvatarPath();
         }
+        return $this->getDefaultAvatarPath();
+    }
+
+    public function getDefaultAvatarPath(): string
+    {
         return AVATARS_PATH . DEFAULT_AVATAR;
+    }
+
+    public function getCustomAvatarPath(): string
+    {
+        return AVATARS_PATH . $this->id;
     }
 }

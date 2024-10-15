@@ -13,7 +13,7 @@
 
         <div class="owner-badge">
             <a href="profil?id=<?= $book->getOwner()->getId() ?>">
-                <img src="<?= AVATARS_PATH . $book->getOwner()->getAvatar() ?>">
+                <img src="<?= $book->getOwner()->getAvatarPath() ?>">
                 <?= htmlspecialchars($book->getOwner()->getNickname()) ?>
             </a>
         </div>

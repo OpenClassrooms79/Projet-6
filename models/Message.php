@@ -39,9 +39,9 @@ class Message extends AbstractEntity
         return $this->content;
     }
 
-    public function setCreated(DateTime $created): void
+    public function setCreated(string $created): void
     {
-        $this->created = $created;
+        $this->created = new DateTime($created);
     }
 
     public function getCreated(): DateTime

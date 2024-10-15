@@ -4,6 +4,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="css/style.css" rel="stylesheet">
+    <script src="scripts/scripts.js"></script>
     <title><?= htmlspecialchars($title) ?></title>
 </head>
 <body>
@@ -28,7 +29,7 @@
                 <a class="menu-icon" href="messagerie">
                     <img class="icon" src="<?= ICONS_PATH ?>message.svg" alt="Messages">
                     <div>Messagerie</div>
-                    <div class="number">1</div>
+                    <div class="number"><?= $unreadCount ?></div>
                 </a>
                 <a class="menu-icon" href="profil">
                     <img class="icon" src="<?= ICONS_PATH ?>account.svg" alt="Compte">

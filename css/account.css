@@ -49,6 +49,8 @@
     font-size: 14px;
     line-height: 17px;
     color: var(--light-text);
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 #profile-display HR {
@@ -88,4 +90,27 @@
     align-content: center;
     border-radius: 19px;
     margin: auto;
+}
+
+.action-links {
+    display: flex;
+    flex-direction: row;
+    gap: 28px;
+    margin-right: 80px;
+}
+
+.edit-link {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: var(--text);
+}
+
+.delete-link {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #CB2D2D;
 }

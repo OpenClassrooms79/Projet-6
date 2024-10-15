@@ -3,11 +3,15 @@
     <section id="profile">
         <form method="post" enctype="multipart/form-data">
             <div id="profile-display">
-                <img class="avatar-large" alt="<?= htmlspecialchars($user->getNickname()) ?>" src="<?= htmlspecialchars($user->getAvatar()) ?>">
-                <div><a class="modify" href="">modifier</a></div>
+                <img class="avatar-large" alt="<?= htmlspecialchars($user->getNickname()) ?>" src="<?= htmlspecialchars($user->getAvatarPath()) . '?' . time() ?>" id="avatar-image">
+                <label class="modify" id="avatar-label" for="avatar">modifier</label>
+                <input type="hidden" name="MAX_FILE_SIZE" value="3145728">
+                <input type="file" name="avatar" id="avatar" accept="image/*">
                 <hr>
                 <div class="nickname-big"><?= htmlspecialchars($user->getNickname()) ?></div>
-                <div class="member-since">Membre depuis <?= Utils::getDaysSince($user->getRegistrationDate()) ?></div>
+                <div class="member-since">Membre depuis
+                    <time datetime="<?= Utils::getISO8601Format($user->getRegistrationDate()) ?>" title="<?= Utils::getDaysSince($user->getRegistrationDate()) ?>"><?= Utils::getDaysSince($user->getRegistrationDate(), true) ?></time>
+                </div>
                 <div class="biblio">Bibliothèque</div>
                 <div class="nb-books"><img src="<?= ICONS_PATH ?>biblio.svg" alt=""> <?= count($books) ?> livre(s)</div>
             </div>
@@ -48,7 +52,12 @@
                     <td class="cell-center"><?= htmlspecialchars($book->getAuthorsText()) ?></td>
                     <td><?= htmlspecialchars($book->getDescription()) ?></td>
                     <td><?= Components::badge($book->isExchangeable()) ?></td>
-                    <td><a href="">Éditer</a> <a href="">Supprimer</a></td>
+                    <td>
+                        <div class="action-links">
+                            <a class="edit-link" href="">Éditer</a>
+                            <a class="delete-link" href="">Supprimer</a>
+                        </div>
+                    </td>
                 </tr>
                 <?php
             }
@@ -57,3 +66,7 @@
         </table>
     </section>
 </section>
+
+<script>
+    manageImage('avatar', 'avatar-image');
+</script>
