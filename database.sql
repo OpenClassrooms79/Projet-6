@@ -5,23 +5,23 @@ CREATE TABLE `authors` (
   `nickname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `authors_unique` (`first_name`,`last_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `authors` VALUES (1,'Pierre','Boulle',NULL);
+INSERT INTO `authors` VALUES (1,'Pierre','Boulle','');
 INSERT INTO `authors` VALUES (2,'Luiz Eduardo','de Oliveira','Leo');
-INSERT INTO `authors` VALUES (3,'Isaac','Asimov',NULL);
-INSERT INTO `authors` VALUES (4,'Robert','Silverberg',NULL);
-INSERT INTO `authors` VALUES (5,'Jean','Van Hamme',NULL);
-INSERT INTO `authors` VALUES (6,'René','Sterne',NULL);
-INSERT INTO `authors` VALUES (7,'Chantal','de Spiegeleer',NULL);
-INSERT INTO `authors` VALUES (8,'Antoine','Aubin',NULL);
-INSERT INTO `authors` VALUES (9,'Étienne','Schréder',NULL);
-INSERT INTO `authors` VALUES (10,'Yves','Sente',NULL);
-INSERT INTO `authors` VALUES (11,'André','Juillard',NULL);
+INSERT INTO `authors` VALUES (3,'Isaac','Asimov','');
+INSERT INTO `authors` VALUES (4,'Robert','Silverberg','');
+INSERT INTO `authors` VALUES (5,'Jean','Van Hamme','');
+INSERT INTO `authors` VALUES (6,'René','Sterne','');
+INSERT INTO `authors` VALUES (7,'Chantal','de Spiegeleer','');
+INSERT INTO `authors` VALUES (8,'Antoine','Aubin','');
+INSERT INTO `authors` VALUES (9,'Étienne','Schréder','');
+INSERT INTO `authors` VALUES (10,'Yves','Sente','');
+INSERT INTO `authors` VALUES (11,'André','Juillard','');
 INSERT INTO `authors` VALUES (12,'André','Franquin','Franquin');
-INSERT INTO `authors` VALUES (13,'Philippe',' Francq',NULL);
-INSERT INTO `authors` VALUES (14,'Éric','Giacometti',NULL);
-INSERT INTO `authors` VALUES (15,'Bertrand','Denoulet',NULL);
+INSERT INTO `authors` VALUES (13,'Philippe',' Francq','');
+INSERT INTO `authors` VALUES (14,'Éric','Giacometti','');
+INSERT INTO `authors` VALUES (15,'Bertrand','Denoulet','');
 
 
 CREATE TABLE `books` (
@@ -85,18 +85,25 @@ INSERT INTO `books_authors` VALUES (14,15);
 
 
 CREATE TABLE `messages` (
-  `id` int unsigned NOT NULL,
-  `from_id` int unsigned DEFAULT NULL,
-  `to_id` int unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `from_id` int unsigned NOT NULL,
+  `to_id` int unsigned NOT NULL,
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
   `created` datetime DEFAULT CURRENT_TIMESTAMP,
-  `is_read` tinyint(1) DEFAULT '0',
+  `is_read` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `messages_users_FK` (`from_id`),
   KEY `messages_users_FK_1` (`to_id`),
   CONSTRAINT `messages_users_FK` FOREIGN KEY (`from_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `messages_users_FK_1` FOREIGN KEY (`to_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `messages` VALUES (1,5,3,'test de message de Jeanne pour Jocelyn','2024-10-15 22:25:20',0);
+INSERT INTO `messages` VALUES (2,4,3,'test','2024-10-15 22:30:19',0);
+INSERT INTO `messages` VALUES (3,27,3,'test','2024-10-15 22:30:19',0);
+INSERT INTO `messages` VALUES (4,39,5,'test','2024-10-15 22:30:19',0);
+INSERT INTO `messages` VALUES (5,71,3,'Lorem ipsum dolor sit amet, consectetur .adipiscing elit, sed do eiusmod tempor','2024-10-15 22:30:19',0);
+INSERT INTO `messages` VALUES (6,71,3,'test message 2','2024-10-15 22:37:11',0);
 
 
 CREATE TABLE `users` (
@@ -105,15 +112,14 @@ CREATE TABLE `users` (
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
   `hashed_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL DEFAULT '',
   `registration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `avatar` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_unique` (`email`),
   UNIQUE KEY `users_unique_1` (`nickname`)
 ) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `users` VALUES (3,'Jocelyn','jocelyn.flament@gmail.com','$2y$10$F1ZwD57VeutAp9kVlpg8nevu5uMKK2egqKq3QOZvx3vMlD8hKVEzK','2022-04-02 15:00:56','2925559.png');
-INSERT INTO `users` VALUES (4,'John','john@somewhere.fr','$2y$10$BxUvygmqRpdVrAFsyaS0Reb3jf9FkXNgo9p8K8IYpoOtmXjkHCZFy','2024-09-25 20:25:56','');
-INSERT INTO `users` VALUES (5,'Jeanne','jeanne@nowhere.fr','$2y$10$Zae4RkaKbKph5ZaFCrEmQOJXr/GvuzBoBIvecArNLsiY8jlSl7.wK','2024-08-23 15:00:56','');
-INSERT INTO `users` VALUES (27,'Jim','jim@everywhere.ca','$2y$10$mwz/dLIj6VNXPjlnFyXsGu2bqI0Rw154MI9DpmaE6tQ8SbmWn0C6C','2024-10-03 15:00:56','');
-INSERT INTO `users` VALUES (39,'Pierre','test@test.fr','$2y$10$gdG9Rh81VexJbOsqyceE.eJYVlm9aWYnziCicmxVj163v9GNxUhSG','2024-09-23 16:33:42','');
-INSERT INTO `users` VALUES (71,'azerty','azerty@gmail.com','$2y$10$JfJ789OLA.teFy7XuY.M3OdJyHP.0eEjPpe25zIlPnfzD/B8dZFQG','2024-10-02 19:00:27','');
+INSERT INTO `users` VALUES (3,'Jocelyn','jocelyn.flament@gmail.com','$2y$10$F1ZwD57VeutAp9kVlpg8nevu5uMKK2egqKq3QOZvx3vMlD8hKVEzK','2022-04-02 15:00:56');
+INSERT INTO `users` VALUES (4,'John','john@somewhere.fr','$2y$10$BxUvygmqRpdVrAFsyaS0Reb3jf9FkXNgo9p8K8IYpoOtmXjkHCZFy','2024-09-25 20:25:56');
+INSERT INTO `users` VALUES (5,'Jeanne','jeanne@nowhere.fr','$2y$10$Zae4RkaKbKph5ZaFCrEmQOJXr/GvuzBoBIvecArNLsiY8jlSl7.wK','2024-08-23 15:00:56');
+INSERT INTO `users` VALUES (27,'Jim','jim@everywhere.ca','$2y$10$mwz/dLIj6VNXPjlnFyXsGu2bqI0Rw154MI9DpmaE6tQ8SbmWn0C6C','2024-10-03 15:00:56');
+INSERT INTO `users` VALUES (39,'Charline','test@test.fr','$2y$10$gdG9Rh81VexJbOsqyceE.eJYVlm9aWYnziCicmxVj163v9GNxUhSG','2024-09-23 16:33:42');
+INSERT INTO `users` VALUES (71,'Mélanie','azerty@gmail.com','$2y$10$JfJ789OLA.teFy7XuY.M3OdJyHP.0eEjPpe25zIlPnfzD/B8dZFQG','2024-10-02 19:00:27');
