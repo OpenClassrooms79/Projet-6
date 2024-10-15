@@ -95,6 +95,7 @@ class UserController
     public function showAccount(): void
     {
         $userManager = new UserManager();
+        $bookManager = new BookManager();
 
         if (isset($_GET['id'])) {
             $user = $userManager->getById($_GET['id']);
@@ -103,7 +104,7 @@ class UserController
                 "includes/account-public",
                 [
                     'user' => $user,
-                    'books' => $userManager->getBooks($user->getId()),
+                    'books' => $bookManager->getBooksByUser($user->getId()),
                 ],
             );
         } else {
@@ -133,7 +134,7 @@ class UserController
                 "includes/account",
                 [
                     'user' => $user,
-                    'books' => $userManager->getBooks($user->getId()),
+                    'books' => $bookManager->getBooksByUser($user->getId()),
                     'error' => $error,
                 ],
             );

@@ -17,6 +17,8 @@
     --member-form-field-color: #EDF2F6;
     --header-height: 80px;
     --footer-height: 61px;
+    --available-color: #6DC5A1;
+    --unavailable-color: #C56D6D;
 }
 
 BODY {
@@ -182,6 +184,7 @@ FOOTER IMG {
     color: white;
     display: block;
     width: fit-content;
+    text-decoration: none;
 }
 
 .inverse {
@@ -193,6 +196,10 @@ FOOTER IMG {
 .center {
     margin-left: auto;
     margin-right: auto;
+}
+
+.cell-center {
+    text-align: center;
 }
 
 .fullwidth {
@@ -359,4 +366,10 @@ TEXTAREA {
 
 INPUT[type="file"] {
     display: none;
+}
+
+.avatar-large {
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
 }

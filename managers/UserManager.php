@@ -4,7 +4,7 @@ class UserManager extends AbstractEntityManager
 {
     public function addUser(User $user): int
     {
-        $sql = "INSERT INTO users(nickname, email, hashed_password) VALUES (:nickname, :email, :hashed_password, :avatar)";
+        $sql = "INSERT INTO users(nickname, email, hashed_password) VALUES (:nickname, :email, :hashed_password)";
         $res = $this->db->query($sql, [
             'nickname' => $user->getNickname(),
             'email' => $user->getEmail(),
@@ -72,17 +72,6 @@ class UserManager extends AbstractEntityManager
             return $res->fetch()['nb'];
         }
         return 0;
-    }
-
-    public function getBooks(int $ownerId): array
-    {
-        $sql = "SELECT * FROM books WHERE owner_id = :ownerId";
-        $res = $this->db->query($sql, ['ownerId' => $ownerId]);
-        $books = [];
-        while ($r = $res->fetch()) {
-            $books[] = new Book($r);
-        }
-        return $books;
     }
 
     /**

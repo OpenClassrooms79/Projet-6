@@ -12,7 +12,7 @@
     margin-bottom: 48px;
 }
 
-#profile {
+#profile FORM {
     display: flex;
     flex-direction: row;
     gap: 33px;
@@ -58,4 +58,34 @@
 
 #profile-display, #profile-form {
     background-color: white;
+}
+
+.badge-available {
+    background-color: var(--available-color);
+    color: white;
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    font-size: 9px;
+    line-height: 11px;
+    text-align: center;
+    width: 71px;
+    height: 19px;
+    align-content: center;
+    border-radius: 19px;
+    margin: auto;
+}
+
+.badge-unavailable {
+    background-color: var(--unavailable-color);
+    color: white;
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    font-size: 9px;
+    line-height: 11px;
+    text-align: center;
+    width: 71px;
+    height: 19px;
+    align-content: center;
+    border-radius: 19px;
+    margin: auto;
 }

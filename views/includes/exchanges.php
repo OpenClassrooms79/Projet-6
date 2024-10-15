@@ -17,7 +17,7 @@
     <section id="books-exchange">
         <?php
         foreach ($books as $book) {
-            require 'book.php';
+            echo Components::book($book);
         } ?>
     </section>
 </div>

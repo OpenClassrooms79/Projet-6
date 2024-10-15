@@ -21,12 +21,12 @@
     <div class="lastbooks">
         <?php
         foreach ($books as $book) {
-            require 'book.php';
+            echo Components::book($book);
         }
         ?>
     </div>
 
-    <a class="button center">Voir tous les livres</a>
+    <a class="button center" href="echanges">Voir tous les livres</a>
 
 </section>
 
@@ -44,7 +44,7 @@
     <article>Proposez un échange et discutez avec d'autres passionnés de lecture.</article>
 </section>
 
-<a class="button center inverse">Voir tous les livres</a>
+<a class="button center inverse" href="echanges">Voir tous les livres</a>
 
 <div id="banner">
     <img src="<?= IMG_PATH ?>books3.jpg" alt="bannière" id="banner-img">

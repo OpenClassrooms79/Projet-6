@@ -92,6 +92,18 @@ LEFT JOIN users u ON b.owner_id = u.id',
         return $this->getBooks($result);
     }
 
+    public function getBooksByUser(int $ownerId): array
+    {
+        $sql = 'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname, u.id AS owner_id, u.nickname AS owner_nickname
+FROM books b
+LEFT JOIN books_authors ba ON b.id = ba.book_id
+LEFT JOIN authors a ON ba.author_id = a.id
+LEFT JOIN users u ON b.owner_id = u.id
+WHERE owner_id = :ownerId';
+        $res = $this->db->query($sql, ['ownerId' => $ownerId]);
+        return $this->getBooks($res);
+    }
+
     protected function getBooks(PDOStatement $result): array
     {
         $books = [];
