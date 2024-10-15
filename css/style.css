@@ -9,6 +9,7 @@
 @import url('home.css');
 @import url('public-account.css');
 @import url('register-login.css');
+@import url('messenger.css');
 
 .lastbooks A,
 #books-exchange A {

@@ -38,7 +38,7 @@ class BookController
 
         if (isset($_POST['update-book'])) {
             if (isset($_FILES['cover']) && $_FILES['cover']['error'] === UPLOAD_ERR_OK && is_uploaded_file($_FILES['cover']['tmp_name'])) {
-                if (!move_uploaded_file($_FILES['cover']['tmp_name'], BOOKS_PATH . $bookId)) {
+                if (!move_uploaded_file($_FILES['cover']['tmp_name'], $book->getImagePath())) {
                     // TODO gérer erreur
                 }
             }

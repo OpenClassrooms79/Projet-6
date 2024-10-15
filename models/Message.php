@@ -5,7 +5,7 @@ class Message extends AbstractEntity
     protected int $id;
     private int $fromId;
     private int $toId;
-    private string $text;
+    private string $content;
     private DateTime $created;
     private bool $isRead;
 
@@ -29,14 +29,14 @@ class Message extends AbstractEntity
         return $this->toId;
     }
 
-    public function setText(string $text): void
+    public function setContent(string $content): void
     {
-        $this->text = $text;
+        $this->content = $content;
     }
 
-    public function getText(): string
+    public function getContent(): string
     {
-        return $this->text;
+        return $this->content;
     }
 
     public function setCreated(DateTime $created): void

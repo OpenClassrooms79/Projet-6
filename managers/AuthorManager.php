@@ -40,7 +40,7 @@ class AuthorManager extends AbstractEntityManager
         foreach ($parts as $part) {
             $part = trim($part);
             if ($part !== '') {
-                $author = preg_split('/,/', $part, -1, PREG_SPLIT_NO_EMPTY);
+                $author = explode(',', $part);
 
                 $firstName = $lastName = $nickname = '';
                 if (isset($author[0])) {

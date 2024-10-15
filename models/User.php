@@ -9,7 +9,6 @@ class User extends AbstractEntity
     // version cryptéee du mot de passe. Le mot de passe en clair n'est jamais stocké
     private string $hashedPassword;
     private DateTime $registrationDate;
-    private string $avatar = '';
 
     /**
      * @throws Exception
@@ -92,16 +91,11 @@ class User extends AbstractEntity
         return $this->registrationDate;
     }
 
-    public function setAvatar(?string $avatar): void
-    {
-        $this->avatar = $avatar ?? '';
-    }
-
     public function getAvatar(): string
     {
-        if (empty($this->avatar)) {
-            return DEFAULT_AVATAR;
+        if (file_exists(AVATARS_PATH . $this->id)) {
+            return AVATARS_PATH . $this->id;
         }
-        return $this->avatar;
+        return AVATARS_PATH . DEFAULT_AVATAR;
     }
 }

@@ -139,4 +139,19 @@ class UserController
             );
         }
     }
+
+    public function showMessenger(): void
+    {
+        Utils::redirectIfNotConnected();
+        $userManager = new UserManager();
+        $user = $userManager->getById($_SESSION['user']->getId());
+
+        $view = new View("Messagerie");
+        $view->render(
+            "includes/messenger",
+            [
+                'user' => $user,
+            ],
+        );
+    }
 }

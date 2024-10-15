@@ -26,7 +26,7 @@ dans la configuration Apache (fichier `httpd.conf`) puis redémarrer le serveur 
 ## 2.3 MySQL
 
 La structure et les données de la base MySQL sont fournies dans le fichier `database.sql` que vous devez importer dans
-une base de données vide (de préférence)
+une base de données (vide de préférence)
 
 # 3. Script de vérification
 

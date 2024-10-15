@@ -4,12 +4,11 @@ class UserManager extends AbstractEntityManager
 {
     public function addUser(User $user): int
     {
-        $sql = "INSERT INTO users(nickname, email, hashed_password, avatar) VALUES (:nickname, :email, :hashed_password, :avatar)";
+        $sql = "INSERT INTO users(nickname, email, hashed_password) VALUES (:nickname, :email, :hashed_password, :avatar)";
         $res = $this->db->query($sql, [
             'nickname' => $user->getNickname(),
             'email' => $user->getEmail(),
             'hashed_password' => $user->getHashedPassword(),
-            'avatar' => $user->getAvatar(),
         ]);
 
         if (is_int($res)) {
