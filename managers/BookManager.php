@@ -13,9 +13,8 @@ class BookManager extends AbstractEntityManager
             'exchangeable' => $book->isExchangeable(),
         ]);
 
-        $authors = $book->getAuthors();
         $sql = "INSERT INTO books_authors(book_id, author_id) VALUES (:book_id, :author_id)";
-        foreach ($authors as $author) {
+        foreach ($book->getAuthors() as $author) {
             $this->db->query($sql, [
                 'book_id' => $book->getId(),
                 'author_id' => $author->getId(),
@@ -26,48 +25,34 @@ class BookManager extends AbstractEntityManager
     public function getBookById(int $id): Book
     {
         $sql = 'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname, u.id AS owner_id, u.nickname AS owner_nickname
-FROM (
-	SELECT *
-	FROM books
-	WHERE id = :id
-) b
+FROM books b
 LEFT JOIN books_authors ba ON b.id = ba.book_id
 LEFT JOIN authors a ON ba.author_id = a.id
-LEFT JOIN users u ON b.owner_id = u.id';
+LEFT JOIN users u ON b.owner_id = u.id
+WHERE b.id = :id';
         $result = $this->db->query($sql, ['id' => $id]);
 
         return $this->getBooks($result)[$id];
     }
 
-    public function getAllBooks(): array
+    public function getExchangeableBooks(string $search = ''): array
     {
-        $sql = 'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname, u.id AS owner_id, u.nickname AS owner_nickname
-FROM (
-	SELECT *
-	FROM books
-	ORDER BY id ASC
-) b
+        if ($search !== '') {
+            $condition = 'AND title LIKE :search';
+            $params = ['search' => "%$search%"];
+        } else {
+            $condition = '';
+            $params = [];
+        }
+
+        $sql = "SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname, u.id AS owner_id, u.nickname AS owner_nickname
+FROM books b
 LEFT JOIN books_authors ba ON b.id = ba.book_id
 LEFT JOIN authors a ON ba.author_id = a.id
-LEFT JOIN users u ON b.owner_id = u.id';
-        $result = $this->db->query($sql);
-
-        return $this->getBooks($result);
-    }
-
-    public function getFilteredBooks(string $search): array
-    {
-        $sql = 'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname, u.id AS owner_id, u.nickname AS owner_nickname
-FROM (
-	SELECT *
-	FROM books
-	WHERE title LIKE :search
-	ORDER BY id ASC
-) b
-LEFT JOIN books_authors ba ON b.id = ba.book_id
-LEFT JOIN authors a ON ba.author_id = a.id
-LEFT JOIN users u ON b.owner_id = u.id';
-        $result = $this->db->query($sql, ['search' => "%$search%"]);
+LEFT JOIN users u ON b.owner_id = u.id
+WHERE exchangeable = 1 $condition
+ORDER BY b.id";
+        $result = $this->db->query($sql, $params);
 
         return $this->getBooks($result);
     }

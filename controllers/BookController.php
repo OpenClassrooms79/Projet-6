@@ -6,9 +6,9 @@ class BookController
     {
         $bookManager = new BookManager();
         if (isset($_GET['search'])) {
-            $books = $bookManager->getFilteredBooks($_GET['search']);
+            $books = $bookManager->getExchangeableBooks($_GET['search']);
         } else {
-            $books = $bookManager->getAllBooks();
+            $books = $bookManager->getExchangeableBooks();
         }
 
         $view = new View("Nos livres à l’échange");
@@ -27,14 +27,21 @@ class BookController
         $view->render("includes/detail", ['book' => $book]);
     }
 
-    // TODO empêcher de modifier un livre qui n'appartient pas à l'utilisateur courant
     public function showEditBook(int $bookId): void
     {
         Utils::redirectIfNotConnected();
 
         $authorManager = new AuthorManager();
         $bookManager = new BookManager();
+        $userManager = new UserManager();
+
         $book = $bookManager->getBookById($bookId);
+        $user = $userManager->getById($_SESSION['user']->getId());
+
+        if ($book->getOwner()->getId() !== $user->getId()) {
+            $homeController = new HomeController();
+            $homeController->showError('accès interdit', "Vous ne pouvez pas modifier ce livre car il ne vous appartient pas.", 403);
+        }
 
         if (isset($_POST['update-book'])) {
             if (isset($_FILES['cover']) && $_FILES['cover']['error'] === UPLOAD_ERR_OK && is_uploaded_file($_FILES['cover']['tmp_name'])) {

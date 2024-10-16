@@ -11,10 +11,11 @@ class HomeController
         $view->render("includes/home", ['books' => $books]);
     }
 
-    public function showError(): void
+    public function showError(string $title, string $message, int $httpCode = 200): void
     {
-        header('HTTP/1.0 404 Not Found');
-        $view = new View('Erreur : page inexistante');
-        $view->render("includes/error");
+        http_response_code($httpCode);
+        $view = new View("Erreur - $title");
+        $view->render('includes/error', ['message' => $message]);
+        exit;
     }
 }

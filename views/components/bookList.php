@@ -33,7 +33,7 @@ function bookList(array $books, bool $extraColumns = false): void
                         <td><?= Components::get('badge', $book->isExchangeable()) ?></td>
                         <td>
                             <div class="action-links">
-                                <a class="edit-link" href="">Éditer</a>
+                                <a class="edit-link" href="modifier?id=<?= $book->getId() ?>">Éditer</a>
                                 <a class="delete-link" href="">Supprimer</a>
                             </div>
                         </td>

@@ -72,9 +72,8 @@ WHERE t2.from_id IS NULL';
 
     public function setRead(int $fromId, int $toId): void
     {
-        echo "setRead(int $fromId, int $toId)";
         $sql = 'UPDATE messages SET is_read = 1 WHERE from_id = :from_id AND to_id = :to_id';
-        $res = $this->db->query($sql, [
+        $this->db->query($sql, [
             'from_id' => $fromId,
             'to_id' => $toId,
         ]);
