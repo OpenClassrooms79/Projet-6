@@ -24,7 +24,7 @@ class MessageManager extends AbstractEntityManager
      * Renvoie la liste de membres qui ont envoyé au moins un message au membre $toId
      *
      * @param int $toId
-     * @return void
+     * @return array
      */
     public function getMessageSenders(int $toId): array
     {

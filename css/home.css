@@ -54,16 +54,13 @@ SECTION#home > DIV:first-child > DIV {
 .lastbooks {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-}
-
-.lastbooks {
-    display: flex;
-    flex-direction: row;
     justify-content: center;
     gap: 38px;
     margin-bottom: 70px;
+}
+
+.lastbooks A {
+    text-decoration: none;
 }
 
 .lastbooks P {

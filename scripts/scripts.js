@@ -1,6 +1,6 @@
 function manageImage(inputId, imageId) {
     const input = document.getElementById(inputId);
-    input.addEventListener('change', function (e) {
+    input.addEventListener('change', function () {
         const file = this.files[0];
         const reader = new FileReader();
         reader.onload = function () {

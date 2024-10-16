@@ -13,10 +13,10 @@ class UserManager extends AbstractEntityManager
 
         if (is_int($res)) {
             if ($res === ER_DUP_ENTRY) {
-                throw new Exception("L'adresse e-mail ou le pseudo sont déjà utilisés", $res);
+                throw new RuntimeException("L'adresse e-mail ou le pseudo sont déjà utilisés", $res);
             }
 
-            throw new Exception('Impossible de mettre à jour les données', $res);
+            throw new RuntimeException('Impossible de mettre à jour les données', $res);
         }
         return $this->db->getPDO()->lastInsertId();
     }
@@ -88,10 +88,10 @@ class UserManager extends AbstractEntityManager
         ]);
         if (is_int($res)) {
             if ($res === ER_DUP_ENTRY) {
-                throw new Exception("L'adresse e-mail ou le pseudo sont déjà utilisés", $res);
+                throw new RuntimeException("L'adresse e-mail ou le pseudo sont déjà utilisés", $res);
             }
 
-            throw new Exception('Impossible de mettre à jour les données', $res);
+            throw new RuntimeException('Impossible de mettre à jour les données', $res);
         }
         return true;
     }

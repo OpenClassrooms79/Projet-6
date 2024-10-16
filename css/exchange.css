@@ -18,6 +18,10 @@
     column-gap: 38px;
 }
 
+#books-exchange A {
+    text-decoration: none;
+}
+
 .book-search {
     width: 322px;
     height: 50px;

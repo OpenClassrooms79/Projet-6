@@ -152,7 +152,7 @@ WHERE owner_id = :ownerId';
             'exchangeable' => $book->isExchangeable(),
         ]);
         if (is_int($res)) {
-            throw new Exception('Impossible de mettre à jour les données', $res);
+            throw new RuntimeException('Impossible de mettre à jour les données', $res);
         }
 
         // mise à jour des auteurs du livre

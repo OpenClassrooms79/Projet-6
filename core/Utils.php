@@ -22,7 +22,6 @@ class Utils
         ];
         $diff = $date->diff(new DateTime('now'));
 
-        $index2 = 0;
         $format = [];
         foreach (array_keys($units) as $index) {
             if ($diff->{$index} > 0) {

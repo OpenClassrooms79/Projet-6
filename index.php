@@ -46,7 +46,6 @@ switch ($action) {
         $userController = new UserController();
         $userController->showMessenger();
         break;
-        break;
 
     case 'profil':
         $userController = new UserController();

@@ -373,3 +373,20 @@ INPUT[type="file"] {
     height: 135px;
     border-radius: 50%;
 }
+
+.breadcrumbs {
+    padding-left: 150px;
+    padding-bottom: 16px;
+    font-family: Inter, sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    line-height: 12px;
+    color: var(--light-text);
+}
+
+HR {
+    width: 27px;
+    height: 1px;
+    color: var(--light-text);
+    margin: 33px 0 33px 0;
+}

@@ -62,8 +62,7 @@
     background-color: white;
 }
 
-.badge-available {
-    background-color: var(--available-color);
+.badge {
     color: white;
     font-family: Inter, sans-serif;
     font-weight: 500;
@@ -77,19 +76,12 @@
     margin: auto;
 }
 
+.badge-available {
+    background-color: var(--available-color);
+}
+
 .badge-unavailable {
     background-color: var(--unavailable-color);
-    color: white;
-    font-family: Inter, sans-serif;
-    font-weight: 500;
-    font-size: 9px;
-    line-height: 11px;
-    text-align: center;
-    width: 71px;
-    height: 19px;
-    align-content: center;
-    border-radius: 19px;
-    margin: auto;
 }
 
 .action-links {
@@ -113,4 +105,54 @@
     font-size: 12px;
     line-height: 15px;
     color: #CB2D2D;
+}
+
+.member-since {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--light-text);
+    margin-bottom: 21px;
+}
+
+.nb-books {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+#book-list TBODY TR {
+    height: 130px;
+}
+
+#book-list TBODY TR:nth-child(odd) {
+    background-color: var(--backgroundColor1);
+}
+
+#book-list TBODY TR:nth-child(even) {
+    background-color: white;
+}
+
+#book-list TBODY IMG {
+    width: 78px;
+    height: 78px;
+}
+
+#profile-display, #profile-form, #book-list {
+    border-radius: 20px;
+}
+
+.nickname-big {
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    color: var(--text);
+    margin-bottom: 11px;
+}
+
+#profile-display .biblio {
+    margin-bottom: 6px;
 }

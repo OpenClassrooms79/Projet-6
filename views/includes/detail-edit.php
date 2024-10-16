@@ -16,7 +16,7 @@
                 <label for="authors">Auteur(s)</label>
                 <input id="authors" name="authors" type="text" value="<?= htmlspecialchars($authors) ?>" required class="member" placeholder="Prénom1, Nom1, Pseudo1 ; Prénom2, Nom2, Pseudo2…">
                 <label for="description">Commentaire</label>
-                <textarea id="description" name="description" type="text" required class="member"><?= htmlspecialchars($book->getDescription()) ?></textarea>
+                <textarea id="description" name="description" required class="member"><?= htmlspecialchars($book->getDescription()) ?></textarea>
                 <label for="availability">Disponibilité</label>
                 <select id="availability" name="availability" class="member">
                     <option value="0" <?= $book->isExchangeable() ? '' : ' selected' ?>>indisponible</option>
