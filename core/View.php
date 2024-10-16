@@ -39,7 +39,7 @@ class View
             $userManager = new UserManager();
             $user = $userManager->getById($_SESSION['user']->getId());
             $messageManager = new MessageManager();
-            $unreadCount = $messageManager->getUnreadMessagesCount($user);
+            $unreadCount = $messageManager->getUnreadMessagesCount($user->getId());
         }
         ob_start();
         require(MAIN_VIEW_PATH);

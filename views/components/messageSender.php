@@ -1,25 +1,30 @@
 <?php
 
-function messageSender(User $sender, Message $message): void
+function messageSender(User $sender, ?Message $message): void
 {
-    if ($message->getCreated()->format('Y-m-d') === (new DateTime('now'))->format('Y-m-d')) {
-        // le message a été créé aujourd'hui
-        $message_time = $message->getCreated()->format('H:i');
+    if ($message === null) {
+        $message_time = '';
+        $content = '';
     } else {
-        $message_time = $message->getCreated()->format('d.m');
+        if ($message->getCreated()->format('Y-m-d') === (new DateTime('now'))->format('Y-m-d')) {
+            // le message a été créé aujourd'hui, format : Heures:Minutes
+            $message_time = $message->getCreated()->format('H:i');
+        } else {
+            // le message n'a pas été créé aujourd'hui, format : Jour.Mois
+            $message_time = $message->getCreated()->format('d.m');
+        }
+        $content = $message->getContent();
     }
     ?>
-    <a href="?from_id=<?= $sender->getId() ?>" class="member-block">
-        <!--<div class="member-block">-->
+    <a id="from<?= $sender->getId() ?>" href="?from=<?= $sender->getId() ?>#from<?= $sender->getId() ?>" class="member-block">
         <img src="<?= $sender->getAvatarPath() ?>" class="avatar-medium" alt="Avatar">
         <div class="member-details">
             <div class="member-details-1">
                 <span class="book-desc-text"><?= $sender->getNickname() ?></span>
                 <span class="message-time"><?= $message_time ?></span>
             </div>
-            <div class="member-details-2"><?= $message->getContent() ?></div>
+            <div class="member-details-2"><?= $content ?></div>
         </div>
-        <!--</div>-->
     </a>
     <?php
 }

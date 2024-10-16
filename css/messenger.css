@@ -16,7 +16,6 @@
     flex-direction: column;
     width: 308px;
     background-color: var(--backgroundColor2);
-    border: green 1px solid;
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -27,11 +26,14 @@
     gap: 12px;
     align-items: center;
     padding: 18px 42px 18px 34px;
-    border: red 1px solid;
 }
 
 A.member-block {
     text-decoration: none;
+}
+
+A.member-block:target {
+    background-color: white;
 }
 
 .member-details {
@@ -84,7 +86,6 @@ A.member-block {
     overflow-y: scroll;
     padding-left: 44px;
     padding-right: 151px;
-    border: blue 1px solid;
 }
 
 #messages #from {
@@ -93,6 +94,7 @@ A.member-block {
     gap: 12px;
     padding-top: 35px;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 #messages #from SPAN {
@@ -131,6 +133,7 @@ A.member-block {
     display: flex;
     flex-direction: row;
     gap: 6px;
+    align-items: center;
 }
 
 .message {

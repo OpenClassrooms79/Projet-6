@@ -154,15 +154,30 @@ class UserController
         $messageManager = new MessageManager();
 
         $user = $userManager->getById($_SESSION['user']->getId());
+
         $messageSenders = $messageManager->getMessageSenders($user->getId());
+        if (isset($_GET['from'])) {
+            $fromId = (int) $_GET['from'];
+        } else {
+            $fromId = $messageSenders[0]['user_id'];
+        }
+        $fromUser = $userManager->getById($fromId);
+
+        if (isset($_POST['message'])) {
+            $messageManager->addMessage($user->getId(), $fromUser->getId(), $_POST['message']);
+        }
+
 
         $view = new View("Messagerie");
         $view->render(
             "includes/messenger",
             [
                 'user' => $user,
+                'fromUser' => $fromUser,
                 'messageSenders' => $messageSenders,
+                'messages' => $messageManager->getDiscussion($user->getId(), $fromId),
             ],
         );
+        $messageManager->setRead($fromId, $user->getId());
     }
 }

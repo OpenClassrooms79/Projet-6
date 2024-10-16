@@ -29,7 +29,10 @@
                 <a class="menu-icon" href="messagerie">
                     <img class="icon" src="<?= ICONS_PATH ?>message.svg" alt="Messages">
                     <div>Messagerie</div>
-                    <div class="number"><?= $unreadCount ?></div>
+                    <?php
+                    if ($unreadCount > 0) { ?>
+                        <div class="number"><?= ($unreadCount === 0) ? '' : $unreadCount ?></div><?php
+                    } ?>
                 </a>
                 <a class="menu-icon" href="profil">
                     <img class="icon" src="<?= ICONS_PATH ?>account.svg" alt="Compte">

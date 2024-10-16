@@ -19,6 +19,6 @@
         </div>
 
 
-        <a class="button fullwidth text-center">Envoyer un message</a>
+        <a class="button fullwidth text-center" href="messagerie?from=<?= $book->getOwner()->getId() ?>#from<?= $book->getOwner()->getId() ?>">Envoyer un message</a>
     </div>
 </section>
