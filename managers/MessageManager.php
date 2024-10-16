@@ -31,7 +31,7 @@ class MessageManager extends AbstractEntityManager
         $sql = 'SELECT m.*, u.nickname
 FROM messages m
 INNER JOIN (
-	SELECT DISTINCT MIN(id) OVER (PARTITION BY from_id) AS min_id
+	SELECT DISTINCT MAX(id) OVER (PARTITION BY from_id) AS min_id
 	FROM messages
 	WHERE to_id = :to_id
 ) tmp ON m.id = tmp.min_id

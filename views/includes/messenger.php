@@ -3,7 +3,8 @@
         <h1>Messagerie</h1>
         <?php
         foreach ($messageSenders as $sender) {
-            echo Components::messageSender(
+            echo Components::get(
+                'messageSender',
                 new User([
                     'id' => $sender['from_id'],
                     'nickname' => $sender['nickname'],
@@ -25,13 +26,13 @@
 
         <div id="discussion">
 
-            <div class="message-from-me">
+            <div class="message message-from-me">
                 <div class="message-time">21.08 15:44</div>
                 <span class="message-body">Lorem ipsum dolor sit amet, consectetur .adipiscing elit, sed do eiusmod tempor</span>
             </div>
 
 
-            <div class="message-from-other">
+            <div class="message message-from-other">
                 <div class="message-header">
                     <img src="<?= $user->getAvatarPath() ?>" class="avatar-small" alt="Alexlecture">
                     <div class="message-time">21.08 15:48</div>

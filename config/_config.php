@@ -2,6 +2,7 @@
 
 const TEMPLATE_VIEW_PATH = './views/'; // Le chemin vers les templates de vues.
 const MAIN_VIEW_PATH = TEMPLATE_VIEW_PATH . 'main.php'; // Le chemin vers le template principal.
+const COMPONENTS_PATH = 'views/components/';
 
 const IMG_PATH = 'img/';
 const AVATARS_PATH = IMG_PATH . 'avatars/';

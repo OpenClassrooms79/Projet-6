@@ -3,7 +3,7 @@
     <section id="profile">
         <form method="post" enctype="multipart/form-data">
             <div id="profile-display">
-                <?= Components::profileDisplay($user, count($books)) ?>
+                <?= Components::get('profileDisplay', $user, count($books)) ?>
             </div>
             <div id="profile-form">
                 <div class="personal-info">Vos informations personnelles</div>
@@ -20,9 +20,7 @@
             </div>
         </form>
     </section>
-    <?php
-    echo Components::bookList($books, true);
-    ?>
+    <?= Components::get('bookList', $books, true); ?>
 </section>
 
 <script>

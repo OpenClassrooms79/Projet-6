@@ -187,7 +187,7 @@ FOOTER IMG {
     text-decoration: none;
 }
 
-.inverse {
+.button.inverse {
     background-color: var(--backgroundColor1);
     color: var(--green);
     border: 1px solid var(--green);

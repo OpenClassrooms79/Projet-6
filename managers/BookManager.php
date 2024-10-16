@@ -159,12 +159,14 @@ WHERE owner_id = :ownerId';
         $sql = 'DELETE FROM books_authors WHERE book_id = :id';
         $this->db->query($sql, ['id' => $book->getId()]);
         foreach ($book->getAuthors() as $author) {
-            $sql = 'INSERT IGNORE INTO books_authors (book_id, author_id) VALUES (:book_id, :author_id)';
+            $sql = 'INSERT INTO books_authors (book_id, author_id) VALUES (:book_id, :author_id)';
             $this->db->query($sql, [
                 'book_id' => $book->getId(),
                 'author_id' => $author->getId(),
             ]);
         }
+        $authorManager = new AuthorManager();
+        $authorManager->deleteUnusedAuthors();
 
         return true;
     }

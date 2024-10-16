@@ -21,7 +21,7 @@
     <div class="lastbooks">
         <?php
         foreach ($books as $book) {
-            echo Components::book($book);
+            echo Components::get('book', $book);
         }
         ?>
     </div>

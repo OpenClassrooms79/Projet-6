@@ -61,4 +61,13 @@ class AuthorManager extends AbstractEntityManager
         }
         return $authors;
     }
+
+    public function deleteUnusedAuthors(): void
+    {
+        $sql = 'DELETE a.*
+FROM authors a
+LEFT JOIN books_authors ba ON a.id = ba.author_id
+WHERE ba.author_id IS NULL';
+        $this->db->query($sql);
+    }
 }

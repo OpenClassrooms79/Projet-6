@@ -62,7 +62,6 @@ A.member-block {
     color: var(--light-text);
     text-overflow: ellipsis;
     overflow: hidden;
-    width: 100%;
     white-space: nowrap;
 }
 
@@ -82,7 +81,7 @@ A.member-block {
     display: flex;
     flex-direction: column;
     width: 982px;
-    overflow: scroll;
+    overflow-y: scroll;
     padding-left: 44px;
     padding-right: 151px;
     border: blue 1px solid;
@@ -134,20 +133,20 @@ A.member-block {
     gap: 6px;
 }
 
-.message-from-me {
+.message {
     display: flex;
     flex-direction: column;
-    align-items: end;
-    gap: 5px;
     margin-bottom: 25px;
 }
 
-.message-from-other {
-    display: flex;
-    flex-direction: column;
+.message.message-from-me {
+    align-items: end;
+    gap: 5px;
+}
+
+.message.message-from-other {
     align-items: start;
     gap: 8px;
-    margin-bottom: 25px;
 }
 
 .message-header .message-time, .message-from-me .message-time {
