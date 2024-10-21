@@ -21,7 +21,7 @@ class UserController
                 $userManager = new UserManager();
                 try {
                     $user = new User($_POST);
-                    $user->setId($userManager->addUser($user));
+                    $user->setId($userManager->add($user));
                     $_SESSION['user'] = $user;
                     header('Location: profil');
                 } catch (Exception $e) {
@@ -111,6 +111,12 @@ class UserController
 
             $error = '';
             $user = $userManager->getById($_SESSION['user']->getId());
+
+            // suppression du livre
+            if (isset($_GET['supprimer'])) {
+                $bookManager->delete($_GET['supprimer'], $user->getId());
+            }
+
             if (isset($_POST['update'])) {
                 if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK && is_uploaded_file($_FILES['avatar']['tmp_name'])) {
                     if (!move_uploaded_file($_FILES['avatar']['tmp_name'], $user->getCustomAvatarPath())) {
@@ -127,7 +133,7 @@ class UserController
                         $user->setPassword($_POST['password']);
                     }
 
-                    $userManager->save($user);
+                    $userManager->update($user);
                 } catch (Exception $e) {
                     $error = $e->getMessage();
                 }
@@ -153,9 +159,9 @@ class UserController
         $userManager = new UserManager();
         $messageManager = new MessageManager();
 
-        $user = $userManager->getById($_SESSION['user']->getId());
+        $userId = $_SESSION['user']->getId();
 
-        $messageSenders = $messageManager->getMessageSenders($user->getId());
+        $messageSenders = $messageManager->getMessageSenders($userId);
         if (isset($_GET['from'])) {
             $fromId = (int) $_GET['from'];
         } else {
@@ -164,7 +170,11 @@ class UserController
         $fromUser = $userManager->getById($fromId);
 
         if (isset($_POST['message'])) {
-            $messageManager->addMessage($user->getId(), $fromUser->getId(), $_POST['message']);
+            $messageManager->add(new Message([
+                'fromId' => $userId,
+                'toId' => $fromUser->getId(),
+                'content' => $_POST['message'],
+            ]));
         }
 
 
@@ -172,12 +182,12 @@ class UserController
         $view->render(
             "includes/messenger",
             [
-                'user' => $user,
+                'userId' => $userId,
                 'fromUser' => $fromUser,
                 'messageSenders' => $messageSenders,
-                'messages' => $messageManager->getDiscussion($user->getId(), $fromId),
+                'messages' => $messageManager->getDiscussion($userId, $fromId),
             ],
         );
-        $messageManager->setRead($fromId, $user->getId());
+        $messageManager->setRead($fromId, $userId);
     }
 }

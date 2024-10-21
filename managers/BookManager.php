@@ -4,24 +4,46 @@ class BookManager extends AbstractEntityManager
 {
     public const NB_LAST_BOOKS = 4;
 
-    public function addBook(Book $book): void
+    /**
+     * Ajout d'un livre et de son/ses auteur(s)
+     *
+     * @param Book $book
+     * @return int ID du message ajouté dans la table MySQL
+     */
+    public function add(Book $book): int
     {
-        $sql = "INSERT INTO books(title, description, exchangeable) VALUES (:title, :description, :exchangeable)";
-        $this->db->query($sql, [
+        $sql = "INSERT INTO books(title, description, exchangeable, owner_id) VALUES (:title, :description, :exchangeable, :owner_id)";
+        $res = $this->db->query($sql, [
             'title' => $book->getTitle(),
             'description' => $book->getDescription(),
-            'exchangeable' => $book->isExchangeable(),
+            'exchangeable' => (int) $book->isExchangeable(),
+            'owner_id' => $book->getOwner()->getId(),
         ]);
+        if (is_int($res)) {
+            throw new RuntimeException($this->error(self::ERR_INSERT, $res));
+        }
+        $book->setId($this->db->getPDO()->lastInsertId());
 
         $sql = "INSERT INTO books_authors(book_id, author_id) VALUES (:book_id, :author_id)";
         foreach ($book->getAuthors() as $author) {
-            $this->db->query($sql, [
+            $res = $this->db->query($sql, [
                 'book_id' => $book->getId(),
                 'author_id' => $author->getId(),
             ]);
+            if (is_int($res)) {
+                throw new RuntimeException($this->error(self::ERR_INSERT, $res));
+            }
         }
+
+        return $book->getId();
     }
 
+    /**
+     * Récupération d'un livre et de ses auteurs
+     *
+     * @param int $id
+     * @return Book
+     */
     public function getBookById(int $id): Book
     {
         $sql = 'SELECT b.*, a.id AS author_id, a.first_name, a.last_name, a.nickname, u.id AS owner_id, u.nickname AS owner_nickname
@@ -33,6 +55,53 @@ WHERE b.id = :id';
         $result = $this->db->query($sql, ['id' => $id]);
 
         return $this->getBooks($result)[$id];
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function save(Book $book): bool
+    {
+        $sql = 'UPDATE books SET title = :title, description = :description, exchangeable = :exchangeable WHERE id = :id';
+        $res = $this->db->query($sql, [
+            'id' => $book->getId(),
+            'title' => $book->getTitle(),
+            'description' => $book->getDescription(),
+            'exchangeable' => (int) $book->isExchangeable(),
+        ]);
+        if (is_int($res)) {
+            throw new RuntimeException('Impossible de mettre à jour les données', $res);
+        }
+
+        // mise à jour des auteurs du livre
+        $sql = 'DELETE FROM books_authors WHERE book_id = :id';
+        $this->db->query($sql, ['id' => $book->getId()]);
+        foreach ($book->getAuthors() as $author) {
+            $sql = 'INSERT INTO books_authors (book_id, author_id) VALUES (:book_id, :author_id)';
+            $this->db->query($sql, [
+                'book_id' => $book->getId(),
+                'author_id' => $author->getId(),
+            ]);
+        }
+        $authorManager = new AuthorManager();
+        $authorManager->deleteUnusedAuthors();
+
+        return true;
+    }
+
+    /*
+     * Suppression d'un livre donné appartenant à un utilisateur donné
+     */
+    public function delete(int $bookId, int $ownerId): void
+    {
+        $sql = 'DELETE FROM books WHERE id = :id AND owner_id = :owner_id';
+        $this->db->query($sql, [
+            'id' => $bookId,
+            'owner_id' => $ownerId,
+        ]);
+
+        $authorManager = new AuthorManager();
+        $authorManager->deleteUnusedAuthors();
     }
 
     public function getExchangeableBooks(string $search = ''): array
@@ -122,37 +191,5 @@ WHERE owner_id = :ownerId';
             }
         }
         return $books;
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function save(Book $book): bool
-    {
-        $sql = 'UPDATE books SET title = :title, description = :description, exchangeable = :exchangeable WHERE id = :id';
-        $res = $this->db->query($sql, [
-            'id' => $book->getId(),
-            'title' => $book->getTitle(),
-            'description' => $book->getDescription(),
-            'exchangeable' => $book->isExchangeable(),
-        ]);
-        if (is_int($res)) {
-            throw new RuntimeException('Impossible de mettre à jour les données', $res);
-        }
-
-        // mise à jour des auteurs du livre
-        $sql = 'DELETE FROM books_authors WHERE book_id = :id';
-        $this->db->query($sql, ['id' => $book->getId()]);
-        foreach ($book->getAuthors() as $author) {
-            $sql = 'INSERT INTO books_authors (book_id, author_id) VALUES (:book_id, :author_id)';
-            $this->db->query($sql, [
-                'book_id' => $book->getId(),
-                'author_id' => $author->getId(),
-            ]);
-        }
-        $authorManager = new AuthorManager();
-        $authorManager->deleteUnusedAuthors();
-
-        return true;
     }
 }

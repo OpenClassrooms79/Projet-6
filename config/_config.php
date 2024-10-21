@@ -16,5 +16,8 @@ const DB_USER = '';
 const DB_PASS = '';
 const SESSION_NAME = 'tomtroc';
 
+// Longueur maximale de la description d'un livre affichée sur les pages de profil utilisateur
+const BOOK_DESC_MAX_LENGTH = 88;
+
 // codes d'erreur MySQL : https://dev.mysql.com/doc/mysql-errors/8.4/en/server-error-reference.html
 const ER_DUP_ENTRY = 1062;

@@ -13,7 +13,7 @@
             } else {
                 $message = null;
             }
-            
+
             echo Components::get(
                 'messageSender',
                 new User([
@@ -33,7 +33,7 @@
         <div id="discussion">
             <?php
             foreach ($messages as $message) {
-                if ($message->getFromId() === $user->getId()) {
+                if ($message->getFromId() === $userId) {
                     echo Components::get('messageFromMe', $message);
                 } else {
                     echo Components::get('messageFromOther', $fromUser, $message);

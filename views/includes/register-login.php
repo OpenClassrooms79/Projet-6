@@ -3,7 +3,7 @@
         <h1><?= $h1 ?></h1>
         <?php
         if (!empty($error)) { ?>
-            <p class="error">Erreur : <?= $error ?></p><br>
+            <p class="error"><?= $error ?></p><br>
             <?php
         }
         if ($button_name === 'register') {

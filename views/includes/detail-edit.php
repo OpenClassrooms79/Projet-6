@@ -11,6 +11,11 @@
                 <input type="file" name="cover" id="cover" accept="image/*">
             </div>
             <section>
+                <?php
+                if (!empty($error)) { ?>
+                    <p class="error">Erreur : <?= $error ?></p><br>
+                    <?php
+                } ?>
                 <label for="title">Titre</label>
                 <input id="title" name="title" type="text" value="<?= htmlspecialchars($book->getTitle()) ?>" required class="member">
                 <label for="authors">Auteur(s)</label>

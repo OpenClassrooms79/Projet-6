@@ -2,28 +2,46 @@
 
 class AuthorManager extends AbstractEntityManager
 {
-    public function insertAuthor(Author $author): Author
+    /**
+     * Ajout d'un auteur
+     *
+     * @param Author $author
+     * @return int ID de l'auteur ajouté dans la table MySQL
+     */
+    public function add(Author $author): int
     {
-        $sql = "SELECT id, first_name, last_name, nickname FROM authors WHERE first_name = :firstName AND last_name= :lastName";
-        $res = $this->db->query($sql, [
-            'firstName' => $author->getFirstName(),
-            'lastName' => $author->getLastName(),
-        ]);
-        if ($res->rowCount() !== 0) {
-            return new Author($res->fetch());
-        }
-
+        // ajout de l'auteur
         $sql = "INSERT INTO authors(first_name, last_name, nickname) VALUES (:firstName, :lastName, :nickname)";
         $data = [
             'firstName' => trim($author->getFirstName()),
             'lastName' => trim($author->getLastName()),
             'nickname' => trim($author->getNickname()),
         ];
-        $this->db->query($sql, $data);
-        $data['id'] = $this->db->getPDO()->lastInsertId();
-        return new Author($data);
+        $res = $this->db->query($sql, $data);
+
+        if (is_int($res)) {
+            if ($res === ER_DUP_ENTRY) {
+                // l'auteur existe déjà dans la base (même prénom et nom de famille)
+                $sql = "SELECT id, first_name, last_name, nickname FROM authors WHERE first_name = :firstName AND last_name = :lastName";
+                $res = $this->db->query($sql, [
+                    'firstName' => $author->getFirstName(),
+                    'lastName' => $author->getLastName(),
+                ]);
+
+                // renvoyer l'ID de l'auteur déjà enregistré dans la base
+                return $res->fetchColumn();
+            }
+
+            throw new RuntimeException($this->error(self::ERR_INSERT, $res));
+        }
+
+        // renvoyer l'ID de l'auteur inséré dans la table MySQL
+        return $this->db->getPDO()->lastInsertId();
     }
 
+    /**
+     * À partir d'un tableau d'instances de la classe Author, renvoie le texte à placer dans un champ de formulaire au format "Prénom1, Nom1, Pseudo1 ; Prénom2, Nom2, Pseudo2 ; ..."
+     */
     public function getTextFromAuthors(array $authors): string
     {
         $texts = [];
@@ -33,6 +51,12 @@ class AuthorManager extends AbstractEntityManager
         return implode(';', $texts);
     }
 
+    /**
+     * À partir de texte saisi dans un champ de formulaire au format "Prénom1, Nom1, Pseudo1 ; Prénom2, Nom2, Pseudo2 ; ...", renvoie un tableau d'instances de la classe Author
+     *
+     * @param string $text
+     * @return array
+     */
     public function getAuthorsFromText(string $text): array
     {
         $authors = [];
@@ -62,6 +86,11 @@ class AuthorManager extends AbstractEntityManager
         return $authors;
     }
 
+    /**
+     * Supprime tous les auteurs qui ne correspondent à aucun livre de la base
+     *
+     * @return void
+     */
     public function deleteUnusedAuthors(): void
     {
         $sql = 'DELETE a.*

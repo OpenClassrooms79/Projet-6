@@ -34,6 +34,7 @@ class BookController
         $authorManager = new AuthorManager();
         $bookManager = new BookManager();
         $userManager = new UserManager();
+        $error = '';
 
         $book = $bookManager->getBookById($bookId);
         $user = $userManager->getById($_SESSION['user']->getId());
@@ -54,7 +55,7 @@ class BookController
                 $authors = $authorManager->getAuthorsFromText($_POST['authors']);
                 $book->setAuthors([]);
                 foreach ($authors as $author) {
-                    $author = $authorManager->insertAuthor($author);
+                    $author->setId($authorManager->add($author));
                     $book->addAuthor($author);
                 }
                 $book->setTitle($_POST['title']);
@@ -72,6 +73,7 @@ class BookController
             [
                 'book' => $book,
                 'authors' => $authorManager->getTextFromAuthors($book->getAuthors()),
+                'error' => $error,
             ],
         );
     }

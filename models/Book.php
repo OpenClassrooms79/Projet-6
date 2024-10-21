@@ -88,4 +88,12 @@ class Book extends AbstractEntity
     {
         $this->authors[] = $author;
     }
+
+    public function getTruncatedDescription(): string
+    {
+        if (mb_strlen($this->description) <= BOOK_DESC_MAX_LENGTH) {
+            return $this->description;
+        }
+        return mb_substr($this->description, 0, BOOK_DESC_MAX_LENGTH - 1) . '…';
+    }
 }

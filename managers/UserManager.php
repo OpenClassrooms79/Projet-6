@@ -2,7 +2,13 @@
 
 class UserManager extends AbstractEntityManager
 {
-    public function addUser(User $user): int
+    /**
+     * Ajout d'un utilisateur
+     *
+     * @param User $user
+     * @return int ID de l'utilisateur ajouté dans la table MySQL
+     */
+    public function add(User $user): int
     {
         $sql = "INSERT INTO users(nickname, email, hashed_password) VALUES (:nickname, :email, :hashed_password)";
         $res = $this->db->query($sql, [
@@ -13,12 +19,71 @@ class UserManager extends AbstractEntityManager
 
         if (is_int($res)) {
             if ($res === ER_DUP_ENTRY) {
+                throw new RuntimeException($this->error("Erreur : l'adresse e-mail ou le pseudo sont déjà utilisés", $res));
+            }
+
+            throw new RuntimeException($this->error(self::ERR_INSERT, $res));
+        }
+        return $this->db->getPDO()->lastInsertId();
+    }
+
+    /**
+     * Récupération d'un utilisateur
+     *
+     * @param int $id
+     * @return User|false
+     */
+    public function getById(int $id): User|false
+    {
+        $sql = "SELECT * FROM users WHERE id = :id";
+
+        $res = $this->db->query($sql, ['id' => $id]);
+        if ($res->rowCount() === 1) {
+            $r = $res->fetch();
+            return new User($r);
+        }
+        return false;
+    }
+
+    /**
+     * Mise à jour d'un utilisateur
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function update(User $user): bool
+    {
+        $sql = 'UPDATE users SET nickname = :nickname, email = :email, hashed_password = :hashed_password WHERE id = :id';
+        $res = $this->db->query($sql, [
+            'id' => $user->getId(),
+            'nickname' => $user->getNickname(),
+            'email' => $user->getEmail(),
+            'hashed_password' => $user->getHashedPassword(),
+        ]);
+        if (is_int($res)) {
+            if ($res === ER_DUP_ENTRY) {
                 throw new RuntimeException("L'adresse e-mail ou le pseudo sont déjà utilisés", $res);
             }
 
             throw new RuntimeException('Impossible de mettre à jour les données', $res);
         }
-        return $this->db->getPDO()->lastInsertId();
+        return true;
+    }
+
+    /**
+     * Suppression d'un utilisateur
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function delete(User $user): bool
+    {
+        $sql = 'DELETE FROM users WHERE id = :id';
+        $res = $this->db->query($sql, ['id' => $user->getId()]);
+        if (is_int($res)) {
+            throw new RuntimeException("Impossible de supprimer l'utilisateur", $res);
+        }
+        return true;
     }
 
     public function login(string $email, string $password): User|false
@@ -52,18 +117,6 @@ class UserManager extends AbstractEntityManager
         ]);
     }
 
-    public function getById(int $id): User|false
-    {
-        $sql = "SELECT * FROM users WHERE id = :id";
-
-        $res = $this->db->query($sql, ['id' => $id]);
-        if ($res->rowCount() === 1) {
-            $r = $res->fetch();
-            return new User($r);
-        }
-        return false;
-    }
-
     public function getNbBooks(int $ownerId): int
     {
         $sql = "SELECT COUNT(*) AS nb FROM books WHERE owner_id = :ownerId";
@@ -72,27 +125,5 @@ class UserManager extends AbstractEntityManager
             return $res->fetch()['nb'];
         }
         return 0;
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function save(User $user): bool
-    {
-        $sql = 'UPDATE users SET nickname = :nickname, email = :email, hashed_password = :hashed_password WHERE id = :id';
-        $res = $this->db->query($sql, [
-            'id' => $user->getId(),
-            'nickname' => $user->getNickname(),
-            'email' => $user->getEmail(),
-            'hashed_password' => $user->getHashedPassword(),
-        ]);
-        if (is_int($res)) {
-            if ($res === ER_DUP_ENTRY) {
-                throw new RuntimeException("L'adresse e-mail ou le pseudo sont déjà utilisés", $res);
-            }
-
-            throw new RuntimeException('Impossible de mettre à jour les données', $res);
-        }
-        return true;
     }
 }

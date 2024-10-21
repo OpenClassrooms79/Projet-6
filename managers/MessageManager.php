@@ -2,15 +2,24 @@
 
 class MessageManager extends AbstractEntityManager
 {
-    public function addMessage(int $fromId, int $toId, string $content): int
+    /**
+     * Ajout d'un message
+     *
+     * @param Message $message
+     * @return int ID du message ajouté dans la table MySQL
+     */
+    public function add(Message $message): int
     {
         $sql = "INSERT INTO messages(from_id, to_id, content) VALUES (:from_id, :to_id, :content)";
         $res = $this->db->query($sql, [
-            'from_id' => $fromId,
-            'to_id' => $toId,
-            'content' => $content,
+            'from_id' => $message->getFromId(),
+            'to_id' => $message->getToId(),
+            'content' => $message->getContent(),
         ]);
 
+        if (is_int($res)) {
+            throw new RuntimeException($this->error(self::ERR_INSERT, $res));
+        }
         return $this->db->getPDO()->lastInsertId();
     }
 
@@ -21,14 +30,14 @@ class MessageManager extends AbstractEntityManager
     }
 
     /**
-     * Renvoie la liste des utilisateurs qui ont envoyé au moins un message à $toId ou reçu au moins un message de $toId
+     * Renvoie la liste des utilisateurs qui ont envoyé au moins un message à l'utilisateur $toId ou reçu au moins un message de l'utilisateur $toId
      *
      * @param int $toId
      * @return array
      */
     public function getMessageSenders(int $toId): array
     {
-        // messages envoyés par un autres utilisateur
+        // messages envoyés par un autre utilisateur
         $sql1 = 'SELECT m.*, u.id AS user_id, u.nickname
 FROM messages m
 INNER JOIN (
