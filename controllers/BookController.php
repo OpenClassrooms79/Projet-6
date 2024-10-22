@@ -2,6 +2,8 @@
 
 class BookController
 {
+    public const ERR_COVER_UPDATE = "Une erreur est survenue lors de la mise à jour de l'image de couverture du livre";
+
     public function showExchanges(): void
     {
         $bookManager = new BookManager();
@@ -64,10 +66,8 @@ class BookController
         }
 
         if (isset($_POST['update-book'])) {
-            if (isset($_FILES['cover']) && $_FILES['cover']['error'] === UPLOAD_ERR_OK && is_uploaded_file($_FILES['cover']['tmp_name'])) {
-                if (!move_uploaded_file($_FILES['cover']['tmp_name'], $book->getImagePath())) {
-                    // TODO gérer erreur
-                }
+            if (isset($_FILES['cover']) && $_FILES['cover']['error'] === UPLOAD_ERR_OK && is_uploaded_file($_FILES['cover']['tmp_name']) && !move_uploaded_file($_FILES['cover']['tmp_name'], $book->getImagePath())) {
+                $error = self::ERR_COVER_UPDATE;
             }
 
             try {

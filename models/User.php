@@ -83,13 +83,12 @@ class User extends AbstractEntity
         }
     }
 
+    /**
+     * @throws DateMalformedStringException
+     */
     public function setRegistrationDate(string $registrationDate): void
     {
-        try {
-            $this->registrationDate = new DateTime($registrationDate);
-        } catch (Exception $e) {
-            // TODO gérer exception
-        }
+        $this->registrationDate = new DateTime($registrationDate);
     }
 
     public function getRegistrationDate(): DateTime

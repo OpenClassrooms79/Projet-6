@@ -85,6 +85,9 @@ WHERE id = :id';
         }
     }
 
+    /**
+     * @throws Exception
+     */
     public function login(string $email, string $password): ?User
     {
         $sql = "SELECT * FROM users WHERE email = :email";
@@ -94,7 +97,7 @@ WHERE id = :id';
         if ($res->rowCount() === 1) {
             $r = $res->fetch();
             $user = new User($r);
-            if (password_verify($password, $user->getHashedPassword())) {
+            if (($password !== '') && password_verify($password, $user->getHashedPassword())) {
                 if (password_needs_rehash($user->getHashedPassword(), PASSWORD_DEFAULT)) {
                     // On crée un nouveau hachage afin de mettre à jour l'ancien
                     $user->setPassword($password);

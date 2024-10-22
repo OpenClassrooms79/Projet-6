@@ -2,6 +2,8 @@
 
 class UserController
 {
+    public const ERR_AVATAR_UPDATE = "Une erreur est survenue lors de la mise à jour de l'avatar de l'utilisateur";
+
     public function showRegister(): void
     {
         $view = new View("Inscription");
@@ -67,7 +69,19 @@ class UserController
         if (isset($_POST['email'], $_POST['password'])) {
             // vérifier les données
             $userManager = new UserManager();
-            $user = $userManager->login($_POST['email'], $_POST['password']);
+            try {
+                $user = $userManager->login($_POST['email'], $_POST['password']);
+            } catch (Exception $e) {
+                $view->render(
+                    "includes/register-login",
+                    $variables + [
+                        'email' => $_POST['email'],
+                        'password' => $_POST['password'],
+                        'error' => $e->getMessage(),
+                    ],
+                );
+                return;
+            }
             if ($user === null) {
                 $view->render(
                     "includes/register-login",
@@ -126,10 +140,8 @@ class UserController
             }
 
             if (isset($_POST['update'])) {
-                if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK && is_uploaded_file($_FILES['avatar']['tmp_name'])) {
-                    if (!move_uploaded_file($_FILES['avatar']['tmp_name'], $user->getCustomAvatarPath())) {
-                        // TODO gérer erreur
-                    }
+                if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK && is_uploaded_file($_FILES['avatar']['tmp_name']) && !move_uploaded_file($_FILES['avatar']['tmp_name'], $user->getCustomAvatarPath())) {
+                    $error = self::ERR_AVATAR_UPDATE;
                 }
 
                 try {

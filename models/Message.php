@@ -41,13 +41,12 @@ class Message extends AbstractEntity
         return $this->content;
     }
 
+    /**
+     * @throws DateMalformedStringException
+     */
     public function setCreated(string $created): void
     {
-        try {
-            $this->created = new DateTime($created);
-        } catch (Exception $e) {
-            // TODO gérer exception
-        }
+        $this->created = new DateTime($created);
     }
 
     public function getCreated(): DateTime
