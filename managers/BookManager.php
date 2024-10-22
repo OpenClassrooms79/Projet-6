@@ -61,9 +61,12 @@ WHERE b.id = :id';
     }
 
     /**
-     * @throws Exception
+     * Mise à jour d'un livre et de ses auteurs
+     *
+     * @param Book $book
+     * @return void
      */
-    public function save(Book $book): bool
+    public function update(Book $book): void
     {
         $sql = 'UPDATE books SET title = :title, description = :description, exchangeable = :exchangeable WHERE id = :id';
         $res = $this->db->query($sql, [
@@ -71,9 +74,10 @@ WHERE b.id = :id';
             'title' => $book->getTitle(),
             'description' => $book->getDescription(),
             'exchangeable' => (int) $book->isExchangeable(),
+            'owner_id' => $book->getOwner()->getId(),
         ]);
         if (is_int($res)) {
-            throw new RuntimeException('Impossible de mettre à jour les données', $res);
+            throw new RuntimeException($this->error(self::ERR_UPDATE, $res));
         }
 
         // mise à jour des auteurs du livre
@@ -88,8 +92,6 @@ WHERE b.id = :id';
         }
         $authorManager = new AuthorManager();
         $authorManager->deleteUnusedAuthors();
-
-        return true;
     }
 
     /*

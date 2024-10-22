@@ -47,16 +47,19 @@ class UserManager extends AbstractEntityManager
      * Mise à jour d'un utilisateur
      *
      * @param User $user
-     * @return bool
+     * @return void
      */
-    public function update(User $user): bool
+    public function update(User $user): void
     {
-        $sql = 'UPDATE users SET nickname = :nickname, email = :email, hashed_password = :hashed_password WHERE id = :id';
+        $sql = 'UPDATE users
+SET nickname = :nickname, email = :email, hashed_password = :hashed_password, registration_date = :registration_date
+WHERE id = :id';
         $res = $this->db->query($sql, [
             'id' => $user->getId(),
             'nickname' => $user->getNickname(),
             'email' => $user->getEmail(),
             'hashed_password' => $user->getHashedPassword(),
+            'registration_date' => $user->getRegistrationDate(),
         ]);
         if (is_int($res)) {
             if ($res === ER_DUP_ENTRY) {
@@ -65,7 +68,6 @@ class UserManager extends AbstractEntityManager
 
             throw new RuntimeException('Impossible de mettre à jour les données', $res);
         }
-        return true;
     }
 
     /**

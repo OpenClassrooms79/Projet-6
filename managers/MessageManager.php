@@ -39,6 +39,30 @@ class MessageManager extends AbstractEntityManager
         throw new RuntimeException(Message::ERR_NOT_FOUND . " (id = $id)");
     }
 
+    /**
+     * Mise à jour d'un message
+     *
+     * @param Message $message
+     * @return void
+     */
+    public function update(Message $message): void
+    {
+        $sql = "UPDATE messages 
+SET from_id = :from_id, messages.to_id = :to_id, content = :content, created = :created, is_read = :is_read
+WHERE id = :id";
+        $res = $this->db->query($sql, [
+            'from_id' => $message->getFromId(),
+            'to_id' => $message->getToId(),
+            'content' => $message->getContent(),
+            'created' => $message->getCreated(),
+            'is_read' => (int) $message->isRead(),
+            'id' => $message->getId(),
+        ]);
+        if (is_int($res)) {
+            throw new RuntimeException($this->error(self::ERR_UPDATE, $res));
+        }
+    }
+
     public function getUnreadMessagesCount(int $userId)
     {
         $sql = 'SELECT COUNT(*) FROM messages WHERE to_id = :user_id AND is_read = 0';

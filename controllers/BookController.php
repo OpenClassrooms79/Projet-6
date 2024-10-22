@@ -80,7 +80,7 @@ class BookController
                 $book->setTitle($_POST['title']);
                 $book->setDescription($_POST['description']);
                 $book->setExchangeable($_POST['availability']);
-                $bookManager->save($book);
+                $bookManager->update($book);
             } catch (Exception $e) {
                 $error = $e->getMessage();
             }

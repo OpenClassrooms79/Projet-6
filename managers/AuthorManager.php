@@ -56,6 +56,25 @@ class AuthorManager extends AbstractEntityManager
     }
 
     /**
+     * Mise à jour d'un auteur
+     *
+     * @param Author $author
+     * @return void
+     */
+    public function update(Author $author): void
+    {
+        $sql = 'UPDATE authors SET first_name = :firstName, last_name = :lastName, nickname = :nickname WHERE id = :id';
+        $res = $this->db->query($sql, [
+            'firstName' => $author->getFirstName(),
+            'lastName' => $author->getLastName(),
+            'nickname' => $author->getNickname(),
+        ]);
+        if (is_int($res)) {
+            throw new RuntimeException($this->error(self::ERR_UPDATE, $res));
+        }
+    }
+
+    /**
      * À partir d'un tableau d'instances de la classe Author, renvoie le texte à placer dans un champ de formulaire au format "Prénom1, Nom1, Pseudo1 ; Prénom2, Nom2, Pseudo2 ; ..."
      */
     public function getTextFromAuthors(array $authors): string
