@@ -2,6 +2,8 @@
 
 class User extends AbstractEntity
 {
+    public const ERR_NOT_FOUND = 'utilisateur inexistant';
+
     protected int $id;
     private string $nickname;
     private string $email;
@@ -83,7 +85,11 @@ class User extends AbstractEntity
 
     public function setRegistrationDate(string $registrationDate): void
     {
-        $this->registrationDate = new DateTime($registrationDate);
+        try {
+            $this->registrationDate = new DateTime($registrationDate);
+        } catch (Exception $e) {
+            // TODO gérer exception
+        }
     }
 
     public function getRegistrationDate(): DateTime

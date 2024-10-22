@@ -2,6 +2,8 @@
 
 class Author extends AbstractEntity
 {
+    public const ERR_NOT_FOUND = 'auteur inexistant';
+
     protected int $id;
     private string $firstName;
     private string $lastName;

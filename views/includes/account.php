@@ -20,7 +20,7 @@
             </div>
         </form>
     </section>
-    <?= Components::get('bookList', $books, true); ?>
+    <?= Components::get('bookList', $books, true) ?>
 </section>
 
 <script>

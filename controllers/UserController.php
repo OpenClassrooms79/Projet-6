@@ -22,7 +22,7 @@ class UserController
                 try {
                     $user = new User($_POST);
                     $user->setId($userManager->add($user));
-                    $_SESSION['user'] = $user;
+                    Utils::setSession($user->getId());
                     header('Location: profil');
                 } catch (Exception $e) {
                     $view->render(
@@ -67,8 +67,8 @@ class UserController
         if (isset($_POST['email'], $_POST['password'])) {
             // vérifier les données
             $userManager = new UserManager();
-            $result = $userManager->login($_POST['email'], $_POST['password']);
-            if ($result === false) {
+            $user = $userManager->login($_POST['email'], $_POST['password']);
+            if ($user === null) {
                 $view->render(
                     "includes/register-login",
                     $variables + [
@@ -79,7 +79,7 @@ class UserController
                 );
                 return;
             }
-            $_SESSION['user'] = $result;
+            Utils::setSession($user->getId());
             header('Location: profil');
         }
         $view->render("includes/register-login", $variables);
@@ -88,7 +88,7 @@ class UserController
     public function showLogout(): void
     {
         session_destroy();
-        Utils::redirectIfNotConnected();
+        Utils::redirectIfNotAuthenticated();
     }
 
     public function showAccount(): void
@@ -97,20 +97,28 @@ class UserController
         $bookManager = new BookManager();
 
         if (isset($_GET['id'])) {
-            $user = $userManager->getById($_GET['id']);
-            $view = new View("");
-            $view->render(
-                "includes/account-public",
-                [
-                    'user' => $user,
-                    'books' => $bookManager->getBooksByUser($user->getId()),
-                ],
-            );
+            try {
+                $user = $userManager->getById($_GET['id']);
+                $view = new View("Profil de " . $user->getNickname());
+                $view->render(
+                    "includes/account-public",
+                    [
+                        'user' => $user,
+                        'books' => $bookManager->getBooksByUser($user->getId()),
+                    ],
+                );
+            } catch (Exception $e) {
+                $homeController = new HomeController();
+                $homeController->showError(
+                    User::ERR_NOT_FOUND,
+                    $e->getMessage(),
+                );
+            }
         } else {
-            Utils::redirectIfNotConnected();
+            Utils::redirectIfNotAuthenticated();
 
             $error = '';
-            $user = $userManager->getById($_SESSION['user']->getId());
+            $user = Utils::getUserFromSession();
 
             // suppression du livre
             if (isset($_GET['supprimer'])) {
@@ -138,7 +146,6 @@ class UserController
                     $error = $e->getMessage();
                 }
             }
-            $user = $userManager->getById($_SESSION['user']->getId());
 
             $view = new View("Mon compte");
             $view->render(
@@ -154,14 +161,14 @@ class UserController
 
     public function showMessenger(): void
     {
-        Utils::redirectIfNotConnected();
+        Utils::redirectIfNotAuthenticated();
+        $user = Utils::getUserFromSession();
 
         $userManager = new UserManager();
         $messageManager = new MessageManager();
 
-        $userId = $_SESSION['user']->getId();
 
-        $messageSenders = $messageManager->getMessageSenders($userId);
+        $messageSenders = $messageManager->getMessageSenders($user->getId());
         if (isset($_GET['from'])) {
             $fromId = (int) $_GET['from'];
         } else {
@@ -171,7 +178,7 @@ class UserController
 
         if (isset($_POST['message'])) {
             $messageManager->add(new Message([
-                'fromId' => $userId,
+                'fromId' => $user->getId(),
                 'toId' => $fromUser->getId(),
                 'content' => $_POST['message'],
             ]));
@@ -182,12 +189,12 @@ class UserController
         $view->render(
             "includes/messenger",
             [
-                'userId' => $userId,
+                'userId' => $user->getId(),
                 'fromUser' => $fromUser,
                 'messageSenders' => $messageSenders,
-                'messages' => $messageManager->getDiscussion($userId, $fromId),
+                'messages' => $messageManager->getDiscussion($user->getId(), $fromId),
             ],
         );
-        $messageManager->setRead($fromId, $userId);
+        $messageManager->setRead($fromId, $user->getId());
     }
 }

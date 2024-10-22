@@ -40,6 +40,22 @@ class AuthorManager extends AbstractEntityManager
     }
 
     /**
+     * Récupération d'un auteur
+     *
+     * @param int $id
+     * @return Author
+     */
+    public function getById(int $id): Author
+    {
+        $sql = 'SELECT * FROM authors WHERE id = :id';
+        $res = $this->db->query($sql, ['id' => $id]);
+        if ($res->rowCount() === 1) {
+            return new Author($res->fetch(PDO::FETCH_ASSOC));
+        }
+        throw new RuntimeException(Author::ERR_NOT_FOUND . " (id = $id)");
+    }
+
+    /**
      * À partir d'un tableau d'instances de la classe Author, renvoie le texte à placer dans un champ de formulaire au format "Prénom1, Nom1, Pseudo1 ; Prénom2, Nom2, Pseudo2 ; ..."
      */
     public function getTextFromAuthors(array $authors): string

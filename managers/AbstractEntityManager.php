@@ -5,10 +5,10 @@
  */
 abstract class AbstractEntityManager
 {
-    const ERR_INSERT = "Erreur MySQL %d : impossible d'ajouter les données";
+    public const ERR_INSERT = "Erreur MySQL %d : impossible d'ajouter les données";
     //const ERR_READ = ;
-    const ERR_UPDATE = 'Impossible de mettre à jour les données (code : %d)';
-    const ERR_DELETE = 'Impossible de supprimer les données (code : %d)';
+    public const ERR_UPDATE = 'Impossible de mettre à jour les données (code : %d)';
+    public const ERR_DELETE = 'Impossible de supprimer les données (code : %d)';
 
     protected DBManager $db;
 

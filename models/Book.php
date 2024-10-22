@@ -2,6 +2,8 @@
 
 class Book extends AbstractEntity
 {
+    public const ERR_NOT_FOUND = 'livre inexistant';
+
     protected int $id;
     private string $title;
     private string $description;

@@ -25,19 +25,27 @@ class View
      * @param string $viewName
      * @param array $params : les paramètres que le controlleur a envoyé à la vue.
      * @return void
-     * @throws Exception
      */
     public function render(string $viewName, array $params = []): void
     {
         // On s'occupe de la vue envoyée
         $viewPath = $this->buildViewPath($viewName);
 
-        // Les deux variables ci-dessous sont utilisées dans le "main.php" qui est le template principal.
-        $content = $this->_renderViewFromTemplate($viewPath, $params);
+        try {
+            // Les deux variables ci-dessous sont utilisées dans le "main.php" qui est le template principal.
+            $content = $this->_renderViewFromTemplate($viewPath, $params);
+        } catch (Exception $e) {
+            $homeController = new HomeController();
+            $homeController->showError(
+                'vue introuvable',
+                $e->getMessage(),
+            );
+        }
+
         $title = $this->title;
-        if (isset($_SESSION['user'])) {
+        if (!isset($params['errorPage']) && Utils::isAuthenticated()) {
             $userManager = new UserManager();
-            $user = $userManager->getById($_SESSION['user']->getId());
+            $user = Utils::getUserFromSession();
             $messageManager = new MessageManager();
             $unreadCount = $messageManager->getUnreadMessagesCount($user->getId());
         }

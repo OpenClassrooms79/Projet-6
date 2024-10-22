@@ -6,7 +6,7 @@ function messageSender(User $sender, ?Message $message): void
         $message_time = '';
         $content = '';
     } else {
-        if ($message->getCreated()->format('Y-m-d') === (new DateTime('now'))->format('Y-m-d')) {
+        if ($message->getCreated()->getTimestamp() === (new DateTime('now'))->getTimestamp()) {
             // le message a été créé aujourd'hui, format : Heures:Minutes
             $message_time = $message->getCreated()->format('H:i');
         } else {

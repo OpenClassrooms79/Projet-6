@@ -25,13 +25,13 @@
         </div>
         <div class="right">
             <?php
-            if (isset($_SESSION['user'])) { ?>
+            if (!isset($params['errorPage']) && Utils::isAuthenticated()) { ?>
                 <a class="menu-icon" href="messagerie">
                     <img class="icon" src="<?= ICONS_PATH ?>message.svg" alt="Messages">
                     <div>Messagerie</div>
                     <?php
                     if ($unreadCount > 0) { ?>
-                        <div class="number"><?= ($unreadCount === 0) ? '' : $unreadCount ?></div><?php
+                        <div class="number"><?= $unreadCount ?></div><?php
                     } ?>
                 </a>
                 <a class="menu-icon" href="profil">

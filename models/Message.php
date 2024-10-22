@@ -2,6 +2,8 @@
 
 class Message extends AbstractEntity
 {
+    public const ERR_NOT_FOUND = 'message inexistant';
+
     protected int $id;
     private int $fromId;
     private int $toId;
@@ -41,7 +43,11 @@ class Message extends AbstractEntity
 
     public function setCreated(string $created): void
     {
-        $this->created = new DateTime($created);
+        try {
+            $this->created = new DateTime($created);
+        } catch (Exception $e) {
+            // TODO gérer exception
+        }
     }
 
     public function getCreated(): DateTime

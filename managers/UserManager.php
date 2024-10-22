@@ -31,18 +31,16 @@ class UserManager extends AbstractEntityManager
      * Récupération d'un utilisateur
      *
      * @param int $id
-     * @return User|false
+     * @return User
      */
-    public function getById(int $id): User|false
+    public function getById(int $id): User
     {
         $sql = "SELECT * FROM users WHERE id = :id";
-
         $res = $this->db->query($sql, ['id' => $id]);
         if ($res->rowCount() === 1) {
-            $r = $res->fetch();
-            return new User($r);
+            return new User($res->fetch(PDO::FETCH_ASSOC));
         }
-        return false;
+        throw new RuntimeException(User::ERR_NOT_FOUND . " (id = $id)");
     }
 
     /**
@@ -86,7 +84,7 @@ class UserManager extends AbstractEntityManager
         return true;
     }
 
-    public function login(string $email, string $password): User|false
+    public function login(string $email, string $password): ?User
     {
         $sql = "SELECT * FROM users WHERE email = :email";
         $res = $this->db->query($sql, [
@@ -103,9 +101,9 @@ class UserManager extends AbstractEntityManager
                 }
                 return $user;
             }
-            return false;
+            return null;
         }
-        return false;
+        return null;
     }
 
     public function updatePassword(User $user): void

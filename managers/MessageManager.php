@@ -23,6 +23,22 @@ class MessageManager extends AbstractEntityManager
         return $this->db->getPDO()->lastInsertId();
     }
 
+    /**
+     * Récupération d'un message
+     *
+     * @param int $id
+     * @return Message
+     */
+    public function getById(int $id): Message
+    {
+        $sql = "SELECT * FROM messages WHERE id = :id";
+        $res = $this->db->query($sql, ['id' => $id]);
+        if ($res->rowCount() === 1) {
+            return new Message($res->fetch(PDO::FETCH_ASSOC));
+        }
+        throw new RuntimeException(Message::ERR_NOT_FOUND . " (id = $id)");
+    }
+
     public function getUnreadMessagesCount(int $userId)
     {
         $sql = 'SELECT COUNT(*) FROM messages WHERE to_id = :user_id AND is_read = 0';
@@ -50,18 +66,14 @@ INNER JOIN users u ON m.from_id = u.id';
         // messages envoyés par l'utilisateur courant, mais n'ayant pas encore de réponse
         $sql2 = 'SELECT m.*, u.id AS user_id, u.nickname
 FROM (
-	SELECT DISTINCT from_id, to_id
-	FROM messages
-	WHERE from_id = :to_id
-) t1
-LEFT JOIN (
-	SELECT DISTINCT from_id, to_id
-	FROM messages
-	WHERE to_id = :to_id
-) t2 ON t1.from_id = t2.to_id AND t1.to_id = t2.from_id
-INNER JOIN messages m ON m.from_id = t1.from_id AND m.to_id = t1.to_id
-INNER JOIN users u ON t1.to_id = u.id
-WHERE t2.from_id IS NULL';
+    SELECT t1.from_id, t1.to_id, MAX(t1.id) AS max_id
+    FROM messages t1
+    LEFT JOIN messages t2 ON t1.from_id = t2.to_id AND t1.to_id = t2.from_id
+    WHERE t1.from_id = :to_id AND t2.from_id IS NULL
+    GROUP BY t1.from_id, t1.to_id
+) tmp
+INNER JOIN messages m ON tmp.max_id = m.id
+INNER JOIN users u ON tmp.to_id = u.id';
         return $this->db->query("$sql1 UNION $sql2", ['to_id' => $toId])->fetchAll();
     }
 

@@ -15,7 +15,10 @@ class HomeController
     {
         http_response_code($httpCode);
         $view = new View("Erreur - $title");
-        $view->render('includes/error', ['message' => $message]);
+        $view->render('includes/error', [
+            'errorPage' => true,
+            'message' => $message,
+        ]);
         exit;
     }
 }

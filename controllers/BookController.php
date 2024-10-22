@@ -21,27 +21,46 @@ class BookController
     public function showDetail(int $bookId): void
     {
         $bookManager = new BookManager();
-        $book = $bookManager->getBookById($bookId);
-
-        $view = new View("Détail d'un livre : " . $book->getTitle());
-        $view->render("includes/detail", ['book' => $book]);
+        try {
+            $book = $bookManager->getById($bookId);
+            $view = new View("Détail d'un livre : " . $book->getTitle());
+            $view->render("includes/detail", ['book' => $book]);
+        } catch (Exception $e) {
+            $homeController = new HomeController();
+            $homeController->showError(
+                Book::ERR_NOT_FOUND,
+                $e->getMessage(),
+            );
+        }
     }
 
     public function showEditBook(int $bookId): void
     {
-        Utils::redirectIfNotConnected();
+        Utils::redirectIfNotAuthenticated();
 
+        $user = Utils::getUserFromSession();
         $authorManager = new AuthorManager();
         $bookManager = new BookManager();
-        $userManager = new UserManager();
+        $homeController = new HomeController();
         $error = '';
 
-        $book = $bookManager->getBookById($bookId);
-        $user = $userManager->getById($_SESSION['user']->getId());
+        try {
+            $book = $bookManager->getById($bookId);
+        } catch (Exception $e) {
+            $homeController->showError(
+                Book::ERR_NOT_FOUND,
+                $e->getMessage(),
+            );
+            exit;
+        }
+
 
         if ($book->getOwner()->getId() !== $user->getId()) {
-            $homeController = new HomeController();
-            $homeController->showError('accès interdit', "Vous ne pouvez pas modifier ce livre car il ne vous appartient pas.", 403);
+            $homeController->showError(
+                'accès interdit',
+                "Vous ne pouvez pas modifier ce livre car il ne vous appartient pas.",
+                403,
+            );
         }
 
         if (isset($_POST['update-book'])) {

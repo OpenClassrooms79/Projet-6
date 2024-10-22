@@ -83,10 +83,34 @@ class Utils
         return password_hash($value, PASSWORD_DEFAULT);
     }
 
-    public static function redirectIfNotConnected(): void
+    public static function setSession(int $userId): void
     {
-        if (!isset($_SESSION['user'])) {
+        $_SESSION['userId'] = $userId;
+    }
+
+    public static function isAuthenticated(): bool
+    {
+        return isset($_SESSION['userId']);
+    }
+
+    public static function redirectIfNotAuthenticated(): void
+    {
+        if (!self::isAuthenticated()) {
             header('Location: ./identification');
+            exit;
+        }
+    }
+
+    public static function getUserFromSession(): User
+    {
+        try {
+            return (new UserManager())->getById($_SESSION['userId']);
+        } catch (Exception $e) {
+            $homeController = new HomeController();
+            $homeController->showError(
+                User::ERR_NOT_FOUND,
+                $e->getMessage(),
+            );
             exit;
         }
     }

@@ -60,5 +60,4 @@ switch ($action) {
     default:
         $homeController = new HomeController();
         $homeController->showError('page inexistante', 'La page demandée n\'existe pas !', 404);
-        break;
 }
