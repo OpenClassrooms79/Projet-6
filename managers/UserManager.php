@@ -73,17 +73,16 @@ WHERE id = :id';
     /**
      * Suppression d'un utilisateur
      *
-     * @param User $user
-     * @return bool
+     * @param int $id ID de l'utilisateur à supprimer
+     * @return void
      */
-    public function delete(User $user): bool
+    public function delete(int $id): void
     {
         $sql = 'DELETE FROM users WHERE id = :id';
-        $res = $this->db->query($sql, ['id' => $user->getId()]);
+        $res = $this->db->query($sql, ['id' => $id]);
         if (is_int($res)) {
-            throw new RuntimeException("Impossible de supprimer l'utilisateur", $res);
+            throw new RuntimeException(self::ERR_DELETE . " (id = $id)");
         }
-        return true;
     }
 
     public function login(string $email, string $password): ?User

@@ -75,6 +75,21 @@ class AuthorManager extends AbstractEntityManager
     }
 
     /**
+     * Suppression d'un auteur
+     *
+     * @param int $id ID de l'auteur à supprimer
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        $sql = 'DELETE FROM authors WHERE id = :id';
+        $res = $this->db->query($sql, ['id' => $id]);
+        if (is_int($res)) {
+            throw new RuntimeException(self::ERR_DELETE . " (id = $id)");
+        }
+    }
+
+    /**
      * À partir d'un tableau d'instances de la classe Author, renvoie le texte à placer dans un champ de formulaire au format "Prénom1, Nom1, Pseudo1 ; Prénom2, Nom2, Pseudo2 ; ..."
      */
     public function getTextFromAuthors(array $authors): string

@@ -63,6 +63,21 @@ WHERE id = :id";
         }
     }
 
+    /**
+     * Suppression d'un message
+     *
+     * @param int $id ID du message à supprimer
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        $sql = 'DELETE FROM messages WHERE id = :id';
+        $res = $this->db->query($sql, ['id' => $id]);
+        if (is_int($res)) {
+            throw new RuntimeException(self::ERR_DELETE . " (id = $id)");
+        }
+    }
+
     public function getUnreadMessagesCount(int $userId)
     {
         $sql = 'SELECT COUNT(*) FROM messages WHERE to_id = :user_id AND is_read = 0';

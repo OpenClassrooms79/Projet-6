@@ -94,8 +94,11 @@ WHERE b.id = :id';
         $authorManager->deleteUnusedAuthors();
     }
 
-    /*
+    /**
      * Suppression d'un livre donné appartenant à un utilisateur donné
+     *
+     * @param int $bookId ID du livre à supprimer
+     * @param int $ownerId ID de l'utilisateur propriétaire du livre à supprimer
      */
     public function delete(int $bookId, int $ownerId): void
     {
