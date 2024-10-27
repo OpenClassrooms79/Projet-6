@@ -8,6 +8,11 @@
 }
 
 :root {
+    --max-width: 1440px;
+    --horizontal-padding: 150px; /* valeur du padding gauche et droite de la page sur la maquette Figma (page de 1440px de large) */
+    --footer-horizontal-padding: 46px; /* valeur du padding droite du FOOTER sur la maquette Figma (page de 1440px de large) */
+    --real-horizontal-padding: calc((100vw - var(--max-width)) / 2 + var(--horizontal-padding)); /* valeur du padding gauche et droite de la page pour un affichage pleine largeur */
+    --real-footer-horizontal-padding: calc((100vw - var(--max-width)) / 2 + var(--footer-horizontal-padding)); /* valeur du padding droite du FOOTER pour un affichage pleine largeur */
     --backgroundColor1: #F5F3EF;
     --backgroundColor2: #FAF9F7;
     --green: #00AC66;
@@ -22,14 +27,13 @@
 }
 
 BODY {
-    max-width: 1440px;
-    background-color: var(--backgroundColor1);
+    background-color: var(--backgroundColor2);
     margin: 0 auto;
 }
 
 HEADER {
-    margin: 0 150px 0 150px;
-    padding: 15px 0 15px 0;
+    background-color: var(--backgroundColor1);
+    padding: 15px var(--real-horizontal-padding) 15px var(--real-horizontal-padding);
     height: var(--header-height);
 }
 
@@ -142,7 +146,6 @@ P {
     font-family: Inter, sans-serif;
     font-weight: 300;
     font-size: 16px;
-    margin-top: 16px;
 }
 
 FOOTER {
@@ -150,6 +153,7 @@ FOOTER {
     font-family: Inter, sans-serif;
     font-weight: 300;
     font-size: 12px;
+    padding-right: var(--real-footer-horizontal-padding);
 }
 
 FOOTER NAV.right {
@@ -159,7 +163,6 @@ FOOTER NAV.right {
     justify-content: flex-end;
     align-items: center;
     gap: 40px;
-    padding-right: 64px;
 }
 
 FOOTER NAV A {
@@ -353,10 +356,6 @@ SELECT.member {
     background-color: var(--member-form-field-color);
 }
 
-FORM {
-    /*width: 100%;*/
-}
-
 TEXTAREA {
     font-family: Inter, sans-serif;
     font-weight: 400;
@@ -374,19 +373,4 @@ INPUT[type="file"] {
     border-radius: 50%;
 }
 
-.breadcrumbs {
-    padding-left: 150px;
-    padding-bottom: 16px;
-    font-family: Inter, sans-serif;
-    font-weight: 300;
-    font-size: 10px;
-    line-height: 12px;
-    color: var(--light-text);
-}
 
-HR {
-    width: 27px;
-    height: 1px;
-    color: var(--light-text);
-    margin: 33px 0 33px 0;
-}

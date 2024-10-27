@@ -25,8 +25,8 @@ function bookList(array $books, bool $extraColumns = false): void
                 ?>
                 <tr>
                     <td><img src="<?= htmlspecialchars($book->getImagePath()) ?>" alt="Couverture du livre"></td>
-                    <td class="cell-center"><?= htmlspecialchars($book->getTitle()) ?></td>
-                    <td class="cell-center"><?= htmlspecialchars($book->getAuthorsText()) ?></td>
+                    <td><?= htmlspecialchars($book->getTitle()) ?></td>
+                    <td><?= htmlspecialchars($book->getAuthorsText()) ?></td>
                     <td><?= htmlspecialchars($book->getTruncatedDescription()) ?></td>
                     <?php
                     if ($extraColumns) { ?>

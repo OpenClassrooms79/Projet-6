@@ -1,3 +1,19 @@
+<script>
+    const bootstrap = function (evt) {
+        let element;
+        if (evt.target.readyState === "complete") {
+            //console.log('*** chargement terminé !');
+            // afficher le premier message non lu de la discussion
+            element = document.getElementById("msg<?= $firstUnreadId ?>");
+            if (element == null) {
+                element = document.getElementById("bottom");
+            }
+            console.log(element.id);
+            element.scrollIntoView();
+        }
+    };
+    document.addEventListener("readystatechange", bootstrap, false);
+</script>
 <section id="messenger">
     <div id="members">
         <h1>Messagerie</h1>
@@ -21,6 +37,7 @@
                     'nickname' => $sender['nickname'],
                 ]),
                 $message,
+                $sender['nickname'] === $fromUser->getNickname(),
             );
         }
         ?>
@@ -44,6 +61,7 @@
             <form method="post">
                 <input type="text" name="message" id="message-input" placeholder="Tapez votre message ici"><input type="submit" value="Envoyer">
             </form>
+            <a id="bottom"></a>
         </div>
     </div>
 </section>

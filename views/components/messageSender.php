@@ -1,6 +1,6 @@
 <?php
 
-function messageSender(User $sender, ?Message $message): void
+function messageSender(User $sender, ?Message $message, bool $isCurrentSender = false): void
 {
     if ($message === null) {
         $message_time = '';
@@ -15,8 +15,9 @@ function messageSender(User $sender, ?Message $message): void
         }
         $content = $message->getContent();
     }
+    $activeClass = $isCurrentSender ? " active" : "";
     ?>
-    <a id="from<?= $sender->getId() ?>" href="?from=<?= $sender->getId() ?>#from<?= $sender->getId() ?>" class="member-block">
+    <a id="from<?= $sender->getId() ?>" href="?from=<?= $sender->getId() ?>" class="member-block<?= $activeClass ?>">
         <img src="<?= $sender->getAvatarPath() ?>" class="avatar-medium" alt="Avatar">
         <div class="member-details">
             <div class="member-details-1">

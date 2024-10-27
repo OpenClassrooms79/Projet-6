@@ -13,7 +13,7 @@ function profileDisplay(User $user, int $nbBooks, bool $privateProfile = true): 
         <?php
     }
     ?>
-    <hr>
+    <hr class="profile-hr">
 
     <div class="nickname-big"><?= htmlspecialchars($user->getNickname()) ?></div>
     <div class="member-since">Membre depuis

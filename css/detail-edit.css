@@ -1,6 +1,6 @@
 MAIN {
     background-color: var(--backgroundColor2);
-    padding: 40px 150px 92px 150px;
+    padding: 40px var(--real-horizontal-padding) 92px var(--real-horizontal-padding);
 }
 
 H1.detail-edit {
@@ -8,25 +8,27 @@ H1.detail-edit {
     font-weight: 400;
     font-size: 26px;
     line-height: 35px;
-    margin-left: 150px;
 }
 
 #detail-edit {
+    margin-top: 23px;
     display: flex;
     flex-direction: row;
     gap: 118px;
     padding: 56px 50px 68px 50px;
     background-color: white;
+    border-radius: 20px;
 }
 
 INPUT[type="submit"] {
     width: 322px;
-    margin-top: 44px;
+    margin-top: 12px;
+    margin-bottom: 0;
 }
 
 #detail-edit .image {
     display: flex;
-    width: 50%;
+    width: 488px;
     height: 50%;
     flex-flow: column;
 }
@@ -55,4 +57,13 @@ INPUT[type="submit"] {
     color: var(--text);
     text-align: right;
     cursor: pointer;
+}
+
+.breadcrumbs-detail-edit {
+    padding-bottom: 23px;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: var(--light-text);
 }

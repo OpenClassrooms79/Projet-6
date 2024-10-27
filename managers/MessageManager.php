@@ -130,6 +130,24 @@ INNER JOIN users u ON tmp.to_id = u.id';
         return $messages;
     }
 
+    /**
+     * Renvoie l'ID du plus ancien message non lu de l'utilisateur $fromId et envoyé à l'utilisateur $toId
+     *
+     * @param int $fromId
+     * @param int $toId
+     * @return int|null
+     */
+    public function getFirstUnreadMessage(int $fromId, int $toId): ?int
+    {
+        $sql = 'SELECT id FROM messages WHERE from_id = :fromId AND to_id = :toId AND is_read = 0 ORDER BY id LIMIT 1';
+        $res = $this->db->query($sql, [
+            'fromId' => $fromId,
+            'toId' => $toId,
+        ]);
+        $result = $res->fetchColumn();
+        return $result === false ? null : (int) $result;
+    }
+
     public function setRead(int $fromId, int $toId): void
     {
         $sql = 'UPDATE messages SET is_read = 1 WHERE from_id = :from_id AND to_id = :to_id';

@@ -1,4 +1,4 @@
-<div class="exchanges">
+<section id="exchanges">
     <div class="exchange-header">
         <h1>Nos livres à l’échange</h1>
         <form method="get">
@@ -20,7 +20,7 @@
             echo Components::get('book', $book);
         } ?>
     </section>
-</div>
+</section>
 <script>
     document.getElementById('clear-button').addEventListener('click', function () {
         document.location = "./echanges";

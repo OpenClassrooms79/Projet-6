@@ -204,7 +204,8 @@ class UserController
                 'userId' => $user->getId(),
                 'fromUser' => $fromUser,
                 'messageSenders' => $messageSenders,
-                'messages' => $messageManager->getDiscussion($user->getId(), $fromId),
+                'firstUnreadId' => $messageManager->getFirstUnreadMessage($fromId, $user->getId()),
+                'messages' => $messageManager->getDiscussion($fromId, $user->getId()),
             ],
         );
         $messageManager->setRead($fromId, $user->getId());

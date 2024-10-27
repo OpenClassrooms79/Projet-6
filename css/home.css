@@ -1,14 +1,11 @@
 SECTION#home {
-    margin-top: 80px;
-    margin-bottom: 128px;
+    background-color: var(--backgroundColor1);
+    padding-top: 80px;
+    padding-bottom: 128px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 105px;
-}
-
-SECTION#home > DIV {
-    /*width: 50%;*/
 }
 
 SECTION#home > DIV:first-child {
@@ -76,22 +73,26 @@ SECTION#home > DIV:first-child > DIV {
     margin-bottom: 40px;
 }
 
+#how-it-works {
+    background-color: var(--backgroundColor1);
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
 #how-it-works-title {
-    margin-top: 80px;
     margin-bottom: 24px;
 }
 
-SECTION#how-it-works {
+SECTION#how-it-works-block {
     margin-top: 40px;
     margin-bottom: 48px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    /*flex-wrap: wrap;*/
     gap: 36px;
 }
 
-SECTION#how-it-works ARTICLE {
+SECTION#how-it-works-block ARTICLE {
     background-color: white;
     width: 180px;
     height: 51px;
@@ -107,8 +108,6 @@ SECTION#how-it-works ARTICLE {
 
 #banner {
     height: 230px;
-    margin-top: 80px;
-    margin-bottom: 80px;
 }
 
 #banner-img {
@@ -118,20 +117,22 @@ SECTION#how-it-works ARTICLE {
     object-position: center center;
 }
 
-#our-values-title {
-    margin-left: 542px;
+#our-values {
+    padding-top: 80px;
+    padding-bottom: 89px;
+    padding-left: calc(392px + var(--real-horizontal-padding));
 }
 
-#our-values {
+#our-values-title {
+    margin-bottom: 29px;
+}
+
+#our-values-text {
     width: 392px;
-    margin-left: 542px;
-    margin-right: 506px;
 }
 
 #signature {
     margin-top: 25px;
-    margin-left: 542px;
-    margin-bottom: 89px;
     display: flex;
     flex-direction: row;
     gap: 239px;

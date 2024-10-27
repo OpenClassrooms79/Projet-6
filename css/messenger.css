@@ -1,7 +1,12 @@
+BODY:has(SECTION#messenger) {
+    background-color: var(--backgroundColor1)
+}
+
 #messenger {
     display: flex;
     flex-direction: row;
-    padding-left: 150px;
+    padding-left: var(--real-horizontal-padding);
+    padding-right: var(--real-horizontal-padding);
     height: calc(100vh - var(--header-height) - var(--footer-height));
 }
 
@@ -32,7 +37,7 @@ A.member-block {
     text-decoration: none;
 }
 
-A.member-block:target {
+A.member-block.active {
     background-color: white;
 }
 
@@ -82,10 +87,9 @@ A.member-block:target {
 #messages {
     display: flex;
     flex-direction: column;
-    width: 982px;
-    overflow-y: scroll;
+    width: 832px;
     padding-left: 44px;
-    padding-right: 151px;
+    padding-right: 0;
 }
 
 #messages #from {
@@ -109,7 +113,6 @@ A.member-block:target {
     flex-direction: row;
     gap: 21px;
     margin-left: 6px;
-    /*margin-right: 151px;*/
     margin-bottom: 98px;
 }
 
@@ -124,9 +127,9 @@ A.member-block:target {
 }
 
 #discussion {
-    /*display: flex;
-    flex-direction: column;*/
     margin-top: auto;
+    overflow-y: scroll;
+    padding-right: 12px; /* place réservée pour la barre de défilement vertical */
 }
 
 .message-header {
@@ -171,7 +174,6 @@ A.member-block:target {
 
 .message-from-me .message-body {
     background-color: var(--member-form-field-color);
-    /* text-align: right; */
 }
 
 #message-input {

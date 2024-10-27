@@ -1,6 +1,9 @@
-.exchanges {
-    background-color: var(--backgroundColor2);
-    padding: 130px 263px 80px 263px;
+#exchanges {
+    padding-top: 130px;
+    padding-bottom: 80px;
+    width: 914px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .exchange-header {
@@ -27,13 +30,13 @@
     height: 50px;
     background: url("http://oc.local/projet%206/img/icons/search.svg") no-repeat scroll 12px 16px;
     padding-left: 40px;
-    padding-right: 30px;
+    padding-right: 5px;
     margin-bottom: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-.exchanges FORM {
+#exchanges FORM {
     display: flex;
     flex-direction: row;
     justify-content: right;

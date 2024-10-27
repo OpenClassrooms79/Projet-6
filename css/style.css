@@ -2,11 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @import url('common.css');
+@import url('home.css');
+@import url('exchange.css');
+@import url('register-login.css');
 @import url('account.css');
 @import url('detail.css');
 @import url('detail-edit.css');
-@import url('exchange.css');
-@import url('home.css');
-@import url('public-account.css');
-@import url('register-login.css');
 @import url('messenger.css');

@@ -1,14 +1,41 @@
+/*** Compte public ***/
+
+#account-public {
+    width: 1140px;
+    margin: 103px auto 212px auto;
+    display: flex;
+    flex-direction: row;
+    gap: 28px;
+}
+
+#profile-public {
+    width: 341px;
+    padding-top: 48px;
+    background-color: white;
+    border-radius: 20px;
+    text-align: center;
+}
+
+#profile-public A {
+    margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+}
+
+/*** Compte privé ***/
+
 #account {
+    width: 1135px;
     display: flex;
     flex-direction: column;
     gap: 32px;
-    margin: auto 150px auto 150px;
+    margin: 90px auto 102px auto;
     background-color: var(--backgroundColor2);
 }
 
 #account H1 {
     font-size: 26px;
-    margin-top: 90px;
     margin-bottom: 48px;
 }
 
@@ -53,7 +80,7 @@
     cursor: pointer;
 }
 
-#profile-display HR {
+.profile-hr {
     width: 242px;
     margin: 48px auto 48px auto;
 }
@@ -88,22 +115,17 @@
     display: flex;
     flex-direction: row;
     gap: 28px;
-    margin-right: 80px;
-}
-
-.edit-link {
     font-family: Inter, sans-serif;
     font-weight: 400;
     font-size: 12px;
     line-height: 15px;
+}
+
+.edit-link {
     color: var(--text);
 }
 
 .delete-link {
-    font-family: Inter, sans-serif;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 15px;
     color: #CB2D2D;
 }
 
@@ -123,23 +145,6 @@
     line-height: 17px;
 }
 
-#book-list TBODY TR {
-    height: 130px;
-}
-
-#book-list TBODY TR:nth-child(odd) {
-    background-color: var(--backgroundColor1);
-}
-
-#book-list TBODY TR:nth-child(even) {
-    background-color: white;
-}
-
-#book-list TBODY IMG {
-    width: 78px;
-    height: 78px;
-}
-
 #profile-display, #profile-form, #book-list {
     border-radius: 20px;
 }
@@ -155,4 +160,72 @@
 
 #profile-display .biblio {
     margin-bottom: 6px;
+}
+
+/** liste des livres */
+
+#book-list {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+#account-public #book-list {
+    width: 771px;
+}
+
+#account #book-list {
+    width: 100%;
+}
+
+#book-list TABLE {
+    border-collapse: collapse;
+}
+
+#book-list :is(TABLE, THEAD, TBODY, TR, TH, TD) {
+    border-width: 0;
+}
+
+#book-list THEAD {
+    height: 53px;
+    background-color: white;
+    border-bottom: var(--backgroundColor1) solid 2px;
+}
+
+#book-list TH {
+    text-align: left;
+    font-family: Inter, sans-serif;
+    font-weight: 600;
+    font-size: 8px;
+    line-height: 10px;
+    padding-top: 33px;
+    padding-bottom: 9px;
+}
+
+#book-list TH:first-child, #book-list TD:first-child {
+    padding-left: 66px;
+}
+
+#book-list TD {
+    padding-right: 80px;
+}
+
+#account-public #book-list TD:last-child {
+    padding-right: 63px;
+}
+
+#book-list TBODY TR {
+    height: 130px;
+}
+
+#book-list TBODY TR:nth-child(odd) {
+    background-color: white;
+}
+
+#book-list TBODY TR:nth-child(even) {
+    background-color: var(--member-form-field-color);
+}
+
+#book-list TBODY IMG {
+    width: 78px;
+    height: 78px;
 }

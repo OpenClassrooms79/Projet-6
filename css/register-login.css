@@ -1,12 +1,15 @@
-#register-login H1 {
-    margin-bottom: 56px;
-}
-
 #register-login {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     background-color: var(--backgroundColor2);
+    width: var(--max-width);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#register-login H1 {
+    margin-bottom: 56px;
 }
 
 #register-login .form {
@@ -14,12 +17,24 @@
     padding-left: 150px;
     padding-right: 248px;
     width: 50%;
+    box-sizing: border-box;
 }
 
 #register-login .image {
     width: 50%;
 }
 
+.register-login-link {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+}
+
 #register-login .register-login-link A {
     color: var(--text);
+}
+
+#register-login INPUT[type=submit] {
+    margin-bottom: 40px;
 }

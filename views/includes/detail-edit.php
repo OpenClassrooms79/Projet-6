@@ -1,5 +1,5 @@
 <main>
-    <p class="breadcrumbs">&larr; Retour</p>
+    <p class="breadcrumbs-detail-edit">&larr; Retour</p>
     <h1 class="detail-edit">Modifier les informations</h1>
     <form class="form" method="post" enctype="multipart/form-data">
         <section id="detail-edit">

@@ -1,4 +1,4 @@
-<p class="breadcrumbs">Nos livres &gt; <?= htmlspecialchars($book->getTitle()) ?></p>
+<p class="breadcrumbs-detail">Nos livres &gt; <?= htmlspecialchars($book->getTitle()) ?></p>
 <section id="detail">
     <div class="image">
         <img src="<?= htmlspecialchars($book->getImagePath()) ?>" title="<?= htmlspecialchars($book->getTitle()) ?>" alt="<?= htmlspecialchars($book->getTitle()) ?>">
@@ -6,7 +6,7 @@
     <div class="book">
         <h1><?= htmlspecialchars($book->getTitle()) ?></h1>
         <p class="detail-book-author">par <?= htmlspecialchars($book->getAuthorsText()) ?></p>
-        <hr>
+        <hr class="detail-hr">
         <p class="book-desc">Description</p>
         <p class="book-desc-text"><?= htmlspecialchars($book->getDescription()) ?></p>
         <p class="book-owner">Propriétaire</p>

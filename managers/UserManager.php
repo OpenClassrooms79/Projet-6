@@ -59,7 +59,7 @@ WHERE id = :id';
             'nickname' => $user->getNickname(),
             'email' => $user->getEmail(),
             'hashed_password' => $user->getHashedPassword(),
-            'registration_date' => $user->getRegistrationDate(),
+            'registration_date' => $user->getRegistrationDate()->format('Y-m-d H:i:s'),
         ]);
         if (is_int($res)) {
             if ($res === ER_DUP_ENTRY) {
