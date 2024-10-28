@@ -213,6 +213,13 @@
     padding-right: 63px;
 }
 
+#book-list TBODY {
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+}
+
 #book-list TBODY TR {
     height: 130px;
 }

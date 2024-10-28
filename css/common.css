@@ -91,6 +91,7 @@ HEADER NAV A {
     font-weight: 400;
     font-size: 14px;
     text-decoration: none;
+    color: var(--text);
 }
 
 HEADER NAV A.current {
@@ -218,7 +219,7 @@ FOOTER IMG {
 }
 
 .book {
-    font-family: Inter, serif;
+    font-family: Inter, sans-serif;
     font-weight: 400;
     display: block;
     width: 200px;
@@ -373,4 +374,6 @@ INPUT[type="file"] {
     border-radius: 50%;
 }
 
-
+.italic {
+    font-style: italic;
+}

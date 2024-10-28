@@ -26,6 +26,7 @@ class UserController
                     $user->setId($userManager->add($user));
                     Utils::setSession($user->getId());
                     header('Location: profil');
+                    exit;
                 } catch (Exception $e) {
                     $view->render(
                         "includes/register-login",
@@ -95,13 +96,14 @@ class UserController
             }
             Utils::setSession($user->getId());
             header('Location: profil');
+            exit;
         }
         $view->render("includes/register-login", $variables);
     }
 
     public function showLogout(): void
     {
-        session_destroy();
+        unset($_SESSION['userId']);
         Utils::redirectIfNotAuthenticated();
     }
 

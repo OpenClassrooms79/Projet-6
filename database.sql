@@ -1,3 +1,23 @@
+CREATE TABLE `users` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `nickname` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
+  `hashed_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL DEFAULT '',
+  `registration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_unique` (`email`),
+  UNIQUE KEY `users_unique_1` (`nickname`)
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `users` VALUES (3,'Jocelyn','jocelyn@example.org','$2y$10$F1ZwD57VeutAp9kVlpg8nevu5uMKK2egqKq3QOZvx3vMlD8hKVEzK','2022-04-02 15:00:56');
+INSERT INTO `users` VALUES (4,'John','john@example.org','$2y$10$BxUvygmqRpdVrAFsyaS0Reb3jf9FkXNgo9p8K8IYpoOtmXjkHCZFy','2024-09-25 20:25:56');
+INSERT INTO `users` VALUES (5,'Jeanne','jeanne@example.org','$2y$10$Zae4RkaKbKph5ZaFCrEmQOJXr/GvuzBoBIvecArNLsiY8jlSl7.wK','2024-08-23 15:00:56');
+INSERT INTO `users` VALUES (27,'Jim','jim@example.org','$2y$10$mwz/dLIj6VNXPjlnFyXsGu2bqI0Rw154MI9DpmaE6tQ8SbmWn0C6C','2024-10-03 15:00:56');
+INSERT INTO `users` VALUES (39,'Charline','charline@example.org','$2y$10$gdG9Rh81VexJbOsqyceE.eJYVlm9aWYnziCicmxVj163v9GNxUhSG','2024-09-23 16:33:42');
+INSERT INTO `users` VALUES (71,'Mélanie','melanie@example.org','$2y$10$JfJ789OLA.teFy7XuY.M3OdJyHP.0eEjPpe25zIlPnfzD/B8dZFQG','2024-10-02 19:00:27');
+INSERT INTO `users` VALUES (77,'Tom','tom@example.org','$2y$10$NZoR0qEYysJMWNE9Al40BOFY8WjW6oHpDb4PBAjJmouSuLKQEdz7e','2024-10-22 16:56:57');
+
+
 CREATE TABLE `authors` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `first_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '',
@@ -119,23 +139,3 @@ INSERT INTO `messages` VALUES (31,3,39,'Tu es là ?','2024-10-22 21:02:22',1);
 INSERT INTO `messages` VALUES (32,3,39,'dommage...','2024-10-22 21:10:34',1);
 INSERT INTO `messages` VALUES (33,3,4,'Bonjour, est-ce que tu as des livres à échanger ?','2024-10-22 21:12:09',0);
 INSERT INTO `messages` VALUES (34,3,4,'Je cherche des livres de science-fiction intéressants.','2024-10-22 21:37:52',0);
-
-
-CREATE TABLE `users` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `nickname` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
-  `hashed_password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL DEFAULT '',
-  `registration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `users_unique` (`email`),
-  UNIQUE KEY `users_unique_1` (`nickname`)
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-INSERT INTO `users` VALUES (3,'Jocelyn','jocelyn@example.org','$2y$10$F1ZwD57VeutAp9kVlpg8nevu5uMKK2egqKq3QOZvx3vMlD8hKVEzK','2022-04-02 15:00:56');
-INSERT INTO `users` VALUES (4,'John','john@example.org','$2y$10$BxUvygmqRpdVrAFsyaS0Reb3jf9FkXNgo9p8K8IYpoOtmXjkHCZFy','2024-09-25 20:25:56');
-INSERT INTO `users` VALUES (5,'Jeanne','jeanne@example.org','$2y$10$Zae4RkaKbKph5ZaFCrEmQOJXr/GvuzBoBIvecArNLsiY8jlSl7.wK','2024-08-23 15:00:56');
-INSERT INTO `users` VALUES (27,'Jim','jim@example.org','$2y$10$mwz/dLIj6VNXPjlnFyXsGu2bqI0Rw154MI9DpmaE6tQ8SbmWn0C6C','2024-10-03 15:00:56');
-INSERT INTO `users` VALUES (39,'Charline','charline@example.org','$2y$10$gdG9Rh81VexJbOsqyceE.eJYVlm9aWYnziCicmxVj163v9GNxUhSG','2024-09-23 16:33:42');
-INSERT INTO `users` VALUES (71,'Mélanie','melanie@example.org','$2y$10$JfJ789OLA.teFy7XuY.M3OdJyHP.0eEjPpe25zIlPnfzD/B8dZFQG','2024-10-02 19:00:27');
-INSERT INTO `users` VALUES (77,'Tom','tom@example.org','$2y$10$NZoR0qEYysJMWNE9Al40BOFY8WjW6oHpDb4PBAjJmouSuLKQEdz7e','2024-10-22 16:56:57');
